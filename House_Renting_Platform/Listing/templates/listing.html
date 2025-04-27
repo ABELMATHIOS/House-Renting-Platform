@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <h1>Hello World , This is django</h1>
+<body> hello world
+    <form method="post" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+    <button type="submit">submit</button>    
+    </form>
 </body>
 </html>

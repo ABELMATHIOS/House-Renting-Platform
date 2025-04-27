@@ -1,6 +1,9 @@
 from django.shortcuts import render
+from .forms import ListingForm
 
 # Create your views here.
 def index(request):
-    
-    return render(request, 'index.html', {})
+    form= ListingForm 
+    return render(request, 'listing.html', {
+        'form': form,
+    })
