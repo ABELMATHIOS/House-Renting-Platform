@@ -1,5 +1,6 @@
 from django.db import models
-class listing(models.Model):
+
+class ListingModel(models.Model):
     title = models.CharField(max_length=255, null=False)
     description = models.TextField(null=True, blank=False)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -12,6 +13,9 @@ class listing(models.Model):
     furnished = models.BooleanField(default=False)
     available = models.BooleanField(default=True)
     link = models.URLField(max_length=200, null=True, blank=True)
+    property_image = models.ImageField(default="default.png", blank=True)
+    date_created = models.DateTimeField(auto_now_add=True,null=True)
+    
     def __str__(self): 
         return self.title
     

@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body> hello world
-    <form method="post" action="">
+<body> <h1>Hello Please fill out all sections!!</h1>
+    <form method="post" action="{% url 'Listing:index'%}" enctype="multipart/form-data">
         {% csrf_token %}
-        {{form.as_p}}
+        {{ form }}
     <button type="submit">submit</button>    
     </form>
 </body>
