@@ -4,7 +4,7 @@ from .models import ListingModel
 
 # Create your views here.
 def landing(request):
-    return render(request, 'landing.html', {
+    return render(request, 'Listing/landing.html', {
     })
 
 
@@ -17,7 +17,7 @@ def index(request):
         return redirect('landing/')
     else:
       form= ListingForm()
-    return render(request, 'listing.html', {
+    return render(request, 'Listing/listing.html', {
         'form': form,
     })
 
@@ -25,7 +25,7 @@ def index(request):
 
 def home(request):
     ava_properties = ListingModel.objects.all()
-    return render(request, 'home.html', {
+    return render(request, 'Listing/home.html', {
        'ava_properties': ava_properties,
     })
 
