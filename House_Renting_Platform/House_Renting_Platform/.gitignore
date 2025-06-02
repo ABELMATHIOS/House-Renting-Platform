@@ -1,2 +1,10 @@
 __pycache__/
 *.pyc
+
+*.sqlite3
+
+media/
+
+*.log
+
+db.sqlite3
