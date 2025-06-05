@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from .forms import ListingForm
 from .models import ListingModel
 
-# Create your views here.
+
 def landing(request):
     return render(request, 'Listing/landing.html', {
     })
