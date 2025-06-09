@@ -5,6 +5,7 @@ from django.conf import settings
 from django.views.generic import RedirectView
 from . import views
 
+
 urlpatterns = [
     path('', views.index, name='index' ),
     path('api/auth/', include('accounts.urls')),

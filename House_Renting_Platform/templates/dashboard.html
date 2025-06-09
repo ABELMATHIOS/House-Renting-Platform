@@ -1,49 +1,7 @@
+{% extends 'base.html'%}
+{% load static%}
 
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
-
-
-<!-- Mirrored from homelengohtml.vercel.app/dashboard.html by  /3.x [XR&CO'2014], Mon, 14 Apr 2025 00:46:02 GMT -->
-<!-- Added by  --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by  -->
-<head>
-    <meta charset="utf-8">
-    <title>Homelengo - Real Estate HTML Template</title>
-    <meta name="keywords" content="HTML, CSS, JavaScript, Bootstrap">
-    <meta name="description" content="Real Estate HTML Template">
-
-    <meta name="author" content="themesflat.com">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-   <!-- font -->
-   <link rel="stylesheet" href="fonts/fonts.css">
-   <!-- Icons -->
-   <link rel="stylesheet" href="fonts/font-icons.css">
-   <link rel="stylesheet" href="css/bootstrap.min.css">
-   <link rel="stylesheet" type="text/css" href="css/jqueryui.min.css"/>
-   <link rel="stylesheet" type="text/css" href="css/styles.css"/>
-
-    <!-- Favicon and Touch Icons  -->
-    <link rel="shortcut icon" href="images/logo/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="images/logo/favicon.png">
-
-</head>
-
-<body class="body bg-surface counter-scroll">
-
-    <!-- RTL -->
-   <a href="javascript:void(0);" id="toggle-rtl" class="tf-btn primary">RTL</a>
-   <!-- /RTL  --> 
-
-    <!-- preload -->
-    <div class="preload preload-container">
-        <div class="preload-logo">
-            <div class="spinner"></div>
-            <span class="icon icon-villa-fill"></span>
-        </div>
-    </div>
-    <!-- /preload -->
+{%block content%}
 
     <div id="wrapper">
         <div id="page" class="clearfix">
@@ -860,21 +818,4 @@
         </svg>
     </div>
 
-    <!-- Javascript -->
-    
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/plugin.js"></script>
-    <script type="text/javascript" src="js/chart.js"></script>
-    <script type="text/javascript" src="js/chart-init.js"></script>
-    <script type="text/javascript" src="js/jquery.nice-select.min.js"></script>
-    <script type="text/javascript" src="js/countto.js"></script>
-    <script type="text/javascript" src="js/shortcodes.js"></script>
-    <script type="text/javascript" src="js/jqueryui.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-  
-</body>
-
-
-<!-- Mirrored from homelengohtml.vercel.app/dashboard.html by  /3.x [XR&CO'2014], Mon, 14 Apr 2025 00:46:11 GMT -->
-</html>
+{%endblock%}

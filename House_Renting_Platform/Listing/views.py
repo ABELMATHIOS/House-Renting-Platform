@@ -14,19 +14,19 @@ def index(request):
      if form.is_valid():
         new_property = form.save(commit=False)
         new_property.save()
-        return redirect('landing/')
+        return redirect('Listing:landing')
     else:
       form= ListingForm()
-    return render(request, 'Listing/listing.html', {
+    return render(request, 'add-property.html', {
         'form': form,
     })
 
 
 
-def home(request):
-    ava_properties = ListingModel.objects.all()
-    return render(request, 'Listing/home.html', {
-       'ava_properties': ava_properties,
+def listed_properties(request):
+    listed_properties = ListingModel.objects.all()
+    return render(request, 'property-halfmap-list.html', {
+       'listed_properties': listed_properties,
     })
 
 
