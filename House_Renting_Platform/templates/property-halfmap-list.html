@@ -14,27 +14,16 @@
                             <div class="inner-header">
                                 <div class="inner-header-left">
                                     <div class="logo-box flex">
-                                        <div class="logo"><a href="index.html"><img src="images/logo/logo%402x.png" alt="logo" width="166" height="48"></a></div>
+                                        <div class="logo"><a href="{%url 'index'%}"><img src="{%static 'images/logo/logo%402x.png'%}" alt="logo" width="166" height="48"></a></div>
                                     </div>
                                     <div class="nav-outer flex align-center">
                                          <!-- Main Menu -->
                                          <nav class="main-menu show navbar-expand-md">
                                             <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                                 <ul class="navigation clearfix">
-                                                    <li class="dropdown2 home"><a href="#">Home</a>
-                                                        <ul>
-                                                            <li><a href="index.html">Homepage</a></li>
-                                                        
-
-                                                        </ul>
+                                                    <li class="home"><a href="{%url 'index'%}">Home</a>
                                                     </li>
-                                                    <li class="dropdown2 current"><a href="#">Listing</a>
-                                                        <ul>
-                                                           
-                                                            <li  class="current"><a href="property-halfmap-list.html">Property Listing</a></li>
-                                                            
-
-                                                        </ul>
+                                                    <li class="home current"><a href="#">Listing</a>
                                                     </li>
                                                     <li class="dropdown2"><a href="#">Properties</a>
                                                         <ul>
@@ -101,7 +90,7 @@
                 <div class="mobile-menu">
                     <div class="menu-backdrop"></div>                            
                     <nav class="menu-box">
-                        <div class="nav-logo"><a href="index.html"><img src="images/logo/logo%402x.png" alt="nav-logo" width="174" height="44"></a></div>
+                        <div class="nav-logo"><a href="index.html"><img src="{%static 'images/logo/logo%402x.png'%}" alt="nav-logo" width="174" height="44"></a></div>
                         <div class="bottom-canvas">
                             <div class="login-box flex align-center">
                                 <a href="#modalLogin" data-bs-toggle="modal">Login</a>
@@ -422,7 +411,7 @@
                                             <div class="archive-top">
                                                 <a href="property-details-v1.html" class="images-group">
                                                     <div class="images-style">
-                                                        <img class="lazyload" data-src="images/home/house-7.jpg" src="images/home/house-7.jpg" alt="img">
+                                                        <img class="lazyload" data-src="images/home/house-7.jpg" src="{%static 'images/home/house-7.jpg'%}" alt="img">
                                                     </div>
                                                     <div class="top">
                                                         <ul class="d-flex gap-6">
@@ -481,7 +470,7 @@
                                             <div class="archive-top">
                                                 <a href="property-details-v1.html" class="images-group">
                                                     <div class="images-style">
-                                                        <img class="lazyload" data-src="images/home/house-8.jpg" src="images/home/house-8.jpg" alt="img">
+                                                        <img class="lazyload" data-src="images/home/house-8.jpg" src="{%static 'images/home/house-8.jpg'%}" alt="img">
                                                     </div>
                                                     <div class="top">
                                                         <ul class="d-flex gap-6">
@@ -526,7 +515,7 @@
                                                 <div class="content-bottom">
                                                     <div class="d-flex gap-8 align-items-center">
                                                         <div class="avatar avt-40 round">
-                                                            <img src="images/avatar/avt-png2.png" alt="avt">
+                                                            <img src="{%static 'images/avatar/avt-png2.png'%}" alt="avt">
                                                         </div>
                                                         <span>Arlene McCoy</span>
                                                     </div>
@@ -540,7 +529,7 @@
                                             <div class="archive-top">
                                                 <a href="property-details-v1.html" class="images-group">
                                                     <div class="images-style">
-                                                        <img class="lazyload" data-src="images/home/house-11.jpg" src="images/home/house-11.jpg" alt="img">
+                                                        <img class="lazyload" data-src="images/home/house-11.jpg" src="{%static 'images/home/house-11.jpg'%}" alt="img">
                                                     </div>
                                                     <div class="top">
                                                         <ul class="d-flex gap-6">
@@ -776,12 +765,13 @@
                             </div>
                             <div class="tab-pane active show" id="listLayout" role="tabpanel">
                                 <div class="row">
+                                    {%for x in listed_properties %}
                                     <div class="col-md-12">
                                         <div class="homelengo-box list-style-1 list-style-2 line">
                                             <div class="archive-top">
-                                                <a href="property-details-v1.html" class="images-group">
+                                                <a href="{% url 'Listing:view-property-details' id=x.id%}" class="images-group">
                                                     <div class="images-style">
-                                                        <img class="lazyload" data-src="images/home/house-sm-11.jpg" src="images/home/house-sm-11.jpg" alt="img-property">
+                                                        <img class="lazyload" data-src="/media/{{x.property_image}}" src="/media/{{x.property_image}}" alt="img-property">
                                                     </div>
                                                     <div class="top">
                                                         <ul class="d-flex gap-6 flex-wrap">
@@ -793,22 +783,22 @@
                                             </div>
                                             <div class="archive-bottom">
                                                 <div class="content-top">
-                                                    <h6 class="text-capitalize"><a href="property-details-v1.html" class="link text-line-clamp-1"> Ritma Perdana (Townhouse), LBS Alam Perdana</a></h6>
+                                                    <h6 class="text-capitalize"><a href="property-details-v1.html" class="link text-line-clamp-1">{{x.title}}</a></h6>
                                                     <ul class="meta-list">
                                                         <li class="item">
                                                             <i class="icon icon-bed"></i>
                                                             <span class="text-variant-1">Beds:</span>
-                                                            <span class="fw-6">3</span>
+                                                            <span class="fw-6">{{x.bedrooms}}</span>
                                                         </li>
                                                         <li class="item">
                                                             <i class="icon icon-bath"></i>
                                                             <span class="text-variant-1">Baths:</span>
-                                                            <span class="fw-6">2</span>
+                                                            <span class="fw-6">{{x.bathrooms}}</span>
                                                         </li>
                                                         <li class="item">
                                                             <i class="icon icon-sqft"></i>
                                                             <span class="text-variant-1">Sqft:</span>
-                                                            <span class="fw-6">1150</span>
+                                                            <span class="fw-6">{{x.property_landarea}}</span>
                                                         </li>
                                                     </ul>
                                                     <div class="location">
@@ -816,24 +806,25 @@
                                                             <path d="M10 7C10 7.53043 9.78929 8.03914 9.41421 8.41421C9.03914 8.78929 8.53043 9 8 9C7.46957 9 6.96086 8.78929 6.58579 8.41421C6.21071 8.03914 6 7.53043 6 7C6 6.46957 6.21071 5.96086 6.58579 5.58579C6.96086 5.21071 7.46957 5 8 5C8.53043 5 9.03914 5.21071 9.41421 5.58579C9.78929 5.96086 10 6.46957 10 7Z" stroke="#A3ABB0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                             <path d="M13 7C13 11.7613 8 14.5 8 14.5C8 14.5 3 11.7613 3 7C3 5.67392 3.52678 4.40215 4.46447 3.46447C5.40215 2.52678 6.67392 2 8 2C9.32608 2 10.5979 2.52678 11.5355 3.46447C12.4732 4.40215 13 5.67392 13 7Z" stroke="#A3ABB0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                         </svg>
-                                                        <span class="text-line-clamp-1"> 145 Brooklyn Ave, Califonia, New York </span>
+                                                        <span class="text-line-clamp-1">{{x.location}}, {{x.city_address}}, {{x.province}}</span>
                                                     </div>
                                                 </div>
                                                 
                                                 <div class="content-bottom">
                                                     <div class="d-flex gap-8 align-items-center">
                                                         <div class="avatar avt-40 round">
-                                                            <img src="images/avatar/avt-png3.png" alt="avt">
+                                                            <img src="{%static 'images/avatar/avt-png3.png'%}" alt="avt">
                                                         </div>
                                                         <span>Arlene McCoy</span>
                                                     </div>
-                                                    <h6 class="price">$7250,00</h6>
+                                                    <h6 class="price">{{x.price}} ETB</h6>
                                                 </div>
                                             </div>
                                             
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    {% endfor %}
+                                    <!-- <div class="col-md-12">
                                         <div class="homelengo-box list-style-1 list-style-2 line">
                                             <div class="archive-top">
                                                 <a href="property-details-v1.html" class="images-group">
@@ -1122,19 +1113,16 @@
                                             </div>
                                             
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="wrap-map">
-                    <div id="map" class="top-map" data-map-zoom="16" data-map-scroll="true"></div>
-                </div>
             </section>
         </div>
         <!-- /#page -->
-
+        
     </div>
 
     <!-- go top -->

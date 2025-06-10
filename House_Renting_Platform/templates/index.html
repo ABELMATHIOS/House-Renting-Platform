@@ -34,7 +34,7 @@
                                                         </li>
                                                         <li class="dropdown2"><a href="#">Properties</a>
                                                             <ul>
-                                                                <li><a href="property-details-v4.html">Property Details </a></li>
+                                                                <li><a href="#">Property Details </a></li>
                                                             </ul>
                                                         </li>
                                                         <li class="dropdown2"><a href="#">Pages</a>
@@ -120,6 +120,11 @@
             </header>
             <!-- End Main Header -->
             <!-- Slider -->
+
+                {%for msg in messages%}
+                   <span style="display: flex; justify-content: center; flex-direction: column; align-items: center;font-size: 15px;font-weight: bold; background-color: #72c657;color: #fff;
+                   padding: 3px; width: 800px;height: 30px;border-radius: 10px; margin:2px 0 2px 350px;" class="option">{{msg}}</span>
+                {%endfor%}
             <section class="flat-slider home-1">
                 <div class="container relative">
                     <div class="row">    
