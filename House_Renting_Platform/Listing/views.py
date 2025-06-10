@@ -13,7 +13,7 @@ def index(request):
      form = ListingForm(request.POST, request.FILES)
      if form.is_valid():
         new_property = form.save(commit=False)
-        # new_property.save()
+        new_property.save()
         return redirect('Listing:landing')
     else:
       form= ListingForm()
