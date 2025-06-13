@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .forms import ListingForm
 from .models import ListingModel
 from django.contrib import messages
+from .filters import ListingFilter
 
 
 def landing(request):
@@ -27,8 +28,9 @@ def new_property(request):
 
 def listed_properties(request):
     listed_properties = ListingModel.objects.all()
+    listing_filter = ListingFilter(request.GET, queryset=listed_properties)
     return render(request, 'property-halfmap-list.html', {
-       'listed_properties': listed_properties,
+       'filter': listing_filter,
     })
 
 def view_property_details(request, id):
@@ -37,4 +39,4 @@ def view_property_details(request, id):
        'current_property': current_property,
     })
 
-
+ 
