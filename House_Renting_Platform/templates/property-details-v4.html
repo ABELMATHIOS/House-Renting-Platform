@@ -14,32 +14,21 @@
                             <div class="inner-header">
                                 <div class="inner-header-left">
                                     <div class="logo-box flex">
-                                        <div class="logo"><a href="index.html"><img src="images/logo/logo%402x.png" alt="logo" width="166" height="48"></a></div>
+                                        <div class="logo"><a href="{%url 'index'%}"><img src="{%static 'images/logo/logo%402x.png'%}" alt="logo" width="166" height="48"></a></div>
                                     </div>
                                     <div class="nav-outer flex align-center">
                                          <!-- Main Menu -->
                                          <nav class="main-menu show navbar-expand-md">
                                             <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                                 <ul class="navigation clearfix">
-                                                    <li class="dropdown2 home"><a href="#">Home</a>
-                                                        <ul>
-                                                            <li><a href="index.html">Homepage</a></li>
-                                                           
-
-                                                        </ul>
+                                                    <li class="home"><a href="{%url 'index'%}">Home</a>
                                                     </li>
-                                                    <li class="dropdown2"><a href="#">Listing</a>
-                                                        <ul>
-                                                            
-                                                            <li><a href="property-halfmap-list.html">Property Listing</a></li>
-                                                            
-
-                                                        </ul>
+                                                    <li class="home current"><a href="{%url 'Listing:listed-properties'%}">Listing</a>
                                                     </li>
-                                                    <li class="dropdown2 current"><a href="#">Properties</a>
+                                                    <li class="dropdown2"><a href="#">Properties</a>
                                                         <ul>
                                                            
-                                                            <li class="current"><a href="property-details-v4.html">Property Details</a></li>
+                                                            <li class=""><a href="property-details-v4.html">Property Details</a></li>
                                                         </ul>
                                                     </li>
                                                     <li class="dropdown2"><a href="#">Pages</a>
@@ -79,7 +68,7 @@
                                             Sign in  
                                         </a>
                                         <div class="flat-bt-top">
-                                            <a class="tf-btn primary" href="add-property.html">
+                                            <a class="tf-btn primary" href="{%url 'Listing:new-property'%}">
                                                 <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M13.625 14.375V17.1875C13.625 17.705 13.205 18.125 12.6875 18.125H4.5625C4.31386 18.125 4.0754 18.0262 3.89959 17.8504C3.72377 17.6746 3.625 17.4361 3.625 17.1875V6.5625C3.625 6.045 4.045 5.625 4.5625 5.625H6.125C6.54381 5.62472 6.96192 5.65928 7.375 5.72834M13.625 14.375H16.4375C16.955 14.375 17.375 13.955 17.375 13.4375V9.375C17.375 5.65834 14.6725 2.57417 11.125 1.97834C10.7119 1.90928 10.2938 1.87472 9.875 1.875H8.3125C7.795 1.875 7.375 2.295 7.375 2.8125V5.72834M13.625 14.375H8.3125C8.06386 14.375 7.8254 14.2762 7.64959 14.1004C7.47377 13.9246 7.375 13.6861 7.375 13.4375V5.72834M17.375 11.25V9.6875C17.375 8.94158 17.0787 8.22621 16.5512 7.69876C16.0238 7.17132 15.3084 6.875 14.5625 6.875H13.3125C13.0639 6.875 12.8254 6.77623 12.6496 6.60041C12.4738 6.4246 12.375 6.18614 12.375 5.9375V4.6875C12.375 4.31816 12.3023 3.95243 12.1609 3.6112C12.0196 3.26998 11.8124 2.95993 11.5512 2.69876C11.2901 2.4376 10.98 2.23043 10.6388 2.08909C10.2976 1.94775 9.93184 1.875 9.5625 1.875H8.625" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                 </svg>
@@ -101,7 +90,7 @@
                 <div class="mobile-menu">
                     <div class="menu-backdrop"></div>                            
                     <nav class="menu-box">
-                        <div class="nav-logo"><a href="index.html"><img src="images/logo/logo%402x.png" alt="nav-logo" width="174" height="44"></a></div>
+                        <div class="nav-logo"><a href="index.html"><img src="{%static 'images/logo/logo%402x.png'%}" alt="nav-logo" width="174" height="44"></a></div>
                         <div class="bottom-canvas">
                             <div class="login-box flex align-center">
                                 <a href="#modalLogin" data-bs-toggle="modal">Login</a>
@@ -128,15 +117,17 @@
                 <!-- End Mobile Menu -->
             </header>
             <!-- End Main Header -->
-            
+
+
+            <!-- start-here -->
             <div class="flat-section-v4">
                 <div class="container">
                     <div class="header-property-detail">
                         <div class="content-top d-flex justify-content-between align-items-center">
-                            <h3 class="title link fw-8">Lakeview Haven, Lake Tahoe</h3>
+                            <h3 class="title link fw-8">{{current_property.title}}</h3>
                             <div class="box-price d-flex align-items-end">
-                                <h3 class="fw-8">$250,00</h3>
-                                <span class="body-1 text-variant-1">/month</span>
+                                <h3 class="fw-8">{{current_property.price}}ETB</h3>
+                                <!-- <span class="body-1 text-variant-1">/month</span> -->
                             </div>
                         </div>
                         <div class="content-bottom">
@@ -147,23 +138,23 @@
                                         <li class="meta-item">
                                             <i class="icon icon-bed"></i>
                                             <span class="text-variant-1">Beds:</span>
-                                            <span class="fw-6">3</span>
+                                            <span class="fw-6">{{current_property.bedrooms}}</span>
                                         </li>
                                         <li class="meta-item">
                                             <i class="icon icon-bath"></i>
                                             <span class="text-variant-1">Baths:</span>
-                                            <span class="fw-6">2</span>
+                                            <span class="fw-6">{{current_property.bathrooms}}</span>
                                         </li>
                                         <li class="meta-item">
                                             <i class="icon icon-sqft"></i>
                                             <span class="text-variant-1">Sqft:</span>
-                                            <span class="fw-6">1150</span>
+                                            <span class="fw-6">{{current_property.property_landarea}}</span>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="info-box">
                                     <div class="label">Location</div>
-                                    <p class="meta-item"><span class="icon icon-mapPin"></span><span class="text-variant-1">145 Brooklyn Ave, Califonia, New York</span></p>
+                                    <p class="meta-item"><span class="icon icon-mapPin"></span><span class="text-variant-1">{{current_property.location}}, {{current_property.city_address}}, {{current_property.province}}</span></p>
                                 </div>
                             </div>
                             
@@ -197,6 +188,7 @@
                     </div>
                 </div>
             </div>
+   <!-- end-herere -->
             <div>
                 <div class="container">
                     <div class="single-property-gallery">
@@ -205,43 +197,43 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
                                         <div class="image-sw-single">
-                                            <img src="images/banner/banner-property-12.jpg" alt="images">
+                                            <img src="/media/{{current_property.property_image}}" alt="images">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="image-sw-single">
-                                            <img src="images/banner/banner-property-11.jpg" alt="images">
+                                            <img src="{%static 'images/banner/banner-property-11.jpg'%}" alt="images">
     
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="image-sw-single">
-                                            <img src="images/banner/banner-property-10.jpg" alt="images">
+                                            <img src="{%static 'images/banner/banner-property-10.jpg'%}" alt="images">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="image-sw-single">
-                                            <img src="images/banner/banner-property-13.jpg" alt="images">
+                                            <img src="{%static 'images/banner/banner-property-13.jpg'%}" alt="images">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="image-sw-single">
-                                            <img src="images/banner/banner-property-10.jpg" alt="images">
+                                            <img src="{%static 'images/banner/banner-property-10.jpg'%}" alt="images">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="image-sw-single">
-                                            <img src="images/banner/banner-property-11.jpg" alt="images">
+                                            <img src="{%static 'images/banner/banner-property-11.jpg'%}" alt="images">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="image-sw-single">
-                                            <img src="images/banner/banner-property-10.jpg" alt="images">
+                                            <img src="{%static 'images/banner/banner-property-10.jpg'%}" alt="images">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="image-sw-single">
-                                            <img src="images/banner/banner-property-13.jpg" alt="images">
+                                            <img src="{%static 'images/banner/banner-property-13.jpg'%}" alt="images">
                                         </div>
                                     </div>
                                 </div>
@@ -256,42 +248,42 @@
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
                                     <div class="img-thumb-pagi">
-                                        <img src="images/banner/thumb-sw1.jpg" alt="images">
+                                        <img src="{%static 'images/banner/thumb-sw1.jpg'%}" alt="images">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="img-thumb-pagi">
-                                        <img src="images/banner/thumb-sw2.jpg" alt="images">
+                                        <img src="{%static 'images/banner/thumb-sw2.jpg'%}" alt="images">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="img-thumb-pagi">
-                                        <img src="images/banner/thumb-sw3.jpg" alt="images">
+                                        <img src="{%static 'images/banner/thumb-sw3.jpg'%}" alt="images">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="img-thumb-pagi">
-                                        <img src="images/banner/thumb-sw4.jpg" alt="images">
+                                        <img src="{%static 'images/banner/thumb-sw4.jpg'%}" alt="images">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="img-thumb-pagi">
-                                        <img src="images/banner/thumb-sw5.jpg" alt="images">
+                                        <img src="{%static 'images/banner/thumb-sw5.jpg'%}" alt="images">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="img-thumb-pagi">
-                                        <img src="images/banner/thumb-sw6.jpg" alt="images">
+                                        <img src="{%static 'images/banner/thumb-sw6.jpg'%}" alt="images">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="img-thumb-pagi">
-                                        <img src="images/banner/thumb-sw7.jpg" alt="images">
+                                        <img src="{%static 'images/banner/thumb-sw7.jpg'%}" alt="images">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="img-thumb-pagi">
-                                        <img src="images/banner/thumb-sw8.jpg" alt="images">
+                                        <img src="{%static 'images/banner/thumb-sw8.jpg'%}" alt="images">
                                     </div>
                                 </div>
                             </div>
@@ -306,9 +298,9 @@
                         <div class="col-xl-8 col-lg-7">
                             <div class="single-property-element single-property-desc">
                                 <h5 class="fw-6 title">Description</h5>
-                                <p class="text-variant-1">Located around an hour away from Paris, between the Perche and the Iton valley, in a beautiful wooded park bordered by a charming stream, this country property immediately seduces with its bucolic and soothing environment.</p>
-                                <p class="mt-8 text-variant-1">An ideal choice for sports and leisure enthusiasts who will be able to take advantage of its swimming pool (11m x 5m), tennis court, gym and sauna.</p>
-                                <a href="#" class="btn-view"><span class="text">View More</span> </a>
+                                <p class="text-variant-1">{{current_property.description}}</p>
+                                <!-- <p class="mt-8 text-variant-1">An ideal choice for sports and leisure enthusiasts who will be able to take advantage of its swimming pool (11m x 5m), tennis court, gym and sauna.</p> -->
+                                <!-- <a href="#" class="btn-view"><span class="text">View More</span> </a> -->
                             </div>
                             <div class="single-property-element single-property-overview">
                                 <h6 class="title fw-6">Overview</h6>
@@ -324,49 +316,49 @@
                                         <a href="#" class="box-icon w-52"><i class="icon icon-sliders-horizontal"></i></a>
                                         <div class="content">
                                             <span class="label">Type:</span>
-                                            <span>House</span>
+                                            <span>{{current_property.property_type}}</span>
                                         </div>
                                     </li>
                                     <li class="item">
                                         <a href="#" class="box-icon w-52"><i class="icon icon-garage"></i></a>
                                         <div class="content">
-                                            <span class="label">Garages:</span>
-                                            <span>1</span>
+                                            <span class="label">Parking:</span>
+                                            <span>{{current_property.parking}}</span>
                                         </div>
                                     </li>
                                     <li class="item">
                                         <a href="#" class="box-icon w-52"><i class="icon icon-bed1"></i></a>
                                         <div class="content">
                                             <span class="label">Bedrooms:</span>
-                                            <span>2 Rooms</span>
+                                            <span>{{current_property.bedrooms}}</span>
                                         </div>
                                     </li>
                                     <li class="item">
                                         <a href="#" class="box-icon w-52"><i class="icon icon-bathtub"></i></a>
                                         <div class="content">
                                             <span class="label">Bathrooms:</span>
-                                            <span>2 Rooms</span>
+                                            <span>{{current_property.bathrooms}}</span>
                                         </div>
                                     </li>
                                     <li class="item">
                                         <a href="#" class="box-icon w-52"><i class="icon icon-crop"></i></a>
                                         <div class="content">
                                             <span class="label">Land Size:</span>
-                                            <span>2,000 SqFt</span>
+                                            <span>{{current_property.bathrooms}}</span>
                                         </div>
                                     </li>
                                     <li class="item">
                                         <a href="#" class="box-icon w-52"><i class="icon icon-hammer"></i></a>
                                         <div class="content">
                                             <span class="label">Year Built:</span>
-                                            <span>2024</span>
+                                            <span>{{current_property.property_condition}}</span>
                                         </div>
                                     </li>
                                     <li class="item">
                                         <a href="#" class="box-icon w-52"><i class="icon icon-ruler"></i></a>
                                         <div class="content">
                                             <span class="label">Size:</span>
-                                            <span>900 SqFt</span>
+                                            <span>{{current_property.property_size}}</span>
                                         </div>
                                     </li>
                                 </ul>
@@ -374,8 +366,8 @@
                             <div class="single-property-element single-property-video">
                                 <h5 class="title fw-6">Video</h5>
                                 <div class="img-video">
-                                    <img src="images/banner/img-video.jpg" alt="img-video">
-                                    <a href="https://youtu.be/MLpWrANjFbI" data-fancybox="gallery2" class="btn-video"> <span class="icon icon-play"></span></a>
+                                    <img src="/media/{{current_property.property_image}}" alt="img-video">
+                                    <a href="{{current_property.link}}" data-fancybox="gallery2" class="btn-video"> <span class="icon icon-play"></span></a>
                                 </div>
                             </div>
                             <div class="single-property-element single-property-info">
@@ -383,62 +375,62 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="inner-box">
-                                            <span class="label text-black-3">ID:</span>
-                                            <div class="content text-black-3">#1234</div>
+                                            <!-- <span class="label text-black-3">ID:</span>
+                                            <div class="content text-black-3">#1234</div> -->
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inner-box">
                                             <span class="label text-black-3">Beds</span>
-                                            <div class="content text-black-3">7.328</div>
+                                            <div class="content text-black-3">{{current_property.bedrooms}}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inner-box">
                                             <span class="label text-black-3">Price</span>
-                                            <div class="content text-black-3">$7,500</div>
+                                            <div class="content text-black-3">{{current_property.price}}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inner-box">
                                             <span class="label text-black-3">Year built</span>
-                                            <div class="content text-black-3">2024</div>
+                                            <div class="content text-black-3">{{current_property.property_condition}}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inner-box">
                                             <span class="label text-black-3">Size</span>
-                                            <div class="content text-black-3">150 sqft</div>
+                                            <div class="content text-black-3">{{current_property.property_size}}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inner-box">
                                             <span class="label text-black-3">Type</span>
-                                            <div class="content text-black-3">Villa</div>
+                                            <div class="content text-black-3">{{current_property.property_type}}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inner-box">
                                             <span class="label text-black-3">Rooms</span>
-                                            <div class="content text-black-3">9</div>
+                                            <div class="content text-black-3">{{current_property.property_rooms}}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inner-box">
                                             <span class="label text-black-3">Status</span>
-                                            <div class="content text-black-3">For sale</div>
+                                            <div class="content text-black-3">{{current_property.property_status}}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inner-box">
                                             <span class="label text-black-3">Baths</span>
-                                            <div class="content text-black-3">3</div>
+                                            <div class="content text-black-3">{{current_property.bathrooms}}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="inner-box">
-                                            <span class="label text-black-3">Garage</span>
-                                            <div class="content text-black-3">1</div>
+                                            <span class="label text-black-3">Parking</span>
+                                            <div class="content text-black-3">{{current_property.parking}}</div>
                                         </div>
                                     </div>
                                     
@@ -511,34 +503,34 @@
                                     <ul class="box-left">
                                         <li>
                                             <span class="label fw-6">Address</span>
-                                            <div class="text text-variant-1">150 sqft</div>
+                                            <div class="text text-variant-1">{{current_property.location}}</div>
                                         </li>
                                         <li>
                                             <span class="label fw-6">City</span>
-                                            <div class="text text-variant-1">#1234</div>
+                                            <div class="text text-variant-1">{{current_property.city_address}}</div>
                                         </li>
                                         <li>
-                                            <span class="label fw-6">State/county</span>
-                                            <div class="text text-variant-1">$7,500</div>
+                                            <span class="label fw-6">State</span>
+                                            <div class="text text-variant-1">{{current_property.province}}</div>
                                         </li>
                                     </ul>
                                     <ul class="box-right">
                                         <li>
                                             <span class="label fw-6">Postal code</span>
-                                            <div class="text text-variant-1">7.328</div>
+                                            <div class="text text-variant-1">{{current_property.zipcode}}</div>
                                         </li>
                                         <li>
                                             <span class="label fw-6">Area</span>
-                                            <div class="text text-variant-1">7.328</div>
+                                            <div class="text text-variant-1">{{current_property.location}}</div>
                                         </li>
                                         <li>
                                             <span class="label fw-6">Country</span>
-                                            <div class="text text-variant-1">2024</div>
+                                            <div class="text text-variant-1">{{current_property.country}}</div>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="single-property-element single-property-floor">
+                            <!-- <div class="single-property-element single-property-floor">
                                 <h5 class="title fw-6">Floor plans</h5>
                                 <ul class="box-floor" id="parent-floor">
                                     <li class="floor-item">
@@ -561,7 +553,7 @@
                                         <div id="floor-one" class="collapse show" data-bs-parent="#parent-floor">
                                             <div class="faq-body">
                                                 <div class="box-img">
-                                                    <img src="images/banner/floor.png" alt="img-floor">
+                                                    <img src="{%static 'images/banner/floor.png'%}" alt="img-floor">
                                                 </div>
                                             </div>
                                         </div>
@@ -586,7 +578,7 @@
                                         <div id="floor-two" class="collapse" data-bs-parent="#parent-floor">
                                             <div class="faq-body">
                                                 <div class="box-img">
-                                                    <img src="images/banner/floor.png" alt="img-floor">
+                                                    <img src="{%static 'images/banner/floor.png'%}" alt="img-floor">
                                                 </div>
                                             </div>
                                         </div>
@@ -599,7 +591,7 @@
                                     <div class="col-sm-6">
                                         <a href="#" target="_blank" class="attachments-item">
                                             <div class="box-icon w-60">
-                                                <img src="images/home/file-1.png" alt="file">
+                                                <img src="{%static 'images/home/file-1.png'%}" alt="file">
                                             </div>
                                             <span>Villa-Document.pdf</span>
                                             <i class="icon icon-download"></i>
@@ -608,23 +600,23 @@
                                     <div class="col-sm-6">
                                         <a href="#" target="_blank" class="attachments-item">
                                             <div class="box-icon w-60">
-                                                <img src="images/home/file-2.png" alt="file">
+                                                <img src="{%static 'images/home/file-2.png'%}" alt="file">
                                             </div>
                                             <span>Villa-Document.pdf</span>
                                             <i class="icon icon-download"></i>
                                         </a>
                                     </div>
                                 </div>
-                            </div> 
-                            <div class="single-property-element single-property-explore">
+                            </div>  -->
+                            <!-- <div class="single-property-element single-property-explore">
                                 <h5 class="title fw-6">Explore Property</h5>
                                 <div class="box-img">
-                                    <img src="images/banner/img-explore.jpg" alt="img">
+                                    <img src="{%static 'images/banner/img-explore.jpg'%}" alt="img">
                                     <div class="box-icon">
                                         <span class="icon icon-360"></span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="single-property-element single-property-loan">
                                 <h5 class="title fw-6">Loan Calculator</h5>
                                 <form action="#" class="box-loan-calc">
@@ -710,7 +702,7 @@
                                     <ul class="box-review">
                                         <li class="list-review-item">
                                             <div class="avatar avt-60">
-                                                <img src="images/avatar/avt-2.jpg" alt="avatar">
+                                                <img src="{%static 'images/avatar/avt-2.jpg'%}" alt="avatar">
                                             </div>
                                             <div class="content">
                                                 <div class="box-head">
@@ -729,13 +721,13 @@
                                                 <p>It's really easy to use and it is exactly what I am looking for. A lot of good looking templates & it's highly customizable. Live support is helpful, solved my issue in no time.</p>
                                                 <div class="box-img">
                                                     <div class="img">
-                                                        <img src="images/blog/review1.jpg" alt="review">
+                                                        <img src="{%static 'images/blog/review1.jpg'%}" alt="review">
                                                     </div>
                                                     <div class="img">
-                                                        <img src="images/blog/review2.jpg" alt="review">
+                                                        <img src="{%static 'images/blog/review2.jpg'%}" alt="review">
                                                     </div>
                                                     <div class="img">
-                                                        <img src="images/blog/review3.jpg" alt="review">
+                                                        <img src="{%static 'images/blog/review3.jpg'%}" alt="review">
                                                     </div>
                                                 </div>
                                                 <div class="action mt-12">
@@ -756,7 +748,7 @@
                                         </li>
                                         <li class="list-review-item">
                                             <div class="avatar avt-60">
-                                                <img src="images/avatar/avt-3.jpg" alt="avatar">
+                                                <img src="{%static 'images/avatar/avt-3.jpg'%}" alt="avatar">
                                             </div>
                                             <div class="content">
                                                 <div class="box-head">
@@ -791,7 +783,7 @@
                                         </li>
                                         <li class="list-review-item">
                                             <div class="avatar avt-60">
-                                                <img src="images/avatar/avt-4.jpg" alt="avatar">
+                                                <img src="{%static 'images/avatar/avt-4.jpg'%}" alt="avatar">
                                             </div>
                                             <div class="content">
                                                 <div class="box-head">
@@ -865,7 +857,7 @@
                                     <h5 class="title fw-6">Contact Sellers</h5>
                                     <div class="box-avatar">
                                         <div class="avatar avt-100 round">
-                                            <img src="images/avatar/avt-lg-single.jpg" alt="avatar">
+                                            <img src="{%static 'images/avatar/avt-lg-single.jpg'%}" alt="avatar">
                                         </div>
                                         <div class="info">
                                             <h6 class="name">Shara Conner</h6>
@@ -1156,7 +1148,7 @@
                                     <ul>
                                         <li class="latest-property-item">
                                             <a href="property-details-v1.html" class="images-style">
-                                                <img src="images/home/house-8.jpg" alt="img">
+                                                <img src="{%static 'images/home/house-8.jpg'%}" alt="img">
                                             </a>
                                             <div class="content">
                                                 <div class="text-capitalize text-btn"><a href="property-details-v1.html" class="link">Casa Lomas de Machalí Machas</a></div>
@@ -1182,7 +1174,7 @@
                                         </li>
                                         <li class="latest-property-item">
                                             <a href="property-details-v1.html" class="images-style">
-                                                <img src="images/home/house-3.jpg" alt="img">
+                                                <img src="{%static 'images/home/house-3.jpg'%}" alt="img">
                                             </a>
                                             <div class="content">
                                                 <div class="text-capitalize text-btn"><a href="property-details-v1.html" class="link">Casa Lomas de Machalí Machas</a></div>
@@ -1208,7 +1200,7 @@
                                         </li>
                                         <li class="latest-property-item">
                                             <a href="property-details-v1.html" class="images-style">
-                                                <img src="images/home/house-28.jpg" alt="img">
+                                                <img src="{%static 'images/home/house-28.jpg'%}" alt="img">
                                             </a>
                                             <div class="content">
                                                 <div class="text-capitalize text-btn"><a href="property-details-v1.html" class="link">Casa Lomas de Machalí Machas</a></div>
@@ -1234,7 +1226,7 @@
                                         </li>
                                         <li class="latest-property-item">
                                             <a href="property-details-v1.html" class="images-style">
-                                                <img src="images/home/house-29.jpg" alt="img">
+                                                <img src="{%static 'images/home/house-29.jpg'%}" alt="img">
                                             </a>
                                             <div class="content">
                                                 <div class="text-capitalize text-btn"><a href="property-details-v1.html" class="link">Casa Lomas de Machalí Machas</a></div>
@@ -1260,7 +1252,7 @@
                                         </li>
                                         <li class="latest-property-item">
                                             <a href="property-details-v1.html" class="images-style">
-                                                <img src="images/home/house-19.jpg" alt="img">
+                                                <img src="{%static 'images/home/house-19.jpg'%}" alt="img">
                                             </a>
                                             <div class="content">
                                                 <div class="text-capitalize text-btn"><a href="property-details-v1.html" class="link">Casa Lomas de Machalí Machas</a></div>
@@ -1306,7 +1298,7 @@
                 <div class="top-footer">
                   <div class="container">
                     <div class="content-footer-top">
-                        <div class="footer-logo"><a href="index.html"><img src="images/logo/logo-footer%402x.png" alt="logo" width="166" height="48"></a></div>
+                        <div class="footer-logo"><a href="index.html"><img src="{%static 'images/logo/logo-footer%402x.png'%}" alt="logo" width="166" height="48"></a></div>
                         <div class="wd-social">
                           <span>Follow Us:</span>
                           <ul class="list-social d-flex align-items-center">
@@ -1462,7 +1454,7 @@
             <div class="modal-content">
                 <div class="flat-account">
                     <div class="banner-account">
-                        <img src="images/banner/banner-account1.jpg" alt="banner">
+                        <img src="{%static 'images/banner/banner-account1.jpg'%}" alt="banner">
                     </div>
                     <form class="form-account">
                         <div class="title-box">
@@ -1498,11 +1490,11 @@
                         <p class="box text-center caption-2">or login with</p>
                         <div class="group-btn">
                             <a href="#" class="btn-social">
-                                <img src="images/logo/google.jpg" alt="img">
+                                <img src="{%static 'images/logo/google.jpg'%}" alt="img">
                                 Google
                             </a>
                             <a href="#" class="btn-social">
-                                <img src="images/logo/fb.jpg" alt="img">
+                                <img src="{%static 'images/logo/fb.jpg'%}" alt="img">
                                 Facebook
                             </a>
                             
@@ -1520,7 +1512,7 @@
             <div class="modal-content">
                 <div class="flat-account">
                     <div class="banner-account">
-                        <img src="images/banner/banner-account2.jpg" alt="banner">
+                        <img src="{%static 'images/banner/banner-account2.jpg'%}" alt="banner">
                     </div>
                     <form class="form-account">
                         <div class="title-box">
@@ -1574,11 +1566,11 @@
                         <p class="box text-center caption-2">or login with</p>
                         <div class="group-btn">
                             <a href="#" class="btn-social">
-                                <img src="images/logo/google.jpg" alt="img">
+                                <img src="{%static 'images/logo/google.jpg'%}" alt="img">
                                 Google
                             </a>
                             <a href="#" class="btn-social">
-                                <img src="images/logo/fb.jpg" alt="img">
+                                <img src="{%static 'images/logo/fb.jpg'%}" alt="img">
                                 Facebook
                             </a>
                             
