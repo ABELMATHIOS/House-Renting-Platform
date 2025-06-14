@@ -13,6 +13,11 @@ from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.shortcuts import render
+
+
+def home(request):
+    return render(request, 'accounts/index.html')
 
 @api_view(['GET'])
 def auth_home(request):
@@ -31,6 +36,7 @@ class RegisterView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
+        print("Received registration data:", request.data)
         username = request.data.get('username')
         password = request.data.get('password')
         email = request.data.get('email')
@@ -41,7 +47,7 @@ class RegisterView(APIView):
         user = User.objects.create_user(username=username, password=password, email=email)
         return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
 
-# Logout
+
 class LogoutView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 

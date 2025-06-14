@@ -1,5 +1,4 @@
-
-
+{% load static %}
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
@@ -16,18 +15,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
    <!-- font -->
-   <link rel="stylesheet" href="fonts/fonts.css">
-   <!-- Icons -->
-   <link rel="stylesheet" href="fonts/font-icons.css">
-   <link rel="stylesheet" href="css/bootstrap.min.css">
-   <link rel="stylesheet" href="css/swiper-bundle.min.css">
-   <link rel="stylesheet" href="css/animate.css">
-   <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+   <link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
+    <!-- Icons -->
+    <link rel="stylesheet" href="{% static 'fonts/font-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
 
-    <!-- Favicon and Touch Icons  -->
-    <link rel="shortcut icon" href="images/logo/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="images/logo/favicon.png">
-
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'images/logo/favicon.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'images/logo/favicon.png' %}">
 </head>
 
 <body class="body">
@@ -126,37 +124,6 @@
                     </div>
                 </div>
                 <!-- End Header Lower -->
-            
-                <!-- Mobile Menu  -->
-                <div class="close-btn"><span class="icon flaticon-cancel-1"></span></div>    
-                <div class="mobile-menu">
-                    <div class="menu-backdrop"></div>                            
-                    <nav class="menu-box">
-                        <div class="nav-logo"><a href="index.html"><img src="images/logo/logo%402x.png" alt="nav-logo" width="174" height="44"></a></div>
-                        <div class="bottom-canvas">
-                            <div class="login-box flex align-center">
-                                <a href="#modalLogin" data-bs-toggle="modal">Login</a>
-                                <span>/</span>
-                                <a href="#modalRegister" data-bs-toggle="modal">Register</a>
-                            </div>
-                            <div class="menu-outer"></div>
-                            <div class="button-mobi-sell">
-                                <a class="tf-btn primary" href="add-property.html">Submit Property</a>
-                            </div> 
-                            <div class="mobi-icon-box">
-                                <div class="box d-flex align-items-center">
-                                    <span class="icon icon-phone2"></span>
-                                    <div>1-333-345-6868</div>
-                                </div>
-                                <div class="box d-flex align-items-center">
-                                    <span class="icon icon-mail"></span>
-                                    <div>themesflat@gmail.com</div>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>                
-                </div>
-                <!-- End Mobile Menu -->
             
             </header>
             <!-- End Main Header -->
@@ -3716,57 +3683,48 @@
     </div>
 
     <!-- popup login -->
-    <div class="modal modal-account fade" id="modalLogin">
+   <div class="modal modal-account fade" id="modalLogin">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="flat-account">
                     <div class="banner-account">
                         <img src="images/banner/banner-account1.jpg" alt="banner">
                     </div>
-                    <form class="form-account">
-                        <div class="title-box">
-                            <h4>Login</h4>
-                            <span class="close-modal icon-close2" data-bs-dismiss="modal"></span>
-                        </div>
-                        <div class="box">
-                            <fieldset class="box-fieldset">
-                                <label>Account</label>
-                                <div class="ip-field">
-                                    <svg class="icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13.4869 14.0435C12.9628 13.3497 12.2848 12.787 11.5063 12.3998C10.7277 12.0126 9.86989 11.8115 9.00038 11.8123C8.13086 11.8115 7.27304 12.0126 6.49449 12.3998C5.71594 12.787 5.03793 13.3497 4.51388 14.0435M13.4869 14.0435C14.5095 13.1339 15.2307 11.9349 15.5563 10.6056C15.8818 9.27625 15.7956 7.87934 15.309 6.60014C14.8224 5.32093 13.9584 4.21986 12.8317 3.44295C11.7049 2.66604 10.3686 2.25 9 2.25C7.63137 2.25 6.29508 2.66604 5.16833 3.44295C4.04158 4.21986 3.17762 5.32093 2.69103 6.60014C2.20443 7.87934 2.11819 9.27625 2.44374 10.6056C2.76929 11.9349 3.49125 13.1339 4.51388 14.0435M13.4869 14.0435C12.2524 15.1447 10.6546 15.7521 9.00038 15.7498C7.3459 15.7523 5.74855 15.1448 4.51388 14.0435M11.2504 7.31228C11.2504 7.90902 11.0133 8.48131 10.5914 8.90327C10.1694 9.32523 9.59711 9.56228 9.00038 9.56228C8.40364 9.56228 7.83134 9.32523 7.40939 8.90327C6.98743 8.48131 6.75038 7.90902 6.75038 7.31228C6.75038 6.71554 6.98743 6.14325 7.40939 5.72129C7.83134 5.29933 8.40364 5.06228 9.00038 5.06228C9.59711 5.06228 10.1694 5.29933 10.5914 5.72129C11.0133 6.14325 11.2504 6.71554 11.2504 7.31228Z" stroke="#A3ABB0" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    <input type="text" class="form-control" placeholder="Your name">   
-                                </div>
-                            </fieldset>
-                            <fieldset class="box-fieldset">
-                                <label>Password</label>
-                                <div class="ip-field">
-                                    <svg class="icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12.375 7.875V5.0625C12.375 4.16739 12.0194 3.30895 11.3865 2.67601C10.7535 2.04308 9.89511 1.6875 9 1.6875C8.10489 1.6875 7.24645 2.04308 6.61351 2.67601C5.98058 3.30895 5.625 4.16739 5.625 5.0625V7.875M5.0625 16.3125H12.9375C13.3851 16.3125 13.8143 16.1347 14.1307 15.8182C14.4472 15.5018 14.625 15.0726 14.625 14.625V9.5625C14.625 9.11495 14.4472 8.68573 14.1307 8.36926C13.8143 8.05279 13.3851 7.875 12.9375 7.875H5.0625C4.61495 7.875 4.18573 8.05279 3.86926 8.36926C3.55279 8.68573 3.375 9.11495 3.375 9.5625V14.625C3.375 15.0726 3.55279 15.5018 3.86926 15.8182C4.18573 16.1347 4.61495 16.3125 5.0625 16.3125Z" stroke="#A3ABB0" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    <input type="text" class="form-control" placeholder="Your password">   
-                                </div>
-                                <div class="text-forgot text-end"><a href="#">Forgot password</a></div>
+                    <form id="loginForm" class="form-account">
+    <div class="title-box">
+        <h4>Login</h4>
+        <span class="close-modal icon-close2" data-bs-dismiss="modal"></span>
+    </div>
+    <div class="box">
+        <fieldset class="box-fieldset">
+            <label>Account</label>
+            <div class="ip-field">
+                <!-- Your SVG icon -->
+                <input type="text" name="username" class="form-control" placeholder="Your name" required>   
+            </div>
+        </fieldset>
+        <fieldset class="box-fieldset">
+            <label>Password</label>
+            <div class="ip-field">
+                <!-- Your SVG icon -->
+                <input type="password" name="password" class="form-control" placeholder="Your password" required>   
+            </div>
+            <div class="text-forgot text-end"><a href="#">Forgot password</a></div>
+        </fieldset>
+    </div>
 
-                            </fieldset>
-                        </div>
-                        <div class="box box-btn">
-                            <a href="dashboard.html" class="tf-btn primary w-100">Login</a>
-                            <div class="text text-center">Don’t you have an account? <a href="#modalRegister" data-bs-toggle="modal" class="text-primary">Register</a></div>
-                        </div>
-                        <p class="box text-center caption-2">or login with</p>
-                        <div class="group-btn">
-                            <a href="#" class="btn-social">
-                                <img src="images/logo/google.jpg" alt="img">
-                                Google
-                            </a>
-                            <a href="#" class="btn-social">
-                                <img src="images/logo/fb.jpg" alt="img">
-                                Facebook
-                            </a>
-                            
-                        </div>
-                    </form>
+    <!-- Error message div -->
+    <div id="login-error" style="display:none; color:red; margin-top:10px;"></div>
+
+    <div class="box box-btn">
+        <button type="submit" class="tf-btn primary w-100">Login</button>
+        <div class="text text-center">
+            Don’t you have an account?
+            <a href="#modalRegister" data-bs-toggle="modal" class="text-primary">Register</a>
+        </div>
+    </div>
+</form>
+
                    
                   
                 </div>
@@ -3781,7 +3739,7 @@
                     <div class="banner-account">
                         <img src="images/banner/banner-account2.jpg" alt="banner">
                     </div>
-                    <form class="form-account">
+                    <form class="form-account" id="registerForm">
                         <div class="title-box">
                             <h4>Register</h4>
                             <span class="close-modal icon-close2" data-bs-dismiss="modal"></span>
@@ -3793,7 +3751,7 @@
                                     <svg class="icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M13.4869 14.0435C12.9628 13.3497 12.2848 12.787 11.5063 12.3998C10.7277 12.0126 9.86989 11.8115 9.00038 11.8123C8.13086 11.8115 7.27304 12.0126 6.49449 12.3998C5.71594 12.787 5.03793 13.3497 4.51388 14.0435M13.4869 14.0435C14.5095 13.1339 15.2307 11.9349 15.5563 10.6056C15.8818 9.27625 15.7956 7.87934 15.309 6.60014C14.8224 5.32093 13.9584 4.21986 12.8317 3.44295C11.7049 2.66604 10.3686 2.25 9 2.25C7.63137 2.25 6.29508 2.66604 5.16833 3.44295C4.04158 4.21986 3.17762 5.32093 2.69103 6.60014C2.20443 7.87934 2.11819 9.27625 2.44374 10.6056C2.76929 11.9349 3.49125 13.1339 4.51388 14.0435M13.4869 14.0435C12.2524 15.1447 10.6546 15.7521 9.00038 15.7498C7.3459 15.7523 5.74855 15.1448 4.51388 14.0435M11.2504 7.31228C11.2504 7.90902 11.0133 8.48131 10.5914 8.90327C10.1694 9.32523 9.59711 9.56228 9.00038 9.56228C8.40364 9.56228 7.83134 9.32523 7.40939 8.90327C6.98743 8.48131 6.75038 7.90902 6.75038 7.31228C6.75038 6.71554 6.98743 6.14325 7.40939 5.72129C7.83134 5.29933 8.40364 5.06228 9.00038 5.06228C9.59711 5.06228 10.1694 5.29933 10.5914 5.72129C11.0133 6.14325 11.2504 6.71554 11.2504 7.31228Z" stroke="#A3ABB0" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                    <input type="text" class="form-control" placeholder="User name">   
+                                    <input type="text" name="username" class="form-control" placeholder="User name">   
                                 </div>
                             </fieldset>
                             <fieldset class="box-fieldset">
@@ -3803,7 +3761,7 @@
                                         <path d="M16.3125 5.0625V12.9375C16.3125 13.3851 16.1347 13.8143 15.8182 14.1307C15.5018 14.4472 15.0726 14.625 14.625 14.625H3.375C2.92745 14.625 2.49822 14.4472 2.18176 14.1307C1.86529 13.8143 1.6875 13.3851 1.6875 12.9375V5.0625M16.3125 5.0625C16.3125 4.61495 16.1347 4.18573 15.8182 3.86926C15.5018 3.55279 15.0726 3.375 14.625 3.375H3.375C2.92745 3.375 2.49822 3.55279 2.18176 3.86926C1.86529 4.18573 1.6875 4.61495 1.6875 5.0625M16.3125 5.0625V5.24475C16.3125 5.53286 16.2388 5.81618 16.0983 6.06772C15.9578 6.31926 15.7553 6.53065 15.51 6.68175L9.885 10.143C9.61891 10.3069 9.31252 10.3937 9 10.3937C8.68748 10.3937 8.38109 10.3069 8.115 10.143L2.49 6.6825C2.24469 6.5314 2.04215 6.32001 1.90168 6.06847C1.7612 5.81693 1.68747 5.53361 1.6875 5.2455V5.0625" stroke="#A3ABB0" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                     
-                                    <input type="text" class="form-control" placeholder="Email address">   
+                                    <input type="text" name="email" class="form-control" placeholder="Email address">   
                                 </div>
 
                             </fieldset>
@@ -3813,7 +3771,7 @@
                                     <svg class="icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.375 7.875V5.0625C12.375 4.16739 12.0194 3.30895 11.3865 2.67601C10.7535 2.04308 9.89511 1.6875 9 1.6875C8.10489 1.6875 7.24645 2.04308 6.61351 2.67601C5.98058 3.30895 5.625 4.16739 5.625 5.0625V7.875M5.0625 16.3125H12.9375C13.3851 16.3125 13.8143 16.1347 14.1307 15.8182C14.4472 15.5018 14.625 15.0726 14.625 14.625V9.5625C14.625 9.11495 14.4472 8.68573 14.1307 8.36926C13.8143 8.05279 13.3851 7.875 12.9375 7.875H5.0625C4.61495 7.875 4.18573 8.05279 3.86926 8.36926C3.55279 8.68573 3.375 9.11495 3.375 9.5625V14.625C3.375 15.0726 3.55279 15.5018 3.86926 15.8182C4.18573 16.1347 4.61495 16.3125 5.0625 16.3125Z" stroke="#A3ABB0" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                    <input type="password" class="form-control" placeholder="Your password">   
+                                    <input type="password" name="password" class="form-control" placeholder="Your password">   
                                 </div>
                             </fieldset>
                             <fieldset class="box-fieldset">
@@ -3822,25 +3780,14 @@
                                     <svg class="icon" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.375 7.875V5.0625C12.375 4.16739 12.0194 3.30895 11.3865 2.67601C10.7535 2.04308 9.89511 1.6875 9 1.6875C8.10489 1.6875 7.24645 2.04308 6.61351 2.67601C5.98058 3.30895 5.625 4.16739 5.625 5.0625V7.875M5.0625 16.3125H12.9375C13.3851 16.3125 13.8143 16.1347 14.1307 15.8182C14.4472 15.5018 14.625 15.0726 14.625 14.625V9.5625C14.625 9.11495 14.4472 8.68573 14.1307 8.36926C13.8143 8.05279 13.3851 7.875 12.9375 7.875H5.0625C4.61495 7.875 4.18573 8.05279 3.86926 8.36926C3.55279 8.68573 3.375 9.11495 3.375 9.5625V14.625C3.375 15.0726 3.55279 15.5018 3.86926 15.8182C4.18573 16.1347 4.61495 16.3125 5.0625 16.3125Z" stroke="#A3ABB0" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                    <input type="password" class="form-control" placeholder="Confirm password">   
+                                    <input type="password" name="confirm" class="form-control" placeholder="Confirm password">   
                                 </div>
                             </fieldset>
                         </div>
+                        <div id="register-error" class="text-danger text-center mt-2" style="display: none;"></div>
                         <div class="box box-btn">
-                            <a href="dashboard.html" class="tf-btn primary w-100">Sign Up</a>
+                            <button type="submit" class="tf-btn primary w-100">Sign Up</button>
                             <div class="text text-center">Don’t you have an account? <a href="#modalLogin" data-bs-toggle="modal" class="text-primary">Sign In</a></div>
-                        </div>
-                        <p class="box text-center caption-2">or login with</p>
-                        <div class="group-btn">
-                            <a href="#" class="btn-social">
-                                <img src="images/logo/google.jpg" alt="img">
-                                Google
-                            </a>
-                            <a href="#" class="btn-social">
-                                <img src="images/logo/fb.jpg" alt="img">
-                                Facebook
-                            </a>
-                            
                         </div>
                     </form>
                    
@@ -3851,18 +3798,108 @@
     </div>
 
     <!-- Javascript -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="js/carousel.js"></script>
-    <script type="text/javascript" src="js/plugin.js"></script>
-    <script type="text/javascript" src="js/jquery.nice-select.min.js"></script>
-    <script type="text/javascript" src="js/rangle-slider.js"></script>
-    <script type="text/javascript" src="js/countto.js"></script>
-    <script type="text/javascript" src="js/shortcodes.js"></script>
-    <script type="text/javascript" src="js/animation_heading.js"></script>
-    <script type="text/javascript" src="js/lazysize.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+     <script>
+
+document.getElementById('registerForm').addEventListener('submit', async function (e) {
+  e.preventDefault(); // STOP the page reload
+
+  const username = document.querySelector('#registerForm input[name="username"]').value;
+  const email = document.querySelector('#registerForm input[name="email"]').value;
+  const password = document.querySelector('#registerForm input[name="password"]').value;
+  const confirm = document.querySelector('#registerForm input[name="confirm"]').value;
+  const errorDiv = document.getElementById('register-error');
+
+  errorDiv.style.display = 'none';
+  errorDiv.textContent = '';
+
+  if (password !== confirm) {
+    errorDiv.textContent = "Passwords do not match.";
+    errorDiv.style.display = 'block';
+
+    // clear only registration password fields
+    document.querySelector('#registerForm input[name="password"]').value = '';
+    document.querySelector('#registerForm input[name="confirm"]').value = '';
+    document.querySelector('#registerForm input[name="password"]').focus();
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/auth/register/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, email, password })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      errorDiv.textContent = data.error || "Registration failed.";
+      errorDiv.style.display = 'block';
+    } else {
+      alert("Registration successful!");
+
+      // Reset form & optionally close modal
+      document.getElementById('registerForm').reset();
+      $('#modalRegister').modal('hide');
+    }
+  } catch (error) {
+    errorDiv.textContent = "Something went wrong. Please try again.";
+    errorDiv.style.display = 'block';
+  }
+});
+
+
+
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault(); // stop form from reloading the page
+
+    const username = document.querySelector('#loginForm input[name="username"]').value;
+    const password = document.querySelector('#loginForm input[name="password"]').value;
+    const errorDiv = document.getElementById('login-error');
+
+    errorDiv.style.display = 'none';
+    errorDiv.textContent = '';
+
+    try {
+        const response = await fetch('/api/auth/login/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            errorDiv.textContent = data.error || 'Login failed. Please check your credentials.';
+            errorDiv.style.display = 'block';
+        } else {
+            alert('Login successful!');
+            // Optionally redirect the user
+            // window.location.href = "/dashboard";
+        }
+    } catch (error) {
+        errorDiv.textContent = 'Something went wrong. Please try again.';
+        errorDiv.style.display = 'block';
+    }
+});
+</script>
+
+
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+<script type="text/javascript" src="{% static 'js/swiper-bundle.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/carousel.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/plugin.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/rangle-slider.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/countto.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/shortcodes.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/animation_heading.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/lazysize.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
   
 </body>
 

@@ -5,6 +5,7 @@
  * alert box
  */
 
+
 (function ($) {
   "use strict";
 
@@ -439,3 +440,11 @@
     handleFooter();
   });
 })(jQuery);
+
+
+
+
+
+
+
+

@@ -5,11 +5,20 @@ from .views import (
     LogoutView,
     RequestResetEmailView,
     PasswordResetCompleteView,
+    home,
 )
-from .views import auth_home
+from django.urls import get_resolver
+from django.views.generic import TemplateView
+
+from django.http import HttpResponseRedirect
+
+def auth_root_redirect(request):
+    # Example: redirect to your index page under /api/auth/index/
+    return HttpResponseRedirect('index/')
 
 urlpatterns = [
-    path('', auth_home, name='auth-home'),
+    path('', auth_root_redirect, name='auth-root'), 
+    path('index/', TemplateView.as_view(template_name='accounts/index.html'), name='home'),
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
