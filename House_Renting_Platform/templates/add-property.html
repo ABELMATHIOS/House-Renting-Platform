@@ -392,6 +392,21 @@
                                         </div>
 
                                     </div>
+
+                                  <div class="box box-fieldset">
+                                       <label>Location:<span>*</span></label>
+                                       <div class="box-ip">
+                                           {{form.location}}
+                                     <!-- <input type="text" class="form-control" placeholder="Enter The Neighbourhood"> -->
+                                      </div>
+                                 </div>
+
+                                     <!--  New Button added here -->
+                                 <button type="button" onclick="openMapModal()">Select Location on Map</button>
+                                 <input type="hidden" id="id_latitude" name="latitude">
+                                 <input type="hidden" id="id_longitude" name="longitude">
+
+
                                     
                                 </div>
                             </div>
