@@ -31,6 +31,9 @@ def auth_home(request):
     }
     return Response(endpoints)
 
+def property_details(request):
+    return render(request, 'accounts/property-details-v4.html')
+
 # Registration
 class RegisterView(APIView):
     permission_classes = [AllowAny]
@@ -73,8 +76,9 @@ class RequestResetEmailView(APIView):
             user = User.objects.get(email=email)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = PasswordResetTokenGenerator().make_token(user)
+            
+            frontend_url = f"http://localhost:8000/api/auth/index/?uid={uid}&token={token}"
 
-            frontend_url = f"http://localhost:3000/reset-password-confirm?uid={uid}&token={token}"  # customize this
             send_mail(
                 "Reset Your Password",
                 f"Click the link to reset your password: {frontend_url}",
