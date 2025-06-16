@@ -15,6 +15,12 @@ def new_property(request):
      form = ListingForm(request.POST, request.FILES)
      if form.is_valid():
         new_property = form.save(commit=False)
+        lat = request.POST.get('latitude')
+        lng = request.POST.get('longitude')
+
+        new_property.latitude = lat if lat else None
+        new_property.longitude = lng if lng else None
+
         new_property.save()
         messages.success(request, "Your property is listed succesfully!!!")
         return redirect('index')
