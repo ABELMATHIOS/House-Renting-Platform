@@ -346,7 +346,7 @@
                                             <div class="archive-top">
                                                 <a href="{% url 'property-details' %}" class="images-group">
                                                     <div class="images-style">
-                                                        <img class="lazyload" data-src="images/home/house-1.jpg" src="{% static 'images/home/house-1.jpg' %}" alt="img">
+                                                        <img class="lazyload" data-src="{% static 'images/home/house-1.jpg' %}" src="{% static 'images/home/house-1.jpg' %}" alt="img">
                                                     </div>
                                                     <div class="top">
                                                         <ul class="d-flex gap-6">
@@ -405,7 +405,7 @@
                                             <div class="archive-top">
                                                 <a href="{% url 'property-details' %}" class="images-group">
                                                     <div class="images-style">
-                                                        <img class="lazyload" data-src="images/home/house-2.jpg" src="{% static 'images/home/house-2.jpg' %}" alt="img">
+                                                        <img class="lazyload" data-src="{% static 'images/home/house-2.jpg' %}" src="{% static 'images/home/house-2.jpg' %}" alt="img">
                                                     </div>
                                                     <div class="top">
                                                         <ul class="d-flex gap-6">
@@ -464,7 +464,7 @@
                                             <div class="archive-top">
                                                 <a href="{% url 'property-details' %}" class="images-group">
                                                     <div class="images-style">
-                                                        <img class="lazyload" data-src="images/home/house-3.jpg" src="{% static 'images/home/house-3.jpg' %}" alt="img">
+                                                        <img class="lazyload" data-src="{% static 'images/home/house-3.jpg' %}" src="{% static 'images/home/house-3.jpg' %}" alt="img">
                                                     </div>
                                                     <div class="top">
                                                         <ul class="d-flex gap-6">
@@ -3410,8 +3410,9 @@
     </div>
 
     <!-- Javascript -->
-     <script>
+<script>
 
+//registeration
 document.getElementById('registerForm').addEventListener('submit', async function (e) {
   e.preventDefault(); // STOP the page reload
 
@@ -3448,11 +3449,13 @@ document.getElementById('registerForm').addEventListener('submit', async functio
       errorDiv.textContent = data.error || "Registration failed.";
       errorDiv.style.display = 'block';
     } else {
-      alert("Registration successful!");
+      // Hide the modal if using Bootstrap
+      const modal = bootstrap.Modal.getInstance(document.getElementById('modalRegister'));
+      if (modal) modal.hide();
 
-      // Reset form & optionally close modal
-      document.getElementById('registerForm').reset();
-      $('#modalRegister').modal('hide');
+      // Show alert and redirect
+      alert("Registration successful!");
+      window.location.href = '/'; // redirect to home
     }
   } catch (error) {
     errorDiv.textContent = "Something went wrong. Please try again.";
@@ -3462,6 +3465,8 @@ document.getElementById('registerForm').addEventListener('submit', async functio
 
 
 
+
+//login
 document.getElementById('loginForm').addEventListener('submit', async function(e) {
     e.preventDefault(); // stop form from reloading the page
 
@@ -3485,9 +3490,12 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             errorDiv.textContent = data.error || 'Login failed. Please check your credentials.';
             errorDiv.style.display = 'block';
         } else {
+            // Hide the login modal if using Bootstrap
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalLogin'));
+            if (modal) modal.hide();
+
             alert('Login successful!');
-            // Optionally redirect the user
-            // window.location.href = "/dashboard";
+            window.location.href = '/'; // redirect to home
         }
     } catch (error) {
         errorDiv.textContent = 'Something went wrong. Please try again.';
@@ -3495,6 +3503,8 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     }
 });
 
+
+//pass rest
 document.getElementById('requestResetForm').addEventListener('submit', async function (e) {
   e.preventDefault();
 
@@ -3526,6 +3536,7 @@ document.getElementById('requestResetForm').addEventListener('submit', async fun
     errorDiv.style.display = 'block';
   }
 });
+
 
   document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
