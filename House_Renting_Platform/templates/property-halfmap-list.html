@@ -3,6 +3,8 @@
 
 {%block content%}
 
+
+
     <div id="wrapper">
         <div id="pagee" class="clearfix">
             <!-- Main Header -->
@@ -397,7 +399,7 @@
                             <div class="tab-pane" id="gridLayout" role="tabpanel">
                                 <div class="row">
                                     {%for x in filter.qs %}
-                                    <div class="col-md-6">
+                                    <div class="col-md-6"> 
                                         <div class="homelengo-box">
                                             <div class="archive-top">
                                                 <a href="{% url 'Listing:view-property-details' id=x.id%}" class="images-group">
@@ -459,6 +461,7 @@
                                     {% empty %}
                                     <p>sorry, there is no property listed for now!!!</p>
                                     {% endfor %}
+                                    
                                 </div>
                                 
                             </div>
@@ -525,6 +528,8 @@
                                     {% empty %}
                                     <p>sorry, there is no property listed for now!!!</p>
                                     {% endfor %}
+                                   
+
                                 </div>
                             </div>
                         </div>
@@ -533,8 +538,16 @@
             </section>
         </div>
         <!-- /#page -->
+         
         
     </div>
+    <!-- map column added here-->
+                                    <div class="col-md-12">
+                                         <div id="all-properties-map" style="height: 600px; width: 100%;"></div>
+                                    </div>
+
+   
+
 
     <!-- go top -->
     <div class="progress-wrap">
@@ -542,6 +555,7 @@
         <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 286.138;"></path>
         </svg>
     </div>
+    
     
 
     <!-- popup login -->
@@ -678,6 +692,43 @@
             </div> 
         </div>
     </div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var mapProperties = JSON.parse('{{ map_properties|safe|escapejs }}');
+
+        console.log("Map properties:", mapProperties);
+
+        var map = L.map('all-properties-map').setView([9.145, 40.489673], 6);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data © OpenStreetMap contributors',
+            maxZoom: 18,
+        }).addTo(map);
+
+        mapProperties.forEach(function(property) {
+        if (property.latitude && property.longitude) {
+            var lat = parseFloat(property.latitude);
+            var lng = parseFloat(property.longitude);
+
+            var marker = L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup("<b>" + property.title + "</b>");
+
+            marker.on('click', function() {
+                map.flyTo([lat, lng], 17); 
+                marker.openPopup(); 
+            });
+        }
+    });
+
+    map.invalidateSize();
+});
+</script>
+
 
 
 {%endblock%}
