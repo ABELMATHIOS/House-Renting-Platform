@@ -841,10 +841,11 @@ function openMapModal() {
     mapInitialized = true;
 
     map = L.map('map').setView([9.145, 40.489], 6);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
+    
+       L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+         attribution: '&copy; OpenStreetMap contributors & CartoDB',
+         maxZoom: 18
+       }).addTo(map);
     marker = L.marker([9.03, 38.74], { draggable: true }).addTo(map);
 
     // When marker is dragged, update hidden inputs

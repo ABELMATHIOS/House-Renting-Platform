@@ -704,10 +704,11 @@
 
         var map = L.map('all-properties-map').setView([9.145, 40.489673], 6);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: 'Map data © OpenStreetMap contributors',
-            maxZoom: 18,
-        }).addTo(map);
+       L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+          attribution: '&copy; OpenStreetMap contributors & CartoDB',
+          maxZoom: 18
+       }).addTo(map);
+
 
         mapProperties.forEach(function(property) {
         if (property.latitude && property.longitude) {
@@ -726,6 +727,7 @@
     });
 
     map.invalidateSize();
+    
 });
 </script>
 
