@@ -696,6 +696,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var mapProperties = JSON.parse('{{ map_properties|safe|escapejs }}');
@@ -704,31 +705,43 @@
 
         var map = L.map('all-properties-map').setView([9.145, 40.489673], 6);
 
-       L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-          attribution: '&copy; OpenStreetMap contributors & CartoDB',
-          maxZoom: 18
-       }).addTo(map);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors & CartoDB',
+            maxZoom: 18
+        }).addTo(map);
 
+        // Create a feature group to hold all markers
+        var markerGroup = L.featureGroup();
 
         mapProperties.forEach(function(property) {
-        if (property.latitude && property.longitude) {
-            var lat = parseFloat(property.latitude);
-            var lng = parseFloat(property.longitude);
+            if (property.latitude && property.longitude) {
+                var lat = parseFloat(property.latitude);
+                var lng = parseFloat(property.longitude);
 
-            var marker = L.marker([lat, lng])
-                .addTo(map)
-                .bindPopup("<b>" + property.title + "</b>");
+                var marker = L.marker([lat, lng])
+                    .addTo(map)
+                    .bindPopup("<b>" + property.title + "</b>");
 
-            marker.on('click', function() {
-                map.flyTo([lat, lng], 17); 
-                marker.openPopup(); 
-            });
+                marker.on('click', function() {
+                    map.flyTo([lat, lng], 17); 
+                    marker.openPopup(); 
+                });
+
+                // Add marker to the group
+                markerGroup.addLayer(marker);
+            }
+        });
+
+        // Zoom and pan map to fit all markers if there are any
+        if (markerGroup.getLayers().length > 0) {
+            map.fitBounds(markerGroup.getBounds(), { padding: [50, 50] });
+        } else {
+            // No markers: default view
+            map.setView([9.145, 40.489673], 6);
         }
-    });
 
-    map.invalidateSize();
-    
-});
+        map.invalidateSize(); // fix map rendering issues if needed
+    });
 </script>
 
 
