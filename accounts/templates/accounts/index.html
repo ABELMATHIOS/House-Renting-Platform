@@ -73,7 +73,7 @@
                                                                 <li><a href="message.html">Message</a></li>
                                                                 <li><a href="my-favorites.html">My Favorites</a></li>
                                                                 <li><a href="reviews.html">Reviews</a></li>
-                                                                <li><a href="my-profile.html">My Profile</a></li>
+                                                                <li><a href="{% url 'my-profile' %}">My Profile</a></li>
                                                             </ul>
                                                         </li>
                                                     </ul>
@@ -3413,56 +3413,44 @@
 <script>
 
 //registeration
-document.getElementById('registerForm').addEventListener('submit', async function (e) {
-  e.preventDefault(); // STOP the page reload
+document.getElementById("registerForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-  const username = document.querySelector('#registerForm input[name="username"]').value;
-  const email = document.querySelector('#registerForm input[name="email"]').value;
-  const password = document.querySelector('#registerForm input[name="password"]').value;
-  const confirm = document.querySelector('#registerForm input[name="confirm"]').value;
-  const errorDiv = document.getElementById('register-error');
+    const form = e.target;  // or: document.getElementById("registerForm")
+    const username = form.querySelector('input[name="username"]').value.trim();
+    const email = form.querySelector('input[name="email"]').value.trim();
+    const password = form.querySelector('input[name="password"]').value;
+    const confirm = form.querySelector('input[name="confirm"]').value;
 
-  errorDiv.style.display = 'none';
-  errorDiv.textContent = '';
+    if (password !== confirm) {
+        alert("Passwords do not match");
+        return;
+    }
 
-  if (password !== confirm) {
-    errorDiv.textContent = "Passwords do not match.";
-    errorDiv.style.display = 'block';
+    console.log({ username, email, password });
 
-    // clear only registration password fields
-    document.querySelector('#registerForm input[name="password"]').value = '';
-    document.querySelector('#registerForm input[name="confirm"]').value = '';
-    document.querySelector('#registerForm input[name="password"]').focus();
-    return;
-  }
-
-  try {
-    const response = await fetch('/api/auth/register/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, email, password })
+    const response = await fetch("/api/auth/register/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password, email }),
     });
 
     const data = await response.json();
 
-    if (!response.ok) {
-      errorDiv.textContent = data.error || "Registration failed.";
-      errorDiv.style.display = 'block';
+    if (response.ok) {
+        // Store for profile
+        localStorage.setItem("userEmail", data.email);
+        localStorage.setItem("userName", data.username);
+
+        alert("Registration successful!");
+        window.location.href = "/profile/my-profile/";
+
     } else {
-      // Hide the modal if using Bootstrap
-      const modal = bootstrap.Modal.getInstance(document.getElementById('modalRegister'));
-      if (modal) modal.hide();
-
-      // Show alert and redirect
-      alert("Registration successful!");
-      window.location.href = '/'; // redirect to home
+        alert(data.error || "Registration failed");
     }
-  } catch (error) {
-    errorDiv.textContent = "Something went wrong. Please try again.";
-    errorDiv.style.display = 'block';
-  }
 });
-
 
 
 
@@ -3495,7 +3483,8 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             if (modal) modal.hide();
 
             alert('Login successful!');
-            window.location.href = '/'; // redirect to home
+            window.location.href = "/profile/my-profile/";
+ // redirect to home
         }
     } catch (error) {
         errorDiv.textContent = 'Something went wrong. Please try again.';

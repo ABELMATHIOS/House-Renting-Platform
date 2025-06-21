@@ -1,4 +1,4 @@
-
+{% load static %}
 
 <!DOCTYPE html>
 
@@ -16,18 +16,17 @@
     <meta name="author" content="themesflat.com">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-   <!-- font -->
-   <link rel="stylesheet" href="fonts/fonts.css">
-   <!-- Icons -->
-   <link rel="stylesheet" href="fonts/font-icons.css">
-   <link rel="stylesheet" href="css/bootstrap.min.css">
-   <link rel="stylesheet" type="text/css" href="css/jqueryui.min.css"/>
+    <!-- font -->
+   <link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
+    <!-- Icons -->
+    <link rel="stylesheet" href="{% static 'fonts/font-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jqueryui.min.css' %}"/>
 
-   <link rel="stylesheet" type="text/css" href="css/styles.css"/>
-
-    <!-- Favicon and Touch Icons  -->
-    <link rel="shortcut icon" href="images/logo/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="images/logo/favicon.png">
+   <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'images/logo/favicon.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'images/logo/favicon.png' %}">
 
 </head>
 
@@ -58,7 +57,7 @@
                                 <div class="inner-header">
                                     <div class="inner-header-left">
                                         <div class="logo-box d-flex">
-                                            <div class="logo"><a href="index.html"><img src="images/logo/logo%402x.png" alt="logo" width="174" height="44"></a></div>
+                                            <div class="logo"><a href="{% url 'home' %}"><img src="images/logo/logo%402x.png" alt="logo" width="174" height="44"></a></div>
                                             <div class="button-show-hide">
                                                 <span class="icon icon-categories"></span>
                                             </div>
@@ -68,11 +67,7 @@
                                             <nav class="main-menu show navbar-expand-md">
                                                 <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                                     <ul class="navigation clearfix">
-                                                        <li class="dropdown2 home"><a href="#">Home</a>
-                                                            <ul>
-                                                                <li><a href="index.html">Homepage</a></li>
-                                                                
-                                                            </ul>
+                                                        <li class="current"><a href="{% url 'home' %}">Home</a>
                                                         </li>
                                                         <li class="dropdown2"><a href="#">Listing</a>
                                                             <ul>
@@ -88,18 +83,6 @@
                                                                 <li><a href="property-details-v4.html">Property Details</a></li>
                                                             </ul>
                                                         </li>
-                                                        <li class="dropdown2"><a href="#">Pages</a>
-                                                            <ul>
-                                                                <li><a href="about-us.html">About Us</a></li>
-                                                                
-                                                                <li><a href="pricing.html">Pricing</a></li>
-                                                                <li><a href="contact.html">Contact Us</a></li>
-                                                               
-                                                                
-                                                            </ul>
-                                                        </li>
-                                                        
-                                                        
                                                         <li class="dropdown2 current"><a href="#">Dashboard</a>
                                                             <ul>
                                                                 <li><a href="dashboard.html">Dashboard</a></li>
@@ -153,32 +136,6 @@
                     </div>
                     <!-- End Header Lower -->
                 
-                    <!-- Mobile Menu  -->
-                    <div class="close-btn"><span class="icon flaticon-cancel-1"></span></div>    
-                    <div class="mobile-menu">
-                        <div class="menu-backdrop"></div>                            
-                        <nav class="menu-box">
-                            <div class="nav-logo"><a href="index.html"><img src="images/logo/logo%402x.png" alt="nav-logo" width="174" height="44"></a></div>
-                            <div class="bottom-canvas">
-                                <div class="menu-outer"></div>
-                                <div class="button-mobi-sell">
-                                    <a class="tf-btn primary" href="add-property.html">Submit Property</a>
-                                </div> 
-                                <div class="mobi-icon-box">
-                                    <div class="box d-flex align-items-center">
-                                        <span class="icon icon-phone2"></span>
-                                        <div>1-333-345-6868</div>
-                                    </div>
-                                    <div class="box d-flex align-items-center">
-                                        <span class="icon icon-mail"></span>
-                                        <div>themesflat@gmail.com</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </nav>                
-                    </div>
-                    <!-- End Mobile Menu -->
-                
                 </header>
                 <!-- end header -->
                 <!-- sidebar dashboard -->
@@ -203,8 +160,8 @@
                                 </svg> 
                             </div>  
                             <div class="content">
-                                <div class="caption-2 text">Account</div>
-                                <div class="text-white fw-6">themesflat@gmail...</div>
+                                 <div class="caption-2 text">Account</div>
+                                 <div class="text-white fw-6" id="profile-email">themesflat@gmail...</div>
                             </div>
                         </div>
                     </div>
@@ -342,14 +299,6 @@
                         </div>
                         <div class="widget-box-2">
                             <div class="box">
-                                <h5 class="title">Account Settings</h5>
-                                <div class="box-agent-account">
-                                    <h6>Agent Account</h6>
-                                    <p class="note">Your current account type is set to agent, if you want to remove your agent account, and return to normal account, you must click the button below</p>
-                                    <a href="#" class="tf-btn primary">Remove Agent Account</a>
-                                </div>
-                            </div>
-                            <div class="box">
                                 <h5 class="title">Avatar</h5>
                                 <div class="box-agent-avt">
                                     <div class="avatar">
@@ -364,117 +313,93 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="box">
-                                <h5 class="title">Agent Poster</h5>
-                                <div class="box-agent-avt">
-                                    <div class="img-poster">
-                                        <img src="images/avatar/account-2.jpg" alt="avatar" loading="lazy">
-                                    </div>
-                                    <div class="content uploadfile">
-                                        <p>Upload a new poster</p>
-                                        <div class="box-ip">
-                                            <input type="file" class="ip-file">
-                                        </div>
-                                        <span>JPEG 100x100</span>
-                                    </div>
-                                </div>
-                            </div>
                             <h5 class="title">Information</h5>
                             <div class="box box-fieldset">
-                                <label>Full name:<span>*</span></label>
-                                <input type="text" value="Demo Agent" class="form-control style-1">
-                            </div>
-                            <div class="box box-fieldset">
-                                <label>Description:<span>*</span></label>
-                                <textarea>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
-                            </div>
-                            <div class="box grid-4 gap-30">
-                                <div class="box-fieldset">
-                                    <label>Your Company:<span>*</span></label>
-                                    <input type="text" value="Your Company" class="form-control style-1">
-                                </div>
-                                <div class="box-fieldset">
-                                    <label>Position:<span>*</span></label>
-                                    <input type="text" value="Your Company" class="form-control style-1">
-                                </div>
-                                <div class="box-fieldset">
-                                    <label>Office Number:<span>*</span></label>
-                                    <input type="number" value="1332565894" class="form-control style-1">
-                                </div>
-                                <div class="box-fieldset">
-                                    <label>Office Address:<span>*</span></label>
-                                    <input type="text" value="10 Bringhurst St, Houston, TX" class="form-control style-1">
-                                </div>
-                            </div>
-                            <div class="box grid-4 gap-30 box-info-2">
-                                <div class="box-fieldset">
-                                    <label>Job:<span>*</span></label>
-                                    <input type="text" value="Realter" class="form-control style-1">
-                                </div>
-                                <div class="box-fieldset">
-                                    <label>Email address:<span>*</span></label>
-                                    <input type="text" value="themeflat@gmail.com" class="form-control style-1">
-                                </div>
-                                <div class="box-fieldset">
-                                    <label>Your Phone:<span>*</span></label>
-                                    <input type="number" value="1332565894" class="form-control style-1">
-                                </div>
-                            </div>
-                            <div class="box box-fieldset">
-                                <label>Location:<span>*</span></label>
-                                <input type="text" value="634 E 236th St, Bronx, NY 10466" class="form-control style-1">
-                            </div>
-                            <div class="box box-fieldset">
-                                <label>Facebook:<span>*</span></label>
-                                <input type="text" value="#" class="form-control style-1">
-                            </div>
-                            <div class="box box-fieldset">
-                                <label>Twitter:<span>*</span></label>
-                                <input type="text" value="#" class="form-control style-1">
-                            </div>
-                            <div class="box box-fieldset">
-                                <label>Linkedin:<span>*</span></label>
-                                <input type="text" value="#" class="form-control style-1">
-                            </div>
-                            <div class="box">
-                                <a href="#" class="tf-btn primary">Save & Update</a>
-                            </div>
+    <label>Full name:<span>*</span></label>
+    <input type="text" id="profile-username-input" value="" class="form-control style-1">
+</div>
+
+<!-- Email in input -->
+<div class="box grid-4 gap-30 box-info-2"> 
+    <div class="box-fieldset">
+        <label>Email address:<span>*</span></label>
+        <input type="text" id="profile-email-input" value="" class="form-control style-1">
+    </div>
+</div>
                             <h5 class="title">Change password</h5>
-                            <div class="box grid-3 gap-30">
-                                <div class="box-fieldset">
-                                    <label>Old Password:<span>*</span></label>
-                                    <div class="box-password">
-                                        <input type="password" class="form-contact style-1 password-field" placeholder="Password">
-                                        <span class="show-pass">
-                                            <i class="icon-pass icon-eye"></i>
-                                            <i class="icon-pass icon-eye-off"></i>
-                                        </span>
-                                    </div>
+                                <div class="text-forgot text-end">
+                                     <a href="#modalResetPassword" data-bs-toggle="modal" data-bs-dismiss="modal">Reset password?</a>
                                 </div>
-                                <div class="box-fieldset">
-                                    <label>New Password:<span>*</span></label>
-                                    <div class="box-password">
-                                        <input type="password" class="form-contact style-1 password-field2" placeholder="Password">
-                                        <span class="show-pass2">
-                                            <i class="icon-pass icon-eye"></i>
-                                            <i class="icon-pass icon-eye-off"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="box-fieldset">
-                                    <label>Confirm Password:<span>*</span></label>
-                                    <div class="box-password">
-                                        <input type="password" class="form-contact style-1 password-field3" placeholder="Password">
-                                        <span class="show-pass3">
-                                            <i class="icon-pass icon-eye"></i>
-                                            <i class="icon-pass icon-eye-off"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="box">
-                                <a href="#" class="tf-btn primary">Update Password</a>
-                            </div>
+
+                            <!-- pass reset-->
+ <div class="modal modal-account fade" id="modalResetPassword" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="flat-account">
+        <div class="banner-account">
+          <img src="{% static 'images/banner/banner-account1.jpg' %}" alt="banner">
+        </div>
+        <form id="requestResetForm" class="form-account">
+          <div class="title-box">
+            <h4>Reset Password</h4>
+            <span class="close-modal icon-close2" data-bs-dismiss="modal"></span>
+          </div>
+          <div class="box">
+            <fieldset class="box-fieldset">
+              <label>Email Address</label>
+              <div class="ip-field">
+                <input type="email" id="resetEmail" class="form-control" placeholder="Enter your email" required>
+              </div>
+            </fieldset>
+          </div>
+
+          <div id="resetError" style="color:red; display:none;"></div>
+          <div class="box box-btn">
+            <button type="submit" class="tf-btn primary w-100">Send Reset Link</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Pass reset confirm-->
+<div class="modal modal-account fade" id="modalResetPasswordConfirm">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="flat-account">
+          <div class="banner-account">
+            <img src="{% static 'images/banner/banner-account1.jpg' %}" alt="banner">
+          </div>
+          <form id="resetPasswordConfirmForm" class="form-account">
+            <div class="title-box">
+              <h4>Reset Password</h4>
+              <span class="close-modal icon-close2" data-bs-dismiss="modal"></span>
+            </div>
+            <div class="box">
+              <fieldset class="box-fieldset">
+                <label>New Password</label>
+                <div class="ip-field">
+                  <input type="password" name="new_password" class="form-control" placeholder="Enter new password" required>
+                </div>
+              </fieldset>
+              <fieldset class="box-fieldset">
+                <label>Confirm Password</label>
+                <div class="ip-field">
+                  <input type="password" name="confirm_password" class="form-control" placeholder="Confirm new password" required>
+                </div>
+              </fieldset>
+            </div>
+            <div id="reset-confirm-error" style="display:none; color:red; margin-top:10px;"></div>
+            <div id="reset-confirm-success" style="display:none; color:green; margin-top:10px;"></div>
+            <div class="box box-btn">
+              <button type="submit" class="tf-btn primary w-100">Reset Password</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
                         </div>
                     </div>
                     <div class="footer-dashboard">
@@ -497,15 +422,174 @@
     </div>
 
     <!-- Javascript -->
+
+    <script>
+        //pass rest
+document.getElementById('requestResetForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const email = document.getElementById('resetEmail').value;
+  const errorDiv = document.getElementById('resetError');
+  errorDiv.style.display = 'none';
+  errorDiv.textContent = '';
+
+  try {
+    const response = await fetch('http://localhost:8000/api/auth/request-reset-email/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      errorDiv.textContent = data.error || "Something went wrong.";
+      errorDiv.style.display = 'block';
+    } else {
+      alert('Password reset link sent. Check your email.');
+      document.getElementById('requestResetForm').reset();
+      var modalEl = bootstrap.Modal.getInstance(document.getElementById('modalResetPassword'));
+      modalEl.hide(); // Hide modal on success
+    }
+  } catch (err) {
+    errorDiv.textContent = "Network error. Please try again.";
+    errorDiv.style.display = 'block';
+  }
+});
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const uid = urlParams.get("uid");
+    const token = urlParams.get("token");
+
+    if (uid && token) {
+      const modal = new bootstrap.Modal(document.getElementById("modalResetPasswordConfirm"));
+      modal.show();
+
+      const form = document.getElementById("resetPasswordConfirmForm");
+      const errorDiv = document.getElementById("reset-confirm-error");
+      const successDiv = document.getElementById("reset-confirm-success");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        errorDiv.style.display = "none";
+        successDiv.style.display = "none";
+
+        const new_password = form.querySelector('input[name="new_password"]').value;
+        const confirm_password = form.querySelector('input[name="confirm_password"]').value;
+
+        if (new_password !== confirm_password) {
+          errorDiv.textContent = "Passwords do not match.";
+          errorDiv.style.display = "block";
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/auth/password-reset-complete/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ uid, token, new_password }),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            errorDiv.textContent = data.error || "Reset failed.";
+            errorDiv.style.display = "block";
+          } else {
+            successDiv.textContent = "Password reset successful. You can now log in.";
+            successDiv.style.display = "block";
+            form.reset();
+          }
+        } catch (err) {
+          errorDiv.textContent = "Network error. Please try again.";
+          errorDiv.style.display = "block";
+        }
+      });
+    }
+  });
+
+
+//pass rest confirm
+document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const uid = urlParams.get("uid");
+    const token = urlParams.get("token");
+
+    if (uid && token) {
+      const modal = new bootstrap.Modal(document.getElementById("modalResetPasswordConfirm"));
+      modal.show();
+
+      const form = document.getElementById("resetPasswordConfirmForm");
+      const errorDiv = document.getElementById("reset-confirm-error");
+      const successDiv = document.getElementById("reset-confirm-success");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        errorDiv.style.display = "none";
+        successDiv.style.display = "none";
+
+        const new_password = form.querySelector('input[name="new_password"]').value;
+        const confirm_password = form.querySelector('input[name="confirm_password"]').value;
+
+        if (new_password !== confirm_password) {
+          errorDiv.textContent = "Passwords do not match.";
+          errorDiv.style.display = "block";
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/auth/password-reset-complete/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ uid, token, new_password }),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            errorDiv.textContent = data.error || "Reset failed.";
+            errorDiv.style.display = "block";
+          } else {
+            successDiv.textContent = "Password reset successful. You can now log in.";
+            successDiv.style.display = "block";
+            form.reset();
+          }
+        } catch (err) {
+          errorDiv.textContent = "Network error. Please try again.";
+          errorDiv.style.display = "block";
+        }
+      });
+    }
+  });
+
+
+//profile
+window.onload = function () {
+    const email = localStorage.getItem("userEmail");
+    const username = localStorage.getItem("userName");
+
+    if (email && username) {
+        // Fill in email and username on profile
+        document.getElementById("profile-email").textContent = email;
+        document.getElementById("profile-email-input").value = email;
+        document.getElementById("profile-username-input").value = username;
+    }
+};
+
+</script>
     
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/plugin.js"></script>
-    <script type="text/javascript" src="js/jqueryui.min.js"></script>
-    <script type="text/javascript" src="js/jquery.nice-select.min.js"></script>
-    <script type="text/javascript" src="js/shortcodes.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-   
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/plugin.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jqueryui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/shortcodes.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 </body>
 
 

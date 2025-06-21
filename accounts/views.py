@@ -31,15 +31,23 @@ def auth_home(request):
     }
     return Response(endpoints)
 
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def my_profile_view(request):
+    return render(request, 'accounts/my-profile.html')
+
 def property_details(request):
     return render(request, 'accounts/property-details-v4.html')
 
 # Registration
+# views.py
+from django.contrib.auth import login  # import this
+
 class RegisterView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        print("Received registration data:", request.data)
         username = request.data.get('username')
         password = request.data.get('password')
         email = request.data.get('email')
@@ -48,7 +56,10 @@ class RegisterView(APIView):
             return Response({'error': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
 
         user = User.objects.create_user(username=username, password=password, email=email)
-        return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
+        login(request, user)  # 🔐 this logs in the user immediately
+
+        return Response({'message': 'User created successfully', 'username': user.username, 'email': user.email}, status=status.HTTP_201_CREATED)
+
 
 
 class LogoutView(APIView):

@@ -7,6 +7,7 @@ from .views import (
     RequestResetEmailView,
     PasswordResetCompleteView,
     home,
+    my_profile_view,  # Added import for my_profile_view
 )
 from django.urls import get_resolver
 from django.views.generic import TemplateView
@@ -19,7 +20,9 @@ def auth_root_redirect(request):
 
 urlpatterns = [
     path('', auth_root_redirect, name='auth-root'),
+    path("", my_profile_view, name="my-profile"),  
     path('index/', TemplateView.as_view(template_name='accounts/index.html'), name='home'),
+    path("my-profile/", my_profile_view, name="my-profile"),
     path('property-details/', views.property_details, name='property-details'),
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
