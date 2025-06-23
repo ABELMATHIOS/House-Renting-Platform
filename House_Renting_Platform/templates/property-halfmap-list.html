@@ -699,11 +699,15 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        // Parse the map properties (list of property objects with lat/lng) passed from Django backend
         var mapProperties = JSON.parse('{{ map_properties|safe|escapejs }}');
+         // Log the properties to check in browser console (for debugging)
 
         console.log("Map properties:", mapProperties);
+         // Initialize the map, centered roughly on Ethiopia with default zoom level
 
         var map = L.map('all-properties-map').setView([9.145, 40.489673], 6);
+        // Add CartoDB Positron tiles (clean, minimal street map style)
 
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; OpenStreetMap contributors & CartoDB',
@@ -717,14 +721,16 @@
             if (property.latitude && property.longitude) {
                 var lat = parseFloat(property.latitude);
                 var lng = parseFloat(property.longitude);
+                // Create a marker at the property’s location
 
                 var marker = L.marker([lat, lng])
-                    .addTo(map)
-                    .bindPopup("<b>" + property.title + "</b>");
+                    .addTo(map) // Add marker to map
+                    .bindPopup("<b>" + property.title + "</b>"); // Show property title on click
+                    // When marker is clicked, fly to that location and open popup
 
                 marker.on('click', function() {
-                    map.flyTo([lat, lng], 17); 
-                    marker.openPopup(); 
+                    map.flyTo([lat, lng], 17); // Fly and zoom in (zoom level 17)
+                    marker.openPopup(); // Show the popup
                 });
 
                 // Add marker to the group

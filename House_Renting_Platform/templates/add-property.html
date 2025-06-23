@@ -833,14 +833,18 @@
 <script>
 var map, marker;
 var mapInitialized = false;
+ // Function to open the map modal
 
 function openMapModal() {
+     // Display the map modal by setting its display style to 'block'
   document.getElementById('mapModal').style.display = 'block';
-
+// Initialize map only if it hasn't been initialized already
   if (!mapInitialized) {
     mapInitialized = true;
+    // Create the map centered at Ethiopia [lat, lng] with zoom level 6
 
     map = L.map('map').setView([9.145, 40.489], 6);
+     // Add a tile layer from CartoDB for map visuals
     
        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
          attribution: '&copy; OpenStreetMap contributors & CartoDB',
@@ -863,7 +867,7 @@ function openMapModal() {
     });
   }
 }
-
+// Function to close the map modal
 function closeMapModal() {
   document.getElementById('mapModal').style.display = 'none';
 }
