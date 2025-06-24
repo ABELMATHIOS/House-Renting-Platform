@@ -3447,6 +3447,10 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         alert("Registration successful!");
         window.location.href = "/profile/my-profile/";
 
+        localStorage.setItem("refresh_token", data.refresh); // <- required for logout
+        localStorage.setItem("access_token", data.access);   // optional if you're using JWT auth
+
+
     } else {
         alert(data.error || "Registration failed");
     }
@@ -3634,6 +3638,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   });
+
 
 </script>
 

@@ -117,6 +117,11 @@ REST_FRAMEWORK = {
     ),
 }
 
+SIMPLE_JWT = {
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ROTATE_REFRESH_TOKENS': False,
+}
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'noreply@yourdomain.com'
 
