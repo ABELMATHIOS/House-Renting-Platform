@@ -392,7 +392,34 @@
                                         </div>
 
                                     </div>
-                                    
+
+                                  <div class="box box-fieldset">
+                                       <label>Location:<span>*</span></label>
+                                       <div class="box-ip">
+                                           {{form.location}}
+                                     <!-- <input type="text" class="form-control" placeholder="Enter The Neighbourhood"> -->
+                                      </div>
+                                 </div>
+
+                                
+                                         <!--  New Button added here -->
+                                 <button type="button" onclick="openMapModal()">Select Location on Map</button>
+                                 <input type="hidden" id="id_latitude" name="latitude">
+                                 <input type="hidden" id="id_longitude" name="longitude">
+                                 
+                                 <!-- Map Modal -->
+                             
+                                 
+                                 <div id="mapModal" style="display:none; position: fixed; top: 10%; left: 10%; width: 80%; height: 80%; background: white; z-index: 1000; border: 1px solid #ccc;">
+    
+                                    <button onclick="closeMapModal()" style="float:right; margin: 10px;">Close</button>
+    
+                                    <div id="map" style="width: 100%; height: 90%;"></div>
+
+                                </div>
+
+
+
                                 </div>
                             </div>
                             <div class="widget-box-2 mb-20">
@@ -799,5 +826,51 @@
         <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 286.138;"></path>
         </svg>
     </div>
+
+    <!-- Include Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+var map, marker;
+var mapInitialized = false;
+ // Function to open the map modal
+
+function openMapModal() {
+     // Display the map modal by setting its display style to 'block'
+  document.getElementById('mapModal').style.display = 'block';
+// Initialize map only if it hasn't been initialized already
+  if (!mapInitialized) {
+    mapInitialized = true;
+    // Create the map centered at Ethiopia [lat, lng] with zoom level 6
+
+    map = L.map('map').setView([9.145, 40.489], 6);
+     // Add a tile layer from CartoDB for map visuals
+    
+       L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+         attribution: '&copy; OpenStreetMap contributors & CartoDB',
+         maxZoom: 18
+       }).addTo(map);
+    marker = L.marker([9.03, 38.74], { draggable: true }).addTo(map);
+
+    // When marker is dragged, update hidden inputs
+    marker.on('dragend', function(e) {
+      var latlng = marker.getLatLng();
+      document.getElementById('id_latitude').value = latlng.lat;
+      document.getElementById('id_longitude').value = latlng.lng;
+    });
+
+    // Or if user clicks on the map, move the marker
+    map.on('click', function(e) {
+      marker.setLatLng(e.latlng);
+      document.getElementById('id_latitude').value = e.latlng.lat;
+      document.getElementById('id_longitude').value = e.latlng.lng;
+    });
+  }
+}
+// Function to close the map modal
+function closeMapModal() {
+  document.getElementById('mapModal').style.display = 'none';
+}
+</script>
 
 {%endblock%}

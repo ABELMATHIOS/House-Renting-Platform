@@ -122,6 +122,9 @@ class ListingModel(models.Model):
     balcony = models.IntegerField(null=True, blank=True)
     property_image = models.ImageField(default="default.png", blank=True)
     link = models.URLField(max_length=200, null=True, blank=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+
     date_created = models.DateTimeField(auto_now_add=True,null=True)
     
     def __str__(self): 
