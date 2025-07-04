@@ -1,0 +1,72 @@
+{% load static%}
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+    <meta charset="utf-8">
+    <title>HomeLengo</title>
+    <meta name="keywords" content="HTML, CSS, JavaScript, Bootstrap">
+    <meta name="description" content="House Renting Platform">
+    <meta name="author" content="Bits College">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+   <!-- font -->
+   <link rel="stylesheet" href="{% static 'fonts/fonts.css'%}">
+   <!-- Icons -->
+   <link rel="stylesheet" href="{% static 'fonts/font-icons.css'%}">
+   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+   <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+   <link rel="stylesheet" href="{% static 'css/jquery.fancybox.min.css' %}">
+   <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+   <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
+
+    <!-- Favicon and Touch Icons  -->
+    <link rel="shortcut icon" href="{% static 'images/logo/favicon.png'%}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'images/logo/favicon.png'%}">
+
+</head>
+<body class="body">
+    
+   <!-- RTL -->
+   <!-- <a href="javascript:void(0);" id="toggle-rtl" class="tf-btn primary">RTL</a> -->
+   <!-- /RTL  --> 
+   <!-- preload -->
+    <div class="preload preload-container">
+        <div class="preload-logo">
+            <div class="spinner"></div>
+            <span class="icon icon-villa-fill"></span>
+        </div>
+    </div>
+    <!-- /preload -->
+
+{% block content%}
+
+{%endblock%}
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/swiper-bundle.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/carousel.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/plugin.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.nice-select.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/rangle-slider.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/countto.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/shortcodes.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/animation_heading.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/lazysize.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/main.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-validate.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.fancybox.js'%}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuSiPhoDaOJ7aqtJVtQhYhLzwwJ7rQlmA"></script>
+    <script src="{% static 'js/map-contact.js'%}"></script>
+    <script src="{% static 'js/marker.js'%}"></script>
+    <script src="{% static 'js/infobox.min.js'%}"></script>
+    <script src="{% static 'js/map.js'%}"></script>
+  
+</body>
+
+</html>
