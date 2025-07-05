@@ -43,8 +43,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'accounts',
-    'django_filters',
+<<<<<<< HEAD
     'corsheaders',
+=======
+    'django_filters',
+>>>>>>> origin/main
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -145,7 +148,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+<<<<<<< HEAD
 STATICFILES_DIRS = [BASE_DIR / "static"]
+=======
+STATICFILES_DIRS=[ os.path.join(BASE_DIR, 'static')]
+>>>>>>> origin/main
 
 MEDIA_URL = 'media/'
 
