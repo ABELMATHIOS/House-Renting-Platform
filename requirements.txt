@@ -7,3 +7,5 @@ pillow==11.2.1
 PyJWT==2.9.0
 sqlparse==0.5.3
 tzdata==2025.2
+rest_framework==3.16.0
+rest_framework_simplejwt.token_blacklist==1.0.0
