@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from decimal import Decimal
 
 class ListingModel(models.Model):
     ETHIOPIA="ETH"
@@ -126,8 +128,72 @@ class ListingModel(models.Model):
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
 
     date_created = models.DateTimeField(auto_now_add=True,null=True)
+    homeowner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='listings')
+    is_approved = models.BooleanField(default=False)
+    available_from = models.DateField(null=True, blank=True)
     
-    def __str__(self): 
-        return self.title
+    def __str__(self):
+        return f"{self.title} - {self.get_property_status_display()}"
     
+class Booking(models.Model):
+    PENDING = 'P'
+    CONFIRMED = 'C'
+    CANCELLED = 'X'
+    COMPLETED = 'D'
     
+    STATUS_CHOICES = [
+        (PENDING, 'Pending'),
+        (CONFIRMED, 'Confirmed'),
+        (CANCELLED, 'Cancelled'),
+        (COMPLETED, 'Completed'),
+    ]
+    
+    listing = models.ForeignKey(ListingModel, on_delete=models.CASCADE, related_name='bookings')
+    guest = models.ForeignKey(User, on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    total_amount = models.DecimalField(max_digits=12, decimal_places=2)
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default=PENDING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def save(self, *args, **kwargs):
+        # Calculate duration and amount if not set
+        if not self.total_amount:
+            duration = (self.end_date - self.start_date).days
+            self.total_amount = duration * self.listing.price
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return f"Booking #{self.id} - {self.listing.title}"
+
+class Revenue(models.Model):
+    UNPAID = 'U'
+    PAID = 'P'
+    PROCESSING = 'R'
+    
+    PAYMENT_STATUS = [
+        (UNPAID, 'Unpaid'),
+        (PAID, 'Paid'),
+        (PROCESSING, 'Processing'),
+    ]
+    
+    booking = models.OneToOneField(Booking, on_delete=models.CASCADE, related_name='revenue')
+    homeowner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='revenues')
+    amount = models.DecimalField(max_digits=12, decimal_places=2)
+    commission = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    homeowner_share = models.DecimalField(max_digits=12, decimal_places=2)
+    payment_status = models.CharField(max_length=1, choices=PAYMENT_STATUS, default=UNPAID)
+    payment_date = models.DateField(null=True, blank=True)
+    
+    def save(self, *args, **kwargs):
+        if not self.amount:
+            self.amount = self.booking.total_amount
+        if not self.commission:
+            # Example: 10% commission
+            self.commission = self.amount * Decimal('0.10')
+        if not self.homeowner_share:
+            self.homeowner_share = self.amount - self.commission
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return f"Revenue #{self.id} - {self.homeowner.username}"

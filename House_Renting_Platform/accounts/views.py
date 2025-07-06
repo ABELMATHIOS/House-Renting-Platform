@@ -7,14 +7,23 @@ from django.core.mail import send_mail
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken
 from .models import Profile
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from django.shortcuts import render, redirect
+from django.urls import reverse
+
+from django.contrib.auth import login  # import this
+from django.http import JsonResponse
+
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from django.contrib.auth import get_user_model
 
 
 def home(request):
@@ -34,51 +43,107 @@ def auth_home(request):
 
 from django.contrib.auth.decorators import login_required
 
-@login_required
+@api_view(['GET'])
+@permission_classes([IsAuthenticated]) 
 def my_profile_view(request):
-    if request.method == "POST" and request.FILES.get("avatar"):
-        avatar_file = request.FILES["avatar"]
-        profile = request.user.profile  # this will now exist
-        profile.avatar = avatar_file
-        profile.save()
-        return redirect("my-profile")
-
-    return render(request, "accounts/my-profile.html")
+    if not request.user.is_authenticated:
+        if request.headers.get('Authorization'):
+            # JWT authentication will handle this
+            pass
+        else:
+            return JsonResponse(
+                {'error': 'Unauthorized'}, 
+                status=401
+            )
+    
+    if request.headers.get('Accept') == 'application/json':
+        return JsonResponse({
+            'username': request.user.username,
+            'email': request.user.email
+        })
+    
+    return render(request, 'my-profile.html')
 
 def property_details(request):
-    return render(request, 'accounts/property-details-v4.html')
+    return render(request, 'property-details-v4.html')
 
 # Registration
-# views.py
-from django.contrib.auth import login  # import this
-
-from rest_framework_simplejwt.tokens import RefreshToken
+User = get_user_model()
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
-        email = request.data.get('email')
+        # Data validation
+        username = request.data.get('username', '').strip()
+        password = request.data.get('password', '').strip()
+        email = request.data.get('email', '').strip()
 
+        # Validate required fields
+        if not all([username, password, email]):
+            return Response(
+                {'error': 'All fields are required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Validate email format
+        try:
+            validate_email(email)
+        except ValidationError:
+            return Response(
+                {'error': 'Enter a valid email address'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if username exists
         if User.objects.filter(username=username).exists():
-            return Response({'error': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {'error': 'Username already exists'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
-        user = User.objects.create_user(username=username, password=password, email=email)
+        # Check if email exists
+        if User.objects.filter(email=email).exists():
+            return Response(
+                {'error': 'Email already registered'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
-        # ✅ Generate JWT tokens
-        refresh = RefreshToken.for_user(user)
-        access = str(refresh.access_token)
+        # Password strength check (basic example)
+        if len(password) < 8:
+            return Response(
+                {'error': 'Password must be at least 8 characters'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
-        return Response({
-            'message': 'User created successfully',
-            'username': user.username,
-            'email': user.email,
-            'refresh': str(refresh),
-            'access': access,
-        }, status=status.HTTP_201_CREATED)
+        try:
+            # Create user
+            user = User.objects.create_user(
+                username=username,
+                password=password,
+                email=email
+            )
 
+            # Generate tokens
+            refresh = RefreshToken.for_user(user)
+            access_token = str(refresh.access_token)
+
+            # You could log the user in sessionally if needed
+            # login(request, user)  # Uncomment if using session auth alongside JWT
+
+            return Response({
+                'message': 'User created successfully',
+                'username': user.username,
+                'email': user.email,
+                'access': access_token,
+                'refresh': str(refresh),
+            }, status=status.HTTP_201_CREATED)
+
+        except Exception as e:
+            return Response(
+                {'error': str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
 
 
