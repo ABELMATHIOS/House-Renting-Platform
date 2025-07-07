@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout - Listing Fee</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input { padding: 8px; width: 100%; max-width: 300px; }
+        button { padding: 10px 20px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #218838; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Pay Listing Fee</h1>
+    <p>Pay to list your property (Amount: {{ amount }} ETB)</p>
+    {% if messages %}
+        {% for message in messages %}
+            <p class="error">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="amount">Amount (ETB)</label>
+            <input type="number" id="amount" name="amount" value="{{ amount }}" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="{{ request.user.email|default:'customer@example.com' }}" required>
+        </div>
+        <button type="submit">Pay Now</button>
+    </form>
+</body>
+</html>

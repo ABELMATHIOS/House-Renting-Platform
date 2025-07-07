@@ -12,9 +12,12 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -44,6 +47,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'accounts',
     'django_filters',
+    'payment_integration.apps.PaymentIntegrationConfig',
+   
 ]
 
 MIDDLEWARE = [
@@ -122,7 +127,7 @@ DEFAULT_FROM_EMAIL = 'noreply@yourdomain.com'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Addis_Ababa'
 
 USE_I18N = True
 
@@ -144,3 +149,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Chapa API Configuration
+CHAPA_API_KEY = config('CHAPA_API_KEY', default='your-chapa-secret-key')
+print(f"Loaded CHAPA_API_KEY: {CHAPA_API_KEY}")  # Keep this debug line
+#print(f"Environment variables: {dict(os.environ)}")  # Add this to see all env vars
+CHAPA_API_URL = 'https://api.chapa.co/v1/transaction/initialize'
+CHAPA_VERIFY_URL = 'https://api.chapa.co/v1/transaction/verify/'
