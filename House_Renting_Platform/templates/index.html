@@ -1,49 +1,5 @@
 {% extends 'base.html'%}
 {% load static%}
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
-
-
-<!-- Mirrored from homelengohtml.vercel.app/index.html by  /3.x [XR&CO'2014], Mon, 14 Apr 2025 00:43:35 GMT -->
-<!-- Added by  --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by  -->
-<head>
-    <meta charset="utf-8">
-    <title>Homelengo - Real Estate HTML Template</title>
-    <meta name="keywords" content="HTML, CSS, JavaScript, Bootstrap">
-    <meta name="description" content="Real Estate HTML Template">
-    <meta name="author" content="themesflat.com">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-   <!-- font -->
-   <link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
-    <!-- Icons -->
-    <link rel="stylesheet" href="{% static 'fonts/font-icons.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
-
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="{% static 'images/logo/favicon.png' %}">
-    <link rel="apple-touch-icon-precomposed" href="{% static 'images/logo/favicon.png' %}">
-</head>
-
-<body class="body">
-    
-   <!-- RTL -->
-   <a href="javascript:void(0);" id="toggle-rtl" class="tf-btn primary">RTL</a>
-   <!-- /RTL  --> 
-   <!-- preload -->
-    <div class="preload preload-container">
-        <div class="preload-logo">
-            <div class="spinner"></div>
-            <span class="icon icon-villa-fill"></span>
-        </div>
-    </div>
-    <!-- /preload -->
-
-
 {%block content%}
 
 
@@ -59,8 +15,6 @@
                             <div class="inner-header">
                                 <div class="inner-header-left">
                                     <div class="logo-box flex">
-                                        <div class="logo"><a href="{% url 'home' %}">Home</a><img src="{% static 'images/logo/logo@2x.png' %}" alt="logo" width="166" height="48">
-</a></div>
                                         <div class="logo"><a href="{%url 'index'%}"><img src="{%static 'images/logo/logo%402x.png'%}" alt="logo" width="166" height="48"></a></div>
                                     </div>
                                     <div class="nav-outer flex align-center">
@@ -68,7 +22,6 @@
                                             <nav class="main-menu show navbar-expand-md">
                                                 <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                                     <ul class="navigation clearfix">
-                                                        <li class="current"><a href="{% url 'home' %}">Home</a>
                                                         <li class="current"><a href="{%url 'index'%}">Home</a>
                                                         </li>
                                                         <li class="dropdown2"><a href="{%url 'Listing:listed-properties'%}">Listing</a>
@@ -91,7 +44,7 @@
                                                                 
                                                             </ul>
                                                         </li>
-                                                        <li><a href="{% url 'property-details' %}">Properties</a></li>
+                                                        <!-- = -->
                                                         <li class="dropdown2"><a href="#">Dashboard</a>
                                                             <ul>
                                                                 <li><a href="dashboard.html">Dashboard</a></li>
@@ -375,7 +328,7 @@
                                     <div class="col-xl-4 col-lg-6 col-md-6">
                                         <div class="homelengo-box">
                                             <div class="archive-top">
-                                                <a href="{% url 'property-details' %}" class="images-group">
+                                                <a href="property-details-v4.html" class="images-group">
                                                     <div class="images-style">
                                                         <img class="lazyload" data-src="{% static 'images/home/house-1.jpg' %}" src="{% static 'images/home/house-1.jpg' %}" alt="img">
                                                     </div>

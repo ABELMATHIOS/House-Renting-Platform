@@ -5,7 +5,7 @@ from django.contrib import messages
 from .filters import ListingFilter
 import json
 from django.core.serializers.json import DjangoJSONEncoder
-
+from .recommendations import Recommendatons
 
 def landing(request):
     return render(request, 'Listing/landing.html', {
@@ -49,9 +49,26 @@ def listed_properties(request):
 
 
 def view_property_details(request, id):
+    suggested_properties = []
     current_property = ListingModel.objects.get(id=id)
+    query = f"{current_property.location} {current_property.city_address} {current_property.property_type} {current_property.title} {current_property.description} {current_property.price}"
+    property_recommendations = Recommendatons(query, k=6)
+
+    for x in property_recommendations:
+       listed_properties = ListingModel.objects.get(id=x)
+       suggested_properties.append(listed_properties)
+       
+
+    suggested_properties.pop(0)   
+    
+    
     return render(request, 'property-details-v4.html', {
        'current_property': current_property,
+        'suggested_properties':suggested_properties,
+    })
+
+def review_viewer(request):
+    return render(request, 'my-favorites.html', {
     })
 
  

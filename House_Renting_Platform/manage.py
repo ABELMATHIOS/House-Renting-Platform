@@ -2,7 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+from Listing.file_generator import export_txt
 
 def main():
     """Run administrative tasks."""
@@ -17,6 +17,6 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
-
+export_txt()
 if __name__ == '__main__':
     main()
