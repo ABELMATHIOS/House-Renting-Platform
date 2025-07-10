@@ -1,8 +1,8 @@
 from django.db import models
 
 class ListingModel(models.Model):
-    ETHIOPIA="ETH"
-    KENYA="KEN"
+    ETHIOPIA="ETHIOPIA"
+    KENYA="KENYA"
     ADDIS_ABEBA="Addis Abeba"
     AFAR="Afar"
     AMHARA="Amhara"
@@ -34,7 +34,7 @@ class ListingModel(models.Model):
     FOR_RENT="For Rent"
     FOR_SALE="For Sale"
     NEW_BUILT="Newly Built"
-    OLD_BUILT="!0+ Years Ago"
+    OLD_BUILT="10+ Years Ago"
     AV="Available"
     NOT_AV="Not Available"
 
@@ -101,12 +101,12 @@ class ListingModel(models.Model):
     title = models.CharField(max_length=255, null=False)
     description = models.TextField(null=True, blank=False)
     city_address = models.CharField(max_length=255,null=True, blank=False)
-    zipcode = models.IntegerField(max_length=10,null=True, blank=False)
-    country = models.CharField(max_length=3,choices=COUNTRY, default=ETHIOPIA)
+    zipcode = models.IntegerField(null=True, blank=False)
+    country = models.CharField(max_length=20,choices=COUNTRY, default=ETHIOPIA)
     province = models.CharField(max_length=255,choices=PROVINCE,default=ADDIS_ABEBA)
     ownership_documents = models.CharField(max_length=255,choices=OWNERSHIP_DOCUMENTS,default=DC)
     location = models.CharField(max_length=255,null=True, blank=False)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=15, decimal_places=2)
     bank_debt=models.CharField(blank=True,choices=YESNO,default=NO)
     property_type = models.CharField(max_length=50, choices=PROPERTY_TYPE,default=APARTMENT)
     property_status= models.CharField(max_length=255,choices=PROPERTY_STATUS,default=FOR_RENT)
@@ -122,6 +122,9 @@ class ListingModel(models.Model):
     balcony = models.IntegerField(null=True, blank=True)
     property_image = models.ImageField(default="default.png", blank=True)
     link = models.URLField(max_length=200, null=True, blank=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+
     date_created = models.DateTimeField(auto_now_add=True,null=True)
     
     def __str__(self): 

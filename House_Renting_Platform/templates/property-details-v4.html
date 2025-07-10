@@ -1144,138 +1144,37 @@
                                     </ul>
                                 </div>
                                 <div class="box-latest-property">
-                                    <h5 class="fw-6 title">Latest Propeties</h5>
+                                    <h5 class="fw-6 title">Recommended Propeties</h5>
                                     <ul>
+                                        {% for x in suggested_properties%}
+
                                         <li class="latest-property-item">
-                                            <a href="property-details-v1.html" class="images-style">
-                                                <img src="{%static 'images/home/house-8.jpg'%}" alt="img">
+                                            <a href="{% url 'Listing:view-property-details' id=x.id%}" class="images-style">
+                                                <img src="/media/{{x.property_image}}" alt="img">
                                             </a>
                                             <div class="content">
-                                                <div class="text-capitalize text-btn"><a href="property-details-v1.html" class="link">Casa Lomas de Machalí Machas</a></div>
+                                                <div class="text-capitalize text-btn"><a href="{% url 'Listing:view-property-details' id=x.id%}" class="link">{{x.title}}</a></div>
                                                 <ul class="meta-list mt-6">
                                                     <li class="item">
                                                         <i class="icon icon-bed"></i>
                                                         <span class="text-variant-1">Beds:</span>
-                                                        <span class="fw-6">3</span>
+                                                        <span class="fw-6">{{x.bedrooms}}</span>
                                                     </li>
                                                     <li class="item">
                                                         <i class="icon icon-bath"></i>
                                                         <span class="text-variant-1">Baths:</span>
-                                                        <span class="fw-6">2</span>
+                                                        <span class="fw-6">{{x.bathrooms}}</span>
                                                     </li>
                                                     <li class="item">
                                                         <i class="icon icon-sqft"></i>
                                                         <span class="text-variant-1">Sqft:</span>
-                                                        <span class="fw-6">1150</span>
+                                                        <span class="fw-6">{{x.property_size}}</span>
                                                     </li>
                                                 </ul>
-                                                <div class="mt-10 text-btn">$7250,00</div>
+                                                <div class="mt-10 text-btn">{{x.price}}</div>
                                             </div>
                                         </li>
-                                        <li class="latest-property-item">
-                                            <a href="property-details-v1.html" class="images-style">
-                                                <img src="{%static 'images/home/house-3.jpg'%}" alt="img">
-                                            </a>
-                                            <div class="content">
-                                                <div class="text-capitalize text-btn"><a href="property-details-v1.html" class="link">Casa Lomas de Machalí Machas</a></div>
-                                                <ul class="meta-list mt-6">
-                                                    <li class="item">
-                                                        <i class="icon icon-bed"></i>
-                                                        <span class="text-variant-1">Beds:</span>
-                                                        <span class="fw-6">3</span>
-                                                    </li>
-                                                    <li class="item">
-                                                        <i class="icon icon-bath"></i>
-                                                        <span class="text-variant-1">Baths:</span>
-                                                        <span class="fw-6">2</span>
-                                                    </li>
-                                                    <li class="item">
-                                                        <i class="icon icon-sqft"></i>
-                                                        <span class="text-variant-1">Sqft:</span>
-                                                        <span class="fw-6">1150</span>
-                                                    </li>
-                                                </ul>
-                                                <div class="mt-10 text-btn">$7250,00</div>
-                                            </div>
-                                        </li>
-                                        <li class="latest-property-item">
-                                            <a href="property-details-v1.html" class="images-style">
-                                                <img src="{%static 'images/home/house-28.jpg'%}" alt="img">
-                                            </a>
-                                            <div class="content">
-                                                <div class="text-capitalize text-btn"><a href="property-details-v1.html" class="link">Casa Lomas de Machalí Machas</a></div>
-                                                <ul class="meta-list mt-6">
-                                                    <li class="item">
-                                                        <i class="icon icon-bed"></i>
-                                                        <span class="text-variant-1">Beds:</span>
-                                                        <span class="fw-6">3</span>
-                                                    </li>
-                                                    <li class="item">
-                                                        <i class="icon icon-bath"></i>
-                                                        <span class="text-variant-1">Baths:</span>
-                                                        <span class="fw-6">2</span>
-                                                    </li>
-                                                    <li class="item">
-                                                        <i class="icon icon-sqft"></i>
-                                                        <span class="text-variant-1">Sqft:</span>
-                                                        <span class="fw-6">1150</span>
-                                                    </li>
-                                                </ul>
-                                                <div class="mt-10 text-btn">$7250,00</div>
-                                            </div>
-                                        </li>
-                                        <li class="latest-property-item">
-                                            <a href="property-details-v1.html" class="images-style">
-                                                <img src="{%static 'images/home/house-29.jpg'%}" alt="img">
-                                            </a>
-                                            <div class="content">
-                                                <div class="text-capitalize text-btn"><a href="property-details-v1.html" class="link">Casa Lomas de Machalí Machas</a></div>
-                                                <ul class="meta-list mt-6">
-                                                    <li class="item">
-                                                        <i class="icon icon-bed"></i>
-                                                        <span class="text-variant-1">Beds:</span>
-                                                        <span class="fw-6">3</span>
-                                                    </li>
-                                                    <li class="item">
-                                                        <i class="icon icon-bath"></i>
-                                                        <span class="text-variant-1">Baths:</span>
-                                                        <span class="fw-6">2</span>
-                                                    </li>
-                                                    <li class="item">
-                                                        <i class="icon icon-sqft"></i>
-                                                        <span class="text-variant-1">Sqft:</span>
-                                                        <span class="fw-6">1150</span>
-                                                    </li>
-                                                </ul>
-                                                <div class="mt-10 text-btn">$7250,00</div>
-                                            </div>
-                                        </li>
-                                        <li class="latest-property-item">
-                                            <a href="property-details-v1.html" class="images-style">
-                                                <img src="{%static 'images/home/house-19.jpg'%}" alt="img">
-                                            </a>
-                                            <div class="content">
-                                                <div class="text-capitalize text-btn"><a href="property-details-v1.html" class="link">Casa Lomas de Machalí Machas</a></div>
-                                                <ul class="meta-list mt-6">
-                                                    <li class="item">
-                                                        <i class="icon icon-bed"></i>
-                                                        <span class="text-variant-1">Beds:</span>
-                                                        <span class="fw-6">3</span>
-                                                    </li>
-                                                    <li class="item">
-                                                        <i class="icon icon-bath"></i>
-                                                        <span class="text-variant-1">Baths:</span>
-                                                        <span class="fw-6">2</span>
-                                                    </li>
-                                                    <li class="item">
-                                                        <i class="icon icon-sqft"></i>
-                                                        <span class="text-variant-1">Sqft:</span>
-                                                        <span class="fw-6">1150</span>
-                                                    </li>
-                                                </ul>
-                                                <div class="mt-10 text-btn">$7250,00</div>
-                                            </div>
-                                        </li>
+                                        {%endfor%}
                                     </ul>
                                     
                                     

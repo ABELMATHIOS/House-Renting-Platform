@@ -48,10 +48,14 @@ INSTALLED_APPS = [
     'accounts',
     'django_filters',
     'payment_integration.apps.PaymentIntegrationConfig',
-   
+    'corsheaders',
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', 
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'House_Renting_Platform.urls'
@@ -117,6 +122,11 @@ REST_FRAMEWORK = {
     ),
 }
 
+SIMPLE_JWT = {
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ROTATE_REFRESH_TOKENS': False,
+}
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'noreply@yourdomain.com'
 
@@ -139,7 +149,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS=[ os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = 'media/'
 
@@ -150,9 +160,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 # Chapa API Configuration
 CHAPA_API_KEY = config('CHAPA_API_KEY', default='your-chapa-secret-key')
 print(f"Loaded CHAPA_API_KEY: {CHAPA_API_KEY}")  # Keep this debug line
 #print(f"Environment variables: {dict(os.environ)}")  # Add this to see all env vars
 CHAPA_API_URL = 'https://api.chapa.co/v1/transaction/initialize'
 CHAPA_VERIFY_URL = 'https://api.chapa.co/v1/transaction/verify/'
+
+# Example: using Gmail SMTP (for dev only)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'abdulwahabragad@gmail.com'
+EMAIL_HOST_PASSWORD = 'olnm rqbm zqad fgib'  # Use app password if using Gmail 2FA
+
+DEFAULT_FROM_EMAIL = 'noreply@yourdomain.com'
+

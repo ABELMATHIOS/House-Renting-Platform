@@ -5,7 +5,7 @@ from .models import ListingModel
 class ListingForm(ModelForm):
     class Meta:
         model = ListingModel
-        fields = ['title','description','city_address','zipcode','country','province','ownership_documents','location','price','bank_debt','property_type','property_status','property_condition','property_size','property_landarea','furnished','property_rooms','bedrooms','bathrooms','parking','kitchens','balcony','property_image','link']
+        fields = ['title','description','city_address','zipcode','country','province','ownership_documents','location','price','bank_debt','property_type','property_status','property_condition','property_size','property_landarea','furnished','property_rooms','bedrooms','bathrooms','parking','kitchens','balcony','property_image','link','latitude','longitude']
         widgets= {
             'title':forms.TextInput(attrs={'placeholder':"Property Title",'class':"form-control"}),
 
