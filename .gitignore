@@ -8,3 +8,7 @@ __pycache__/
 *.pyo
 .env
 db.sqlite3
+
+*.jpg
+
+media/

@@ -11,11 +11,9 @@ urlpatterns = [
     path('api/auth/', include('accounts.urls')),
     path('admin/', admin.site.urls),
     path('listing/', include("Listing.urls")),
-    path('api/auth/', include('accounts.urls')),
     path('', RedirectView.as_view(url='api/auth/')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('profile/', include('accounts.urls')),
-    path('listing',include("Listing.urls")),
     
 ]
 

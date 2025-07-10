@@ -9964,7 +9964,8 @@ tr {
     padding: 40px 30px;
   }
 }
-@media only screen and (max-width: 1519px) {
+
+@media only screen and (max-width: 2500px) {
   .main-header .main-menu {
     position: relative;
     margin-left: 1px;
