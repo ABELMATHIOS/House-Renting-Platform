@@ -1,7 +1,28 @@
 {% extends 'base.html'%}
 {% load static%}
 
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+
+
+<!-- Mirrored from homelengohtml.vercel.app/dashboard.html by  /3.x [XR&CO'2014], Mon, 14 Apr 2025 00:46:02 GMT -->
+<!-- Added by  --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by  -->
+
+<body class="body bg-surface counter-scroll">
 {%block content%}
+    <!-- RTL -->
+   <a href="javascript:void(0);" id="toggle-rtl" class="tf-btn primary">RTL</a>
+   <!-- /RTL  --> 
+
+    <!-- preload -->
+    <div class="preload preload-container">
+        <div class="preload-logo">
+            <div class="spinner"></div>
+            <span class="icon icon-villa-fill"></span>
+        </div>
+    </div>
+    <!-- /preload -->
 
     <div id="wrapper">
         <div id="page" class="clearfix">
@@ -15,7 +36,7 @@
                                 <div class="inner-header">
                                     <div class="inner-header-left">
                                         <div class="logo-box d-flex">
-                                            <div class="logo"><a href="index.html"><img src="images/logo/logo%402x.png" alt="logo" width="174" height="44"></a></div>
+                                            <div class="logo"><a href="index.html"><img src="{% static 'images/logo/logo%402x.png' %}" alt="logo" width="174" height="44"></a></div>
                                             <div class="button-show-hide">
                                                 <span class="icon icon-categories"></span>
                                             </div>
@@ -26,36 +47,37 @@
                                                 <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                                     <ul class="navigation clearfix">
                                                         <li class="dropdown2 home"><a href="#">Home</a>
-                                                            <ul>
-                                                                <li><a href="index.html">Homepage 01</a></li>
-                                                               
-                                                            </ul>
                                                         </li>
                                                         <li class="dropdown2"><a href="#">Listing</a>
                                                             <ul>
-                                                                
-                                                                <li><a href="property-halfmap-list.html">Property Listing</a></li>
-                                                                
+                                                                <li><a href="property-halfmap-grid.html">Property Half Map Grid</a></li>
+                                                                <li><a href="property-halfmap-list.html">Property Half Map List</a></li>
+                                                                <li><a href="topmap-grid.html">Find Topmap Grid</a></li>
+                                                                <li><a href="topmap-list.html">Find Topmap List</a></li>
+                                                                <li><a href="sidebar-grid.html">Find Sidebar Grid</a></li>
+                                                                <li><a href="sidebar-list.html">Find Sidebar List</a></li>
     
                                                             </ul>
                                                         </li>
                                                         <li class="dropdown2"><a href="#">Properties</a>
                                                             <ul>
-                                                                
+                                                                <li><a href="property-details-v1.html">Property Details 1</a></li>
+                                                                <li><a href="property-details-v2.html">Property Details 2</a></li>
+                                                                <li><a href="property-details-v3.html">Property Details 3</a></li>
                                                                 <li><a href="property-details-v4.html">Property Details 4</a></li>
                                                             </ul>
                                                         </li>
                                                         <li class="dropdown2"><a href="#">Pages</a>
                                                             <ul>
                                                                 <li><a href="about-us.html">About Us</a></li>
-                                                               
+                                                                <li><a href="our-service.html">Our Services</a></li>
                                                                 <li><a href="pricing.html">Pricing</a></li>
                                                                 <li><a href="contact.html">Contact Us</a></li>
-                                                                
+                                                                <li><a href="faq.html">FAQs</a></li>
+                                                                <li><a href="privacy-policy.html">Privacy Policy</a></li>
                                                                 
                                                             </ul>
-                                                        
-                                                        
+                                                        </li>
                                                         <li class="dropdown2 current"><a href="#">Dashboard</a>
                                                             <ul>
                                                                 <li class="current"><a href="dashboard.html">Dashboard</a></li>
@@ -78,7 +100,7 @@
                                     <div class="header-account inner-header-right">
                                         <div class="box-avatar dropdown-toggle" data-bs-toggle="dropdown">
                                             <div class="avatar avt-34 round">
-                                                <img src="images/avatar/avt-5.jpg" alt="avt">
+                                                <img src="{% static 'images/avatar/avt-5.jpg' %}" alt="avt">
                                             </div>
                                             <p class="name">Themesflat<span class="icon icon-arr-down"></span></p>
                                             <div class="dropdown-menu">
@@ -114,7 +136,7 @@
                     <div class="mobile-menu">
                         <div class="menu-backdrop"></div>                            
                         <nav class="menu-box">
-                            <div class="nav-logo"><a href="index.html"><img src="images/logo/logo%402x.png" alt="nav-logo" width="174" height="44"></a></div>
+                            <div class="nav-logo"><a href="index.html"><img src="{% static 'images/logo/logo%402x.png' %}" alt="nav-logo" width="174" height="44"></a></div>
                             <div class="bottom-canvas">
                                 <div class="menu-outer"></div>
                                 <div class="button-mobi-sell">
@@ -389,7 +411,7 @@
                                                     <td>
                                                         <div class="listing-box">
                                                             <div class="images">
-                                                                <img src="images/home/house-18.jpg" alt="images">
+                                                                <img src="{% static 'images/home/house-18.jpg' %}" alt="images">
                                                             </div>
                                                             <div class="content">
                                                                 <div class="title"><a href="property-details-v1.html" class="link">Gorgeous Apartment Building</a> </div>
@@ -432,7 +454,7 @@
                                                     <td>
                                                         <div class="listing-box">
                                                             <div class="images">
-                                                                <img src="images/home/house-33.jpg" alt="images">
+                                                                <img src="{% static 'images/home/house-33.jpg' %}" alt="images">
                                                             </div>
                                                             <div class="content">
                                                                 <div class="title"><a href="property-details-v1.html" class="link">Mountain Mist Retreat, Aspen</a> </div>
@@ -475,7 +497,7 @@
                                                     <td>
                                                         <div class="listing-box">
                                                             <div class="images">
-                                                                <img src="images/home/house-15.jpg" alt="images">
+                                                                <img src="{% static 'images/home/house-15.jpg' %}" alt="images">
                                                             </div>
                                                             <div class="content">
                                                                 <div class="title"><a href="property-details-v1.html" class="link">Lakeview Haven, Lake Tahoe</a> </div>
@@ -518,7 +540,7 @@
                                                 <td>
                                                     <div class="listing-box">
                                                         <div class="images">
-                                                            <img src="images/home/house-23.jpg" alt="images">
+                                                            <img src="{% static 'images/home/house-23.jpg' %}" alt="images">
                                                         </div>
                                                         <div class="content">
                                                             <div class="title"><a href="property-details-v1.html" class="link">Coastal Serenity Cottage</a> </div>
@@ -561,7 +583,7 @@
                                                     <td>
                                                         <div class="listing-box">
                                                             <div class="images">
-                                                                <img src="images/home/house-32.jpg" alt="images">
+                                                                <img src="{% static 'images/home/house-32.jpg' %}" alt="images">
                                                             </div>
                                                             <div class="content">
                                                                 <div class="title"><a href="property-details-v1.html" class="link">Sunset Heights Estate</a> </div>
@@ -648,7 +670,7 @@
                                         <li class="mess-item">
                                             <div class="user-box">
                                                 <div class="avatar">
-                                                    <img src="images/avatar/avt-png9.png" alt="avt">
+                                                    <img src="{% static 'images/avatar/avt-png9.png' %}" alt="avt">
                                                 </div>
                                                 <div class="content">
                                                     <div class="name fw-6">Themesflat</div>
@@ -660,7 +682,7 @@
                                         <li class="mess-item">
                                             <div class="user-box">
                                                 <div class="avatar">
-                                                    <img src="images/avatar/avt-png10.png" alt="avt">
+                                                    <img src="{% static 'images/avatar/avt-png10.png' %}" alt="avt">
                                                 </div>
                                                 <div class="content">
                                                     <div class="name fw-6">ThemeMu</div>
@@ -672,7 +694,7 @@
                                         <li class="mess-item">
                                             <div class="user-box">
                                                 <div class="avatar">
-                                                    <img src="images/avatar/avt-png11.png" alt="avt">
+                                                    <img src="{% static 'images/avatar/avt-png11.png' %}" alt="avt">
                                                 </div>
                                                 <div class="content">
                                                     <div class="name fw-6">Cameron Williamson</div>
@@ -684,7 +706,7 @@
                                         <li class="mess-item">
                                             <div class="user-box">
                                                 <div class="avatar">
-                                                    <img src="images/avatar/avt-png12.png" alt="avt">
+                                                    <img src="{% static 'images/avatar/avt-png12.png' %}" alt="avt">
                                                 </div>
                                                 <div class="content">
                                                     <div class="name fw-6">Esther Howard</div>
@@ -701,7 +723,7 @@
                                         <li class="mess-item">
                                             <div class="user-box">
                                                 <div class="avatar">
-                                                    <img src="images/avatar/avt-png13.png" alt="avt">
+                                                    <img src="{% static 'images/avatar/avt-png13.png' %}" alt="avt">
                                                 </div>
                                                 <div class="content">
                                                     <div class="name fw-6">Bessie Cooper</div>
@@ -720,7 +742,7 @@
                                         <li class="mess-item">
                                             <div class="user-box">
                                                 <div class="avatar">
-                                                    <img src="images/avatar/avt-png14.png" alt="avt">
+                                                    <img src="{% static 'images/avatar/avt-png14.png' %}" alt="avt">
                                                 </div>
                                                 <div class="content">
                                                     <div class="name fw-6">Annette Black</div>
@@ -739,7 +761,7 @@
                                         <li class="mess-item">
                                             <div class="user-box">
                                                 <div class="avatar">
-                                                    <img src="images/avatar/avt-png15.png" alt="avt">
+                                                    <img src="{% static 'images/avatar/avt-png15.png' %}" alt="avt">
                                                 </div>
                                                 <div class="content">
                                                     <div class="name fw-6">Ralph Edwards</div>
@@ -758,7 +780,7 @@
                                         <li class="mess-item">
                                             <div class="user-box">
                                                 <div class="avatar">
-                                                    <img src="images/avatar/avt-png16.png" alt="avt">
+                                                    <img src="{% static 'images/avatar/avt-png16.png' %}" alt="avt">
                                                 </div>
                                                 <div class="content">
                                                     <div class="name fw-6">Jerome Bell</div>
@@ -777,7 +799,7 @@
                                         <li class="mess-item">
                                             <div class="user-box">
                                                 <div class="avatar">
-                                                    <img src="images/avatar/avt-png17.png" alt="avt">
+                                                    <img src="{% static 'images/avatar/avt-png17.png' %}" alt="avt">
                                                 </div>
                                                 <div class="content">
                                                     <div class="name fw-6">Albert Flores</div>
@@ -817,5 +839,10 @@
         <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 286.138;"></path>
         </svg>
     </div>
+  
+</body>
 
+
+
+</html>
 {%endblock%}

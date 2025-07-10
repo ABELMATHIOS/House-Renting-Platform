@@ -1,5 +1,5 @@
 {% extends 'base.html'%}
-{% load static%}
+{% load static %}
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
@@ -9,6 +9,19 @@
 <!-- Added by  --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by  -->
 
 <body class="body">
+    
+   <!-- RTL -->
+   <a href="javascript:void(0);" id="toggle-rtl" class="tf-btn primary">RTL</a>
+   <!-- /RTL  --> 
+   <!-- preload -->
+    <div class="preload preload-container">
+        <div class="preload-logo">
+            <div class="spinner"></div>
+            <span class="icon icon-villa-fill"></span>
+        </div>
+    </div>
+    <!-- /preload -->
+
 
 {%block content%}
 
@@ -3409,7 +3422,7 @@
 document.getElementById("registerForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
-    const form = e.target;  // or: document.getElementById("registerForm")
+    const form = e.target;
     const username = form.querySelector('input[name="username"]').value.trim();
     const email = form.querySelector('input[name="email"]').value.trim();
     const password = form.querySelector('input[name="password"]').value;
@@ -3420,46 +3433,37 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         return;
     }
 
-    console.log({ username, email, password });
-
-    const response = await fetch("/api/auth/register/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password, email })
-    });
-
-    const data = await response.json();
-
-    // After successful registration/login
-    if (response.ok) {
-        const { access } = data;
-        localStorage.setItem('access_token', access);
-        
-        // Fetch profile with token
-        const profileResponse = await fetch('/profile/my-profile/', {
-            headers: {
-                'Authorization': `Bearer ${access}`
-            }
+    try {
+        const response = await fetch("/api/auth/register/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password, email })
         });
-        
-        if (profileResponse.ok) {
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Store tokens and user data
+            localStorage.setItem('access_token', data.access);
+            localStorage.setItem('refresh_token', data.refresh);
+            localStorage.setItem('userEmail', data.email);
+            localStorage.setItem('userName', data.username);
+            
+            // Direct redirect without additional fetch
             window.location.href = "/profile/my-profile/";
         } else {
-            // Handle failed profile fetch
-            window.location.href = "/";
+            alert(data.error || "Registration failed");
         }
-    } else {
-        alert(data.error || "Registration failed");
+    } catch (error) {
+        alert("Network error. Please try again.");
+        console.error('Registration error:', error);
     }
 });
 
 
-
 //login
 document.getElementById('loginForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
+    e.preventDefault(); // stop form from reloading the page
 
     const username = document.querySelector('#loginForm input[name="username"]').value;
     const password = document.querySelector('#loginForm input[name="password"]').value;
@@ -3481,33 +3485,24 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             errorDiv.textContent = data.error || 'Login failed. Please check your credentials.';
             errorDiv.style.display = 'block';
         } else {
-            // 1. Store tokens securely
+            // ✅ Save tokens
             localStorage.setItem('access_token', data.access);
             localStorage.setItem('refresh_token', data.refresh);
-            
-            // 2. Hide modal if exists
+
+            // ✅ Save user info based on login form
+            localStorage.setItem('userName', username);
+            localStorage.setItem('userEmail', '');  // If you want email, you’ll need to fetch it or include in response
+
+            // Hide the login modal if using Bootstrap
             const modal = bootstrap.Modal.getInstance(document.getElementById('modalLogin'));
             if (modal) modal.hide();
 
-            // 3. Fetch profile with token before redirect
-            const profileResponse = await fetch('/profile/my-profile/', {
-                headers: {
-                    'Authorization': `Bearer ${data.access}`
-                }
-            });
-
-            // 4. Only redirect if profile request succeeds
-            if (profileResponse.ok) {
-                window.location.href = "/profile/my-profile/";
-            } else {
-                errorDiv.textContent = 'Profile loading failed. Please try again.';
-                errorDiv.style.display = 'block';
-            }
+            alert('Login successful!');
+            window.location.href = "/profile/my-profile/";
         }
     } catch (error) {
-        errorDiv.textContent = 'Network error. Please try again.';
+        errorDiv.textContent = 'Something went wrong. Please try again.';
         errorDiv.style.display = 'block';
-        console.error('Login error:', error);
     }
 });
 
@@ -3544,61 +3539,6 @@ document.getElementById('requestResetForm').addEventListener('submit', async fun
     errorDiv.style.display = 'block';
   }
 });
-
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const uid = urlParams.get("uid");
-    const token = urlParams.get("token");
-
-    if (uid && token) {
-      const modal = new bootstrap.Modal(document.getElementById("modalResetPasswordConfirm"));
-      modal.show();
-
-      const form = document.getElementById("resetPasswordConfirmForm");
-      const errorDiv = document.getElementById("reset-confirm-error");
-      const successDiv = document.getElementById("reset-confirm-success");
-
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-
-        errorDiv.style.display = "none";
-        successDiv.style.display = "none";
-
-        const new_password = form.querySelector('input[name="new_password"]').value;
-        const confirm_password = form.querySelector('input[name="confirm_password"]').value;
-
-        if (new_password !== confirm_password) {
-          errorDiv.textContent = "Passwords do not match.";
-          errorDiv.style.display = "block";
-          return;
-        }
-
-        try {
-          const response = await fetch("/api/auth/password-reset-complete/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ uid, token, new_password }),
-          });
-
-          const data = await response.json();
-
-          if (!response.ok) {
-            errorDiv.textContent = data.error || "Reset failed.";
-            errorDiv.style.display = "block";
-          } else {
-            successDiv.textContent = "Password reset successful. You can now log in.";
-            successDiv.style.display = "block";
-            form.reset();
-          }
-        } catch (err) {
-          errorDiv.textContent = "Network error. Please try again.";
-          errorDiv.style.display = "block";
-        }
-      });
-    }
-  });
-
 
 //pass rest confirm
 document.addEventListener("DOMContentLoaded", function () {
@@ -3676,7 +3616,5 @@ document.addEventListener("DOMContentLoaded", function () {
   
 </body>
 
-
-<!-- Mirrored from homelengohtml.vercel.app/index.html by  /3.x [XR&CO'2014], Mon, 14 Apr 2025 00:44:28 GMT -->
 </html>
 {%endblock%}

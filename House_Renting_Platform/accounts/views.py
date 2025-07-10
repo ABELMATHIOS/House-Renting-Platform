@@ -1,34 +1,40 @@
+# Django imports for authentication and user management
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import send_mail
+
+# Logging setup
+import logging
+logger = logging.getLogger(__name__)
+
+# DRF imports for API views and authentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken
-from .models import Profile
-
+from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
+
+# Other utility imports
 from django.shortcuts import render, redirect
 from django.urls import reverse
-
-from django.contrib.auth import login  # import this
+from django.contrib.auth import login
 from django.http import JsonResponse
-
-from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth.decorators import login_required
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 
-
+# View for home page - renders basic template
 def home(request):
     return render(request, 'accounts/index.html')
 
+# API endpoint listing all available authentication endpoints
 @api_view(['GET'])
 def auth_home(request):
     endpoints = {
@@ -41,37 +47,34 @@ def auth_home(request):
     }
     return Response(endpoints)
 
-from django.contrib.auth.decorators import login_required
+def index_view(request):
+    return render(request, 'index.html')
 
+# View for authenticated user's profile
 @api_view(['GET'])
-@permission_classes([IsAuthenticated]) 
-def my_profile_view(request):
-    if not request.user.is_authenticated:
-        if request.headers.get('Authorization'):
-            # JWT authentication will handle this
-            pass
-        else:
-            return JsonResponse(
-                {'error': 'Unauthorized'}, 
-                status=401
-            )
+@permission_classes([IsAuthenticated])
+def profile_api(request):
+    return Response({
+        'username': request.user.username,
+        'email': request.user.email
+    })
     
-    if request.headers.get('Accept') == 'application/json':
-        return JsonResponse({
-            'username': request.user.username,
-            'email': request.user.email
-        })
-    
-    return render(request, 'my-profile.html')
+@login_required
+def profile_view(request):
+    return render(request, 'my-profile.html', {
+        'username': request.user.username,
+        'email': request.user.email 
+    })
 
+# View for property details page
 def property_details(request):
     return render(request, 'property-details-v4.html')
 
-# Registration
-User = get_user_model()
 
+
+# User registration view
 class RegisterView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [AllowAny]  # Allow unauthenticated access
 
     def post(self, request):
         # Data validation
@@ -124,12 +127,9 @@ class RegisterView(APIView):
                 email=email
             )
 
-            # Generate tokens
+            # Generate JWT tokens
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
-
-            # You could log the user in sessionally if needed
-            # login(request, user)  # Uncomment if using session auth alongside JWT
 
             return Response({
                 'message': 'User created successfully',
@@ -145,11 +145,11 @@ class RegisterView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-
-
+# User logout view
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
-
 import logging
+
 logger = logging.getLogger(__name__)
 
 class LogoutView(APIView):
@@ -157,20 +157,35 @@ class LogoutView(APIView):
 
     def post(self, request):
         try:
-            refresh_token = request.data["refresh"]
-            token = RefreshToken(refresh_token)
-            token.blacklist()
-            return Response({"message": "Logout successful"}, status=status.HTTP_205_RESET_CONTENT)
-        except TokenError as e:
-            logger.warning(f"Logout: Token error - {e}")
-            return Response({"message": "Token already blacklisted or invalid."}, status=status.HTTP_205_RESET_CONTENT)
+            refresh_token = request.data.get("refresh")
+            
+            # Always return success and let frontend handle redirect
+            if refresh_token:
+                try:
+                    token = RefreshToken(refresh_token)
+                    token.blacklist()
+                except TokenError as e:
+                    logger.warning(f"Token blacklist error: {e}")
+
+            return Response({
+                "message": "Logout successful",
+                "redirect_url": "/"  # Explicit root URL
+            }, status=status.HTTP_200_OK)
+            
         except Exception as e:
-            logger.error(f"Logout failed: {e}")
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            logger.error(f"Logout error: {e}")
+            return Response({
+                "error": str(e),
+                "redirect_url": "/"  # Still provide redirect on error
+            }, status=status.HTTP_400_BAD_REQUEST)
+     
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
 
-
-
-# Request password reset via email
+# Password reset request view
 class RequestResetEmailView(APIView):
     permission_classes = [AllowAny]
 
@@ -181,11 +196,14 @@ class RequestResetEmailView(APIView):
 
         try:
             user = User.objects.get(email=email)
+            # Generate password reset token
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = PasswordResetTokenGenerator().make_token(user)
             
+            # Create reset link
             frontend_url = f"http://localhost:8000/api/auth/index/?uid={uid}&token={token}"
 
+            # Send email with reset link
             send_mail(
                 "Reset Your Password",
                 f"Click the link to reset your password: {frontend_url}",
@@ -199,22 +217,26 @@ class RequestResetEmailView(APIView):
         except User.DoesNotExist:
             return Response({"error": "User with that email does not exist"}, status=status.HTTP_404_NOT_FOUND)
 
-# Complete password reset
+# Password reset completion view
 class PasswordResetCompleteView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
+        # Get data from request
         uidb64 = request.data.get("uid")
         token = request.data.get("token")
         new_password = request.data.get("new_password")
 
         try:
+            # Decode user ID and get user
             uid = force_str(urlsafe_base64_decode(uidb64))
             user = User.objects.get(pk=uid)
 
+            # Verify token
             if not PasswordResetTokenGenerator().check_token(user, token):
                 return Response({"error": "Invalid or expired token"}, status=status.HTTP_400_BAD_REQUEST)
 
+            # Set new password
             user.set_password(new_password)
             user.save()
             return Response({"message": "Password reset successful"}, status=status.HTTP_200_OK)

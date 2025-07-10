@@ -6,17 +6,24 @@ from django.views.generic import RedirectView
 from . import views
 from django.contrib.auth import views as auth_views
 
-
 urlpatterns = [
-    path('', views.index, name='index' ),
-    path('login/', auth_views.LoginView.as_view(template_name='index.html'), name='login'),
-    path('dashboard/', views.dashboard, name='dashboard'),
+    # API endpoints
     path('api/auth/', include('accounts.urls')),
-    path('admin/', admin.site.urls),
-    path('listing/', include("Listing.urls")),
-    path('', RedirectView.as_view(url='api/auth/')),
+    
+    # Authentication
+    path('login/', auth_views.LoginView.as_view(template_name='index.html'), name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('profile/', include('accounts.urls')),
+    
+    # App routes
+    path('listing/', include("Listing.urls")),
+    path('profile/', include('accounts.profile_urls')),  # See note below
+    
+    # Core routes
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('admin/', admin.site.urls),
+    
+    # Root redirect (only one!)
+    path('', views.index, name='index'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

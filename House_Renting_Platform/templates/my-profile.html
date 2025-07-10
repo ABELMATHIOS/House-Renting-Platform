@@ -45,8 +45,6 @@
         </div>
     </div>
     <!-- /preload -->
-{% extends 'base.html'%}
-{% load static%}
 
 {%block content%}
 
@@ -62,7 +60,7 @@
                                 <div class="inner-header">
                                     <div class="inner-header-left">
                                         <div class="logo-box d-flex">
-                                            <div class="logo"><a href="{% url 'home' %}"><img src="images/logo/logo%402x.png" alt="logo" width="174" height="44"></a></div>
+                                            <div class="logo"><a href="{% url 'home' %}"><img src="{% static 'images/logo/logo%402x.png' %}" alt="logo" width="174" height="44"></a></div>
                                             <div class="button-show-hide">
                                                 <span class="icon icon-categories"></span>
                                             </div>
@@ -72,7 +70,7 @@
                                             <nav class="main-menu show navbar-expand-md">
                                                 <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                                     <ul class="navigation clearfix">
-                                                        <li class="current"><a href="{% url 'home' %}">Home</a>
+                                                        <li class="current"><a href="{% url 'index' %}">Home</a>
                                                         </li>
                                                         <li class="dropdown2"><a href="#">Listing</a>
                                                             <ul>
@@ -114,7 +112,7 @@
      src="{% if request.user.profile.avatar %}{{ request.user.profile.avatar.url }}{% else %}{% static 'images/avatar/default.png' %}{% endif %}" 
      alt="avatar" width="34" height="34">
                                             </div>
-                                            <p class="name" id="profile-name">
+                                            <p class="name" id="display-username">
                                                 Themesflat
                                                 <span class="icon icon-arr-down"></span>
                                             </p>
@@ -152,14 +150,14 @@
                 <!-- sidebar dashboard -->
                 <div class="sidebar-menu-dashboard">
                     <a href="index.html" class="logo-box">
-                        <img src="images/logo/logo-footer%402x.png" alt="">
+                        <img src="{% static 'images/logo/logo-footer%402x.png' %}" alt="">
                     </a>
                     <div class="user-box">
                         <p class="fw-6">Profile</p>
                         <div class="user">  
                             <div class="content">
                                  <div class="caption-2 text">Account</div>
-                                 <div class="text-white fw-6" id="profile-email">themesflat@gmail...</div>
+                                 <div class="text-white fw-6" id="display-email">themesflat@gmail...</div>
                             </div>
                         </div>
                     </div>
@@ -167,7 +165,7 @@
                         <div class="title fw-6">Menu</div>
                         <ul class="box-menu-dashboard">
                             <li class="nav-menu-item">
-                                <a class="nav-menu-link" href="dashboard.html">
+                                <a class="nav-menu-link" href="{% url 'dashboard' %}">
                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g opacity="0.2">
                                         <path d="M6.75682 9.35156V15.64" stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -273,7 +271,7 @@
                                 </a>
                             </li>
                             <li class="nav-menu-item">
-                                <a class="nav-menu-link" href="index.html">
+                                <a class="nav-menu-link" href="#" id="logout-link">
                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g opacity="0.2">
                                         <path d="M13.7627 6.77418V5.91893C13.7627 4.05352 12.2502 2.54102 10.3848 2.54102H5.91606C4.05156 2.54102 2.53906 4.05352 2.53906 5.91893V16.1214C2.53906 17.9868 4.05156 19.4993 5.91606 19.4993H10.394C12.2539 19.4993 13.7627 17.9914 13.7627 16.1315V15.2671" stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -318,10 +316,10 @@
         </div>
     </div>
 </form>
-                                </div>
-                            </div>
-                            <h5 class="title">Information</h5>
-                            <div class="box box-fieldset">
+</div>
+</div>
+<h5 class="title">Information</h5>
+<div class="box box-fieldset">
     <label>Full name:<span>*</span></label>
     <input type="text" id="profile-username-input" value="" class="form-control style-1">
 </div>
@@ -330,15 +328,15 @@
 <div class="box grid-4 gap-30 box-info-2"> 
     <div class="box-fieldset">
         <label>Email address:<span>*</span></label>
-        <input type="text" id="profile-email-input" value="" class="form-control style-1">
+        <input type="email" id="profile-email-input" value="" class="form-control style-1">
     </div>
 </div>
-                            <h5 class="title">Change password</h5>
-                                <div class="text-forgot text-end">
-                                     <a href="#modalResetPassword" data-bs-toggle="modal" data-bs-dismiss="modal">Reset password?</a>
-                                </div>
+ <h5 class="title">Change password</h5>
+     <div class="text-forgot text-end">
+          <a href="#modalResetPassword" data-bs-toggle="modal" data-bs-dismiss="modal">Reset password?</a>
+     </div>
 
-                            <!-- pass reset-->
+ <!-- pass reset-->
  <div class="modal modal-account fade" id="modalResetPassword" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -576,67 +574,66 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 //profile
-window.onload = function () {
-    const email = localStorage.getItem("userEmail");
-    const username = localStorage.getItem("userName");
+document.addEventListener("DOMContentLoaded", function() {
+    const username = localStorage.getItem('userName');
+    const email = localStorage.getItem('userEmail');
 
-    if (email && username) {
-        // Fill in email and username on profile
-        document.getElementById("profile-email").textContent = email;
-        document.getElementById("profile-email-input").value = email;
-        document.getElementById("profile-username-input").value = username;
+    if (username && email) {
+        // Fill input fields
+        const usernameInput = document.getElementById('profile-username-input');
+        const emailInput = document.getElementById('profile-email-input');
+        if (usernameInput) usernameInput.value = username;
+        if (emailInput) emailInput.value = email;
 
-        const nameEl = document.getElementById("profile-name");
-        if (nameEl) {
-            nameEl.innerHTML = `${username} <span class="icon icon-arr-down"></span>`;
-        }
-    }
-};
-
-//logout 
-document.getElementById("logout-link").addEventListener("click", async function (e) {
-    e.preventDefault();
-
-    const refresh = localStorage.getItem("refresh_token");
-    console.log("🔁 Using refresh token for logout:", refresh);
-
-    if (!refresh) {
-        alert("Missing refresh token.");
-        return;
-    }
-
-    try {
-        const response = await fetch("/api/auth/logout/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ refresh })
-        });
-
-        let resultText = await response.text(); // not .json() to avoid crashing on malformed JSON
-        console.log("🔚 Logout response (raw):", resultText);
-
-        let result;
-        try {
-            result = JSON.parse(resultText);
-        } catch {
-            result = { error: "Server returned invalid JSON" };
-        }
-
-        if (response.ok || result?.message?.includes("blacklisted")) {
-            alert("Logged out successfully!");
-            localStorage.clear();
-            window.location.href = "/";
-        } else {
-            alert(result.error || result.detail || "Logout failed.");
-        }
-    } catch (err) {
-        console.error("❌ Logout error (exception):", err);
-        alert("Logout failed due to a network or server error.");
+        // Fill display elements
+        const usernameDisplay = document.getElementById('display-username');
+        const emailDisplay = document.getElementById('display-email');
+        if (usernameDisplay) usernameDisplay.textContent = username;
+        if (emailDisplay) emailDisplay.textContent = email;
     }
 });
 
+//logout 
+document.body.addEventListener('click', function(e) {
+  if (e.target && e.target.id === 'logout-link') {
+    e.preventDefault();
+    alert("Logout clicked!");
+document.body.addEventListener('click', async function(e) {
+  if (e.target && e.target.id === 'logout-link') {
+    e.preventDefault();
+
+    // Get refresh token before clearing storage
+    const refreshToken = localStorage.getItem('refresh_token');
+
+    if (refreshToken) {
+      try {
+        const response = await fetch('/api/auth/logout/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ refresh: refreshToken }),
+          signal: AbortSignal.timeout(2000) // optional timeout
+        });
+
+        if (!response.ok) {
+          console.warn('Logout API responded with status:', response.status);
+        } else {
+          console.log('Logout API success');
+        }
+      } catch (error) {
+        console.warn('Logout API error:', error);
+      }
+    }
+
+    // Clear localStorage regardless of fetch result
+    localStorage.clear();
+
+    // Redirect to home page
+    window.location.href = '/';
+  }
+});
+
+}
+});
 
 </script>
     
