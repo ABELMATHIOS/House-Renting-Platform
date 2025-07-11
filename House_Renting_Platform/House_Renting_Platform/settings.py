@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_filters',
     'payment_integration.apps.PaymentIntegrationConfig',
     'corsheaders',
+    'Review_And_Ratings'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
