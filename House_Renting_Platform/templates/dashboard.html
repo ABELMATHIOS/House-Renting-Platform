@@ -14,7 +14,9 @@
     <!-- RTL -->
    <a href="javascript:void(0);" id="toggle-rtl" class="tf-btn primary">RTL</a>
    <!-- /RTL  --> 
-
+    <pre>
+  {{ revenues_by_month }}
+   </pre>
     <!-- preload -->
     <div class="preload preload-container">
         <div class="preload-logo">
@@ -23,6 +25,9 @@
         </div>
     </div>
     <!-- /preload -->
+     <pre>
+  {{ revenues_by_month }}
+</pre>
 
     <div id="wrapper">
         <div id="page" class="clearfix">
@@ -100,9 +105,11 @@
                                     <div class="header-account inner-header-right">
                                         <div class="box-avatar dropdown-toggle" data-bs-toggle="dropdown">
                                             <div class="avatar avt-34 round">
-                                                <img src="{% static 'images/avatar/avt-5.jpg' %}" alt="avt">
+                                                <img id="avatar-small"
+     src="{% if request.user.profile.avatar %}{{ request.user.profile.avatar.url }}{% else %}{% static 'images/avatar/default.png' %}{% endif %}" 
+     alt="avatar" width="34" height="34">
                                             </div>
-                                            <p class="name">Themesflat<span class="icon icon-arr-down"></span></p>
+                                            <p class="name" id="user-name"><span class="icon icon-arr-down" ></span></p>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="my-favorites.html">My Properties</a>
                                                 <a class="dropdown-item" href="message.html">Message</a>
@@ -114,7 +121,7 @@
                                             </div>
                                         </div>
                                         <div class="flat-bt-top">
-                                            <a class="tf-btn primary" href="add-property.html">
+                                            <a class="tf-btn primary" href="{%url 'Listing:new-property'%}">
                                                 <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M13.625 14.375V17.1875C13.625 17.705 13.205 18.125 12.6875 18.125H4.5625C4.31386 18.125 4.0754 18.0262 3.89959 17.8504C3.72377 17.6746 3.625 17.4361 3.625 17.1875V6.5625C3.625 6.045 4.045 5.625 4.5625 5.625H6.125C6.54381 5.62472 6.96192 5.65928 7.375 5.72834M13.625 14.375H16.4375C16.955 14.375 17.375 13.955 17.375 13.4375V9.375C17.375 5.65834 14.6725 2.57417 11.125 1.97834C10.7119 1.90928 10.2938 1.87472 9.875 1.875H8.3125C7.795 1.875 7.375 2.295 7.375 2.8125V5.72834M13.625 14.375H8.3125C8.06386 14.375 7.8254 14.2762 7.64959 14.1004C7.47377 13.9246 7.375 13.6861 7.375 13.4375V5.72834M17.375 11.25V9.6875C17.375 8.94158 17.0787 8.22621 16.5512 7.69876C16.0238 7.17132 15.3084 6.875 14.5625 6.875H13.3125C13.0639 6.875 12.8254 6.77623 12.6496 6.60041C12.4738 6.4246 12.375 6.18614 12.375 5.9375V4.6875C12.375 4.31816 12.3023 3.95243 12.1609 3.6112C12.0196 3.26998 11.8124 2.95993 11.5512 2.69876C11.2901 2.4376 10.98 2.23043 10.6388 2.08909C10.2976 1.94775 9.93184 1.875 9.5625 1.875H8.625" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                 </svg>
@@ -130,33 +137,7 @@
                         </div>
                     </div>
                     <!-- End Header Lower -->
-                
-                    <!-- Mobile Menu  -->
-                    <div class="close-btn"><span class="icon flaticon-cancel-1"></span></div>    
-                    <div class="mobile-menu">
-                        <div class="menu-backdrop"></div>                            
-                        <nav class="menu-box">
-                            <div class="nav-logo"><a href="index.html"><img src="{% static 'images/logo/logo%402x.png' %}" alt="nav-logo" width="174" height="44"></a></div>
-                            <div class="bottom-canvas">
-                                <div class="menu-outer"></div>
-                                <div class="button-mobi-sell">
-                                    <a class="tf-btn primary" href="add-property.html">Submit Property</a>
-                                </div> 
-                                <div class="mobi-icon-box">
-                                    <div class="box d-flex align-items-center">
-                                        <span class="icon icon-phone2"></span>
-                                        <div>1-333-345-6868</div>
-                                    </div>
-                                    <div class="box d-flex align-items-center">
-                                        <span class="icon icon-mail"></span>
-                                        <div>themesflat@gmail.com</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </nav>                
-                    </div>
-                    <!-- End Mobile Menu -->
-                
+
                 </header>
                 <!-- end header -->
                 <!-- sidebar dashboard -->
@@ -166,23 +147,10 @@
                     </a>
                     <div class="user-box">
                         <p class="fw-6">Profile</p>
-                        <div class="user">
-                            <div class="icon-box">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_13487_13661)">
-                                    <path d="M10.0007 9.99947C10.9357 9.99947 11.8496 9.72222 12.627 9.20278C13.4044 8.68334 14.0103 7.94504 14.3681 7.08124C14.7259 6.21745 14.8196 5.26695 14.6372 4.34995C14.4547 3.43295 14.0045 2.59063 13.3434 1.92951C12.6823 1.26839 11.84 0.81816 10.923 0.635757C10.006 0.453354 9.05546 0.54697 8.19166 0.904766C7.32787 1.26256 6.58957 1.86847 6.07013 2.64586C5.55069 3.42326 5.27344 4.33723 5.27344 5.2722C5.27469 6.52556 5.77314 7.72723 6.65941 8.6135C7.54567 9.49976 8.74734 9.99821 10.0007 9.99947ZM10.0007 2.12068C10.624 2.12068 11.2333 2.30551 11.7516 2.65181C12.2699 2.9981 12.6738 3.4903 12.9123 4.06616C13.1509 4.64203 13.2133 5.27569 13.0917 5.88702C12.9701 6.49836 12.6699 7.05991 12.2292 7.50065C11.7884 7.9414 11.2269 8.24155 10.6155 8.36315C10.0042 8.48476 9.37054 8.42235 8.79468 8.18382C8.21881 7.94528 7.72661 7.54135 7.38032 7.02308C7.03403 6.50482 6.8492 5.89551 6.8492 5.2722C6.8492 4.43636 7.18123 3.63476 7.77225 3.04374C8.36328 2.45271 9.16488 2.12068 10.0007 2.12068Z" fill="white"/>
-                                    <path d="M10.0011 11.5762C8.12108 11.5783 6.31869 12.326 4.98934 13.6554C3.65999 14.9847 2.91224 16.7871 2.91016 18.6671C2.91016 18.876 2.99316 19.0764 3.14092 19.2242C3.28868 19.372 3.48908 19.455 3.69803 19.455C3.90699 19.455 4.10739 19.372 4.25515 19.2242C4.4029 19.0764 4.48591 18.876 4.48591 18.6671C4.48591 17.2044 5.06697 15.8016 6.10126 14.7673C7.13555 13.733 8.53835 13.1519 10.0011 13.1519C11.4638 13.1519 12.8666 13.733 13.9009 14.7673C14.9352 15.8016 15.5162 17.2044 15.5162 18.6671C15.5162 18.876 15.5992 19.0764 15.747 19.2242C15.8947 19.372 16.0951 19.455 16.3041 19.455C16.513 19.455 16.7134 19.372 16.8612 19.2242C17.009 19.0764 17.092 18.876 17.092 18.6671C17.0899 16.7871 16.3421 14.9847 15.0128 13.6554C13.6834 12.326 11.881 11.5783 10.0011 11.5762Z" fill="white"/>
-                                    </g>
-                                    <defs>
-                                    <clipPath id="clip0_13487_13661">
-                                    <rect width="18.9091" height="18.9091" fill="white" transform="translate(0.546875 0.544922)"/>
-                                    </clipPath>
-                                    </defs>
-                                </svg> 
-                            </div>  
+                        <div class="user">  
                             <div class="content">
                                 <div class="caption-2 text">Account</div>
-                                <div class="text-white fw-6">themesflat@gmail...</div>
+                                <div class="text-white fw-6" id="user-email" ></div>
                             </div>
                         </div>
                     </div>
@@ -296,7 +264,7 @@
                                 </a>
                             </li>
                             <li class="nav-menu-item">
-                                <a class="nav-menu-link" href="index.html">
+                                <a class="nav-menu-link"  href="#" id="logout-link">
                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g opacity="0.2">
                                         <path d="M13.7627 6.77418V5.91893C13.7627 4.05352 12.2502 2.54102 10.3848 2.54102H5.91606C4.05156 2.54102 2.53906 4.05352 2.53906 5.91893V16.1214C2.53906 17.9868 4.05156 19.4993 5.91606 19.4993H10.394C12.2539 19.4993 13.7627 17.9914 13.7627 16.1315V15.2671" stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -821,6 +789,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card p-3 mb-4">
+                       <h5>Monthly Revenue</h5>
+                       <div id="revenueChart" style="width: 100%; height: 400px;"></div>
+                    </div>
+                    <div class="card p-3">
+                       <h5>Booking Status</h5>
+                       <div id="bookingChart" style="width: 100%; height: 400px;"></div>
+                    </div>
                     <div class="footer-dashboard">
                         <p>Copyright © 2024 Home Lengo</p>
                     </div>
@@ -839,7 +815,62 @@
         <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 286.138;"></path>
         </svg>
     </div>
-  
+
+<script>
+  if (!localStorage.getItem('access_token')) {
+    alert("You must log in first.");
+    window.location.href = '/?next=' + window.location.pathname;
+  }
+</script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+  google.charts.load('current', { packages: ['corechart'] });
+  google.charts.setOnLoadCallback(drawRevenueChart);
+
+  function drawRevenueChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Month', 'Revenue'],
+      {% for item in revenues_by_month %}
+        ["{{ item.month|date:'M Y' }}", {{ item.total|floatformat:2 }}]{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    ]);
+
+    var options = {
+      title: 'Revenue Over Time',
+      hAxis: { title: 'Month' },
+      vAxis: { title: 'Revenue' },
+      legend: { position: 'none' },
+      colors: ['#3366cc']
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('revenueChart'));
+    chart.draw(data, options);
+  }
+
+google.charts.setOnLoadCallback(drawBookingChart);
+
+function drawBookingChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Status', 'Count'],
+    {% for item in booking_status_counts %}
+      ['{% if item.status == 'P' %}Pending{% elif item.status == 'C' %}Confirmed{% elif item.status == 'X' %}Cancelled{% elif item.status == 'D' %}Completed{% endif %}', {{ item.count }}],
+    {% endfor %}
+  ]);
+
+  var options = {
+    title: 'Booking Status Distribution',
+    pieHole: 0.4
+  };
+
+  var chart = new google.visualization.PieChart(document.getElementById('bookingChart'));
+  chart.draw(data, options);
+}
+
+</script>
+
+
 </body>
 
 

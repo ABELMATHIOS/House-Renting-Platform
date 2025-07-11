@@ -16,10 +16,11 @@ from .views import (
     property_details,
     index_view,
 )
+from .views import CustomTokenObtainPairView
 
 urlpatterns = [
     # API endpoints
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', RegisterView.as_view(), name='register'),

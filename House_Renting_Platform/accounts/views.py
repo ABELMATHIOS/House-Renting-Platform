@@ -70,7 +70,11 @@ def profile_view(request):
 def property_details(request):
     return render(request, 'property-details-v4.html')
 
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import CustomTokenObtainPairSerializer
 
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
 
 # User registration view
 class RegisterView(APIView):

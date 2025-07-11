@@ -3417,6 +3417,16 @@
 
     <!-- Javascript -->
 <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const next = urlParams.get("next");
+
+    if (next) {
+      // User was redirected here because they tried to access a protected page
+      const loginModal = new bootstrap.Modal(document.getElementById("modalLogin"));
+      loginModal.show();
+    }
+  });
 
 //registeration
 document.getElementById("registerForm").addEventListener("submit", async function(e) {
@@ -3490,15 +3500,21 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             localStorage.setItem('refresh_token', data.refresh);
 
             // ✅ Save user info based on login form
-            localStorage.setItem('userName', username);
-            localStorage.setItem('userEmail', '');  // If you want email, you’ll need to fetch it or include in response
+            localStorage.setItem('userName', data.username);
+            localStorage.setItem('userEmail', data.email); // If you want email, you’ll need to fetch it or include in response
 
             // Hide the login modal if using Bootstrap
             const modal = bootstrap.Modal.getInstance(document.getElementById('modalLogin'));
             if (modal) modal.hide();
 
             alert('Login successful!');
-            window.location.href = "/profile/my-profile/";
+            const params = new URLSearchParams(window.location.search);
+            const next = params.get("next");
+            if (next) {
+              window.location.href = next;
+            } else {
+               window.location.href = "/profile/my-profile/";
+            }
         }
     } catch (error) {
         errorDiv.textContent = 'Something went wrong. Please try again.';
