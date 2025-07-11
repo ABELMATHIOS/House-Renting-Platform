@@ -10,7 +10,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('payment/', include('payment_integration.urls')),  # Your payments app URLs
     path('listing/', include("Listing.urls")),
-    path('', RedirectView.as_view(url='api/auth/')),
+    # path('', RedirectView.as_view(url='api/auth/')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('profile/', include('accounts.urls')),
 ]
