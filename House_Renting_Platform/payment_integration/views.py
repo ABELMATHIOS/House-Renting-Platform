@@ -6,7 +6,8 @@ from django.urls import reverse
 from .models import Payment
 from django.contrib import messages
 import logging
-
+from payment_integration import urls
+is_payment_successful = False
 # Set up logging
 logger = logging.getLogger(__name__)
 
@@ -30,8 +31,8 @@ def checkout(request):
             'currency': 'ETB',
             'email': email,
             'tx_ref': tx_ref,
-            'callback_url': request.build_absolute_uri(reverse('payment_callback')),
-            'return_url': request.build_absolute_uri(reverse('payment_success')),
+            'callback_url': request.build_absolute_uri(reverse('payment_integration:payment_callback')),
+            'return_url': request.build_absolute_uri(reverse('payment_integration:payment_success')),
             "phone_number": "0912345678",  # Placeholder phone number
             'first_name': 'Test',  # Placeholder
             'last_name': 'User',   # Placeholder
@@ -68,6 +69,7 @@ def checkout(request):
     return render(request, 'payment_integration/checkout.html', {'amount': 1000})
 
 def payment_callback(request):
+    global is_payment_successful
     tx_ref = request.GET.get('tx_ref')
     if tx_ref:
         try:
@@ -78,14 +80,16 @@ def payment_callback(request):
 
             if response_data.get('status') == 'success':
                 payment.status = 'success'
+                is_payment_successful = True
                 payment.save()
             else:
                 payment.status = 'failed'
+                is_payment_successful = False
                 payment.save()
         except Payment.DoesNotExist:
             pass
 
-    return redirect('payment_success' if payment.status == 'success' else 'payment_failure')
+    return redirect('Listing:new-property' if payment.status == 'success' else 'payment_failure')
 
 def payment_success(request):
     return render(request, 'payment_integration/success.html')

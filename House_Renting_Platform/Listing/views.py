@@ -6,7 +6,7 @@ from .filters import ListingFilter
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from .recommendations import Recommendatons,is_recommended_properties_available
-
+from payment_integration.views import is_payment_successful
 def landing(request):
     return render(request, 'Listing/landing.html', {
     })
@@ -16,21 +16,27 @@ def new_property(request):
     if request.method == 'POST':
      form = ListingForm(request.POST, request.FILES)
      if form.is_valid():
-        new_property = form.save(commit=False)
-        # Get latitude and longitude from the POST data
-        lat = request.POST.get('latitude')
-        lng = request.POST.get('longitude')
         
-         # Assign latitude and longitude to the property
-        new_property.latitude = lat if lat else None
-        new_property.longitude = lng if lng else None
-
-        new_property.save()
-        messages.success(request, "Your property is listed succesfully!!!")
-        return redirect('index')
+        if is_payment_successful:
+            new_property = form.save(commit=False)
+        #     # Get latitude and longitude from the POST data
+            lat = request.POST.get('latitude')
+            lng = request.POST.get('longitude')
+            
+        #  # Assign latitude and longitude to the property
+            new_property.latitude = lat if lat else None
+            new_property.longitude = lng if lng else None
+        
+        
+            new_property.save()
+            messages.success(request, "Your property is listed succesfully!!!")
+            return redirect('index')
+        else:
+            return redirect('payment_integration:checkout')
     else:
-      form= ListingForm()
-    return render(request, 'add-property.html', {
+        
+        form= ListingForm()
+        return render(request, 'add-property.html', {
         'form': form,
     })
 

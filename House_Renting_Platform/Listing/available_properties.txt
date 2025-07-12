@@ -1,0 +1,6 @@
+(1, 'fg', 'Addis Abeba', 'dfdgd', 'Apartment', 'Abel', 'hrhrthrhr', 1234555)
+(2, 'fg', 'Addis Abeba', 'dfdfdf', 'Apartment', 'fdd', 'fd', 1234555)
+(3, 'fg', 'Addis Abeba', 'hjh', 'Apartment', 'kj', 'hjhj', 1234555)
+(4, 'fg', 'Addis Abeba', 'hjh', 'Apartment', 'fg', 'fg', 1234555)
+(5, 'fg', 'Addis Abeba', 'dfs', 'Apartment', 'sdsds', 'sdfs', 1234555)
+(6, 'fg', 'Addis Abeba', 'fghf', 'Apartment', 'jkg', 'fhf', 1234555)
