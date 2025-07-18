@@ -59,12 +59,9 @@ def profile_api(request):
         'email': request.user.email
     })
     
-@login_required
 def profile_view(request):
-    return render(request, 'my-profile.html', {
-        'username': request.user.username,
-        'email': request.user.email 
-    })
+    print("Logged in?", request.user.is_authenticated)
+    return render(request, 'my-profile.html')
 
 # View for property details page
 def property_details(request):

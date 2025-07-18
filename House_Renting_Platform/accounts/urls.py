@@ -25,10 +25,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', RegisterView.as_view(), name='register'),
     
-    # Profile paths
-    path('my-profile/', profile_view, name='my-profile'),  # HTML view
-    path('api/my-profile/', profile_api, name='api-my-profile'),  # API endpoint
-    
     # Property paths
     path('property-details/', property_details, name='property-details'),
     
@@ -42,6 +38,7 @@ urlpatterns = [
     # Root paths (keep these last)
     path('index/', TemplateView.as_view(template_name='accounts/index.html'), name='home'),
     path('', index_view, name='index'),  # Single, unambiguous root path
+    
 ]
 
 if settings.DEBUG:

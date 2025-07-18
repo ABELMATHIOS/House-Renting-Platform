@@ -418,7 +418,6 @@
 <!-- Javascript -->
 
 <script>
-
 //pass rest
 document.getElementById('requestResetForm').addEventListener('submit', async function (e) {
   e.preventDefault();
@@ -562,59 +561,36 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 //profile
-document.addEventListener("DOMContentLoaded", function() {
-    const username = localStorage.getItem('userName');
-    const email = localStorage.getItem('userEmail');
+document.addEventListener('DOMContentLoaded', async () => {
+    const accessToken = localStorage.getItem('access_token');
 
-    if (username && email) {
-        // Fill input fields
-        const usernameInput = document.getElementById('profile-username-input');
-        const emailInput = document.getElementById('profile-email-input');
-        if (usernameInput) usernameInput.value = username;
-        if (emailInput) emailInput.value = email;
-
-        // Fill display elements
-        const usernameDisplay = document.getElementById('display-username');
-        const emailDisplay = document.getElementById('display-email');
-        if (usernameDisplay) usernameDisplay.textContent = username;
-        if (emailDisplay) emailDisplay.textContent = email;
+    if (!accessToken) {
+        // No token: redirect or show login
+        window.location.href = '/?next=/profile/my-profile/';
+        return;
     }
-});
 
-//logout 
-document.body.addEventListener('click', async function(e) {
-  if (e.target && e.target.id === 'logout-link') {
-    e.preventDefault();
-    alert("Logout clicked!");
-
-    // Get refresh token before clearing storage
-    const refreshToken = localStorage.getItem('refresh_token');
-
-    if (refreshToken) {
-      try {
-        const response = await fetch('/api/auth/logout/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ refresh: refreshToken }),
-          signal: AbortSignal.timeout(2000) // optional timeout
-        });
-
-        if (!response.ok) {
-          console.warn('Logout API responded with status:', response.status);
-        } else {
-          console.log('Logout API success');
+    // Optional: Verify token by fetching profile
+    const response = await fetch('/profile/api/my-profile/', {
+        headers: {
+            'Authorization': 'Bearer ' + accessToken
         }
-      } catch (error) {
-        console.warn('Logout API error:', error);
-      }
+    });
+
+    if (response.ok) {
+    const data = await response.json();
+
+    // ✅ Set values in input fields
+    document.getElementById('profile-username-input').value = data.username;
+    document.getElementById('profile-email-input').value = data.email;
+
+    // ✅ Set text in display spans/divs
+    document.getElementById('display-username').innerText = data.username;
+    document.getElementById('display-email').innerText = data.email;
+}else {
+        // Invalid token
+        window.location.href = '/?next=/profile/my-profile/';
     }
-
-    // Clear localStorage regardless of fetch result
-    localStorage.clear();
-
-    // Redirect to home page
-    window.location.href = '/';
-  }
 });
 
 </script>

@@ -16,7 +16,7 @@ urlpatterns = [
     
     # App routes
     path('listing/', include("Listing.urls")),
-    path('profile/', include('accounts.profile_urls')),  # See note below
+    path('profile/', include('accounts.profile_urls')),  
     
     # Core routes
     path('dashboard/', views.dashboard, name='dashboard'),

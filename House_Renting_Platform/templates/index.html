@@ -3245,6 +3245,7 @@
                 <input type="text" name="username" class="form-control" placeholder="Your name" required>   
             </div>
         </fieldset>
+        <input type="hidden" id="nextField" name="next" value="{{ request.GET.next|default:'' }}">
         <fieldset class="box-fieldset">
             <label>Password</label>
             <div class="ip-field">
@@ -3418,15 +3419,18 @@
     <!-- Javascript -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const next = urlParams.get("next");
+  const urlParams = new URLSearchParams(window.location.search);
+  const next = urlParams.get("next");
 
-    if (next) {
-      // User was redirected here because they tried to access a protected page
-      const loginModal = new bootstrap.Modal(document.getElementById("modalLogin"));
-      loginModal.show();
-    }
-  });
+  const accessToken = localStorage.getItem('access_token');
+
+  // Show login modal ONLY if trying to access a protected page AND not logged in
+  if (next && !accessToken) {
+    const loginModal = new bootstrap.Modal(document.getElementById("modalLogin"));
+    loginModal.show();
+  }
+});
+
 
 //registeration
 document.getElementById("registerForm").addEventListener("submit", async function(e) {
@@ -3473,11 +3477,12 @@ document.getElementById("registerForm").addEventListener("submit", async functio
 
 //login
 document.getElementById('loginForm').addEventListener('submit', async function(e) {
-    e.preventDefault(); // stop form from reloading the page
+    e.preventDefault();
 
     const username = document.querySelector('#loginForm input[name="username"]').value;
     const password = document.querySelector('#loginForm input[name="password"]').value;
     const errorDiv = document.getElementById('login-error');
+    const nextField = document.getElementById('nextField');  // ✅ This should be outside fetch too
 
     errorDiv.style.display = 'none';
     errorDiv.textContent = '';
@@ -3495,32 +3500,28 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             errorDiv.textContent = data.error || 'Login failed. Please check your credentials.';
             errorDiv.style.display = 'block';
         } else {
-            // ✅ Save tokens
+            // ✅ Save tokens and user info
             localStorage.setItem('access_token', data.access);
             localStorage.setItem('refresh_token', data.refresh);
-
-            // ✅ Save user info based on login form
             localStorage.setItem('userName', data.username);
-            localStorage.setItem('userEmail', data.email); // If you want email, you’ll need to fetch it or include in response
+            localStorage.setItem('userEmail', data.email);
 
-            // Hide the login modal if using Bootstrap
+            // ✅ Close modal
             const modal = bootstrap.Modal.getInstance(document.getElementById('modalLogin'));
             if (modal) modal.hide();
 
-            alert('Login successful!');
-            const params = new URLSearchParams(window.location.search);
-            const next = params.get("next");
-            if (next) {
-              window.location.href = next;
-            } else {
-               window.location.href = "/profile/my-profile/";
-            }
+            // ✅ Redirect using ?next= OR hidden input OR fallback
+            const urlNext = new URLSearchParams(window.location.search).get("next");
+            const formNext = nextField?.value;
+            const next = formNext || urlNext || '/profile/my-profile/';
+            window.location.href = next;
         }
     } catch (error) {
         errorDiv.textContent = 'Something went wrong. Please try again.';
         errorDiv.style.display = 'block';
     }
 });
+
 
 
 //pass rest
