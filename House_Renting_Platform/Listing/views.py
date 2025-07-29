@@ -6,32 +6,64 @@ from .filters import ListingFilter
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from .recommendations import Recommendatons,is_recommended_properties_available
+from decimal import Decimal
+from django.db.models.fields.files import ImageFieldFile, FieldFile
+from django.core.files.storage import default_storage 
 
-def landing(request):
-    return render(request, 'Listing/landing.html', {
-    })
-
+def convert_cleaned_data_to_strings(cleaned_data: dict) -> dict:
+    stringified_data = {}
+    for key, value in cleaned_data.items():
+        if value is None:
+            stringified_data[key] = None
+        elif isinstance(value, Decimal):
+            stringified_data[key] = str(value)
+        elif isinstance(value, (ImageFieldFile, FieldFile)):
+            if value and hasattr(value, 'url'):
+                stringified_data[key] = value.url
+            elif value:
+                stringified_data[key] = str(value)
+            else:
+                stringified_data[key] = None
+        elif isinstance(value, list):
+            stringified_data[key] = [
+                str(item) if not isinstance(item, (dict, list)) else convert_cleaned_data_to_strings({"_temp": item}).get("_temp")
+                for item in value
+            ]
+        elif isinstance(value, dict):
+            stringified_data[key] = convert_cleaned_data_to_strings(value)
+        else:
+            stringified_data[key] = str(value)
+    return stringified_data
 
 def new_property(request):
     if request.method == 'POST':
      form = ListingForm(request.POST, request.FILES)
      if form.is_valid():
-        new_property = form.save(commit=False)
-        # Get latitude and longitude from the POST data
-        lat = request.POST.get('latitude')
-        lng = request.POST.get('longitude')
-        
-         # Assign latitude and longitude to the property
-        new_property.latitude = lat if lat else None
-        new_property.longitude = lng if lng else None
-
-        new_property.save()
-        messages.success(request, "Your property is listed succesfully!!!")
-        return redirect('index')
+        submitted_form = convert_cleaned_data_to_strings(form.cleaned_data)
+        request.session['submitted_form'] = submitted_form
+        if 'payment_status' in request.session:
+            payment_status = request.session['payment_status']
+            if payment_status == 'success':
+                    new_property = form.save(commit=False)
+                    lat = request.POST.get('latitude')
+                    lng = request.POST.get('longitude')
+                    new_property.latitude = lat if lat else None
+                    new_property.longitude = lng if lng else None
+                
+                
+                    new_property.save()
+                    request.session.pop('payment_status')
+                    messages.success(request, "Your property is listed succesfully!!!")
+                    return redirect('index')
+        else:
+            return redirect('payment_integration:checkout')
     else:
-      form= ListingForm()
-    return render(request, 'add-property.html', {
-        'form': form,
+        if 'submitted_form' in request.session:
+         form = ListingForm(initial=request.session['submitted_form'])
+        else:
+         form= ListingForm()
+        return render(request, 'add-property.html', {
+        'form': form
     })
 
 
