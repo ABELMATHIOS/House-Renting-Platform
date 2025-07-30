@@ -14,6 +14,8 @@ from django.views.generic import TemplateView
 
 from django.http import HttpResponseRedirect
 
+app_name = 'account'
+
 def auth_root_redirect(request):
     # Example: redirect to your index page under /api/auth/index/
     return HttpResponseRedirect('index/')
@@ -29,8 +31,7 @@ urlpatterns = [
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('request-reset-email/', RequestResetEmailView.as_view(), name='request-reset-email'),
-
     path('reset-password-confirm/', TemplateView.as_view(template_name='accounts/reset_password_confirm.html'), name='password-reset-confirm'),
-
+    
     path('password-reset-complete/', PasswordResetCompleteView.as_view(), name='password-reset-complete'),
 ]

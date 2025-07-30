@@ -13,6 +13,9 @@ urlpatterns = [
     # path('', RedirectView.as_view(url='api/auth/')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('profile/', include('accounts.urls')),
+    path('dashboard/', views.dashboard_view, name='user-dashboard'),
+    path('about-us/', views.about_us, name='about-us'),
+    path('contact-us/', views.contact_us, name='contact-us'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
