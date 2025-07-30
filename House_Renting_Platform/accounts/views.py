@@ -43,7 +43,7 @@ def my_profile_view(request):
         profile.save()
         return redirect("my-profile")
 
-    return render(request, "accounts/my-profile.html")
+    return render(request, "dashboard.html")
 
 def property_details(request):
     return render(request, 'accounts/property-details-v4.html')
@@ -156,3 +156,4 @@ class PasswordResetCompleteView(APIView):
 
         except Exception:
             return Response({"error": "Invalid request"}, status=status.HTTP_400_BAD_REQUEST)
+   

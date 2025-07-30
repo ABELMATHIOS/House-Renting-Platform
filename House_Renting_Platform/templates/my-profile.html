@@ -3,105 +3,6 @@
 
 {%block content%}
 
-    <div id="wrapper">
-        <div id="page" class="clearfix">
-            <div class="layout-wrap">
-                <!-- header -->
-                <header class="main-header fixed-header header-dashboard">
-                    <!-- Header Lower -->
-                    <div class="header-lower">
-                        <div class="row">                      
-                            <div class="col-lg-12">         
-                                <div class="inner-header">
-                                    <div class="inner-header-left">
-                                        <div class="logo-box d-flex">
-                                            <div class="logo"><a href="{% url 'home' %}"><img src="images/logo/logo%402x.png" alt="logo" width="174" height="44"></a></div>
-                                            <div class="button-show-hide">
-                                                <span class="icon icon-categories"></span>
-                                            </div>
-                                        </div>
-                                        <div class="nav-outer flex align-center">
-                                            <!-- Main Menu -->
-                                            <nav class="main-menu show navbar-expand-md">
-                                                <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
-                                                    <ul class="navigation clearfix">
-                                                        <li class="current"><a href="{% url 'home' %}">Home</a>
-                                                        </li>
-                                                        <li class="dropdown2"><a href="#">Listing</a>
-                                                            <ul>
-                                                               
-                                                                <li><a href="property-halfmap-list.html">Property Listing</a></li>
-                                                                
-    
-                                                            </ul>
-                                                        </li>
-                                                        <li class="dropdown2"><a href="#">Properties</a>
-                                                            <ul>
-                                                               
-                                                                <li><a href="property-details-v4.html">Property Details</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="dropdown2 current"><a href="#">Dashboard</a>
-                                                            <ul>
-                                                                <li><a href="dashboard.html">Dashboard</a></li>
-                                                                <li><a href="my-property.html">My Properties</a></li>
-                                                                <li><a href="message.html">Message</a></li>
-                                                                <li><a href="my-favorites.html">My Favorites</a></li>
-                                                                <li><a href="reviews.html">Reviews</a></li>
-                                                                <li class="current"><a href="my-profile.html">My Profile</a></li>
-                                                                <li><a href="add-property.html">Add Property</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </nav>
-                                            <!-- Main Menu End-->
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    <div class="header-account inner-header-right">
-                                        <div class="box-avatar dropdown-toggle" data-bs-toggle="dropdown">
-                                            <div class="avatar avt-34 round">
-                                                <img id="avatar-small"
-     src="{% if request.user.profile.avatar %}{{ request.user.profile.avatar.url }}{% else %}{% static 'images/avatar/default.png' %}{% endif %}" 
-     alt="avatar" width="34" height="34">
-                                            </div>
-                                            <p class="name" id="profile-name">
-                                                Themesflat
-                                                <span class="icon icon-arr-down"></span>
-                                            </p>
-
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="my-favorites.html">My Properties</a>
-                                                <a class="dropdown-item" href="message.html">Message</a>
-                                                <a class="dropdown-item" href="my-favorites.html">My Favorites</a>
-                                                <a class="dropdown-item" href="reviews.html">Reviews</a>
-                                                <a class="dropdown-item" href="my-profile.html">My Profile</a>
-                                                <a class="dropdown-item" href="add-property.html">Add Property</a>
-                                                <a class="dropdown-item" href="#" id="logout-link">Logout</a>
-                                            </div>
-                                        </div>
-                                        <div class="flat-bt-top">
-                                            <a class="tf-btn primary" href="add-property.html">
-                                                <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M13.625 14.375V17.1875C13.625 17.705 13.205 18.125 12.6875 18.125H4.5625C4.31386 18.125 4.0754 18.0262 3.89959 17.8504C3.72377 17.6746 3.625 17.4361 3.625 17.1875V6.5625C3.625 6.045 4.045 5.625 4.5625 5.625H6.125C6.54381 5.62472 6.96192 5.65928 7.375 5.72834M13.625 14.375H16.4375C16.955 14.375 17.375 13.955 17.375 13.4375V9.375C17.375 5.65834 14.6725 2.57417 11.125 1.97834C10.7119 1.90928 10.2938 1.87472 9.875 1.875H8.3125C7.795 1.875 7.375 2.295 7.375 2.8125V5.72834M13.625 14.375H8.3125C8.06386 14.375 7.8254 14.2762 7.64959 14.1004C7.47377 13.9246 7.375 13.6861 7.375 13.4375V5.72834M17.375 11.25V9.6875C17.375 8.94158 17.0787 8.22621 16.5512 7.69876C16.0238 7.17132 15.3084 6.875 14.5625 6.875H13.3125C13.0639 6.875 12.8254 6.77623 12.6496 6.60041C12.4738 6.4246 12.375 6.18614 12.375 5.9375V4.6875C12.375 4.31816 12.3023 3.95243 12.1609 3.6112C12.0196 3.26998 11.8124 2.95993 11.5512 2.69876C11.2901 2.4376 10.98 2.23043 10.6388 2.08909C10.2976 1.94775 9.93184 1.875 9.5625 1.875H8.625" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                                Submit Property
-                                            </a>
-                                        </div>  
-                                    </div>
-                                    
-                                    <div class="mobile-nav-toggler mobile-button"><span></span></div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Header Lower -->
-                
-                </header>
-                <!-- end header -->
                 <!-- sidebar dashboard -->
                 <div class="sidebar-menu-dashboard">
                     <a href="index.html" class="logo-box">
@@ -190,17 +91,6 @@
                                     My favorite
                                 </a>
                             </li>
-                            <!-- <li class="nav-menu-item">
-                                <a class="nav-menu-link" href="save-search.html">
-                                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g opacity="0.2">
-                                        <circle cx="10.7864" cy="10.7864" r="8.23951" stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M16.5156 16.9453L19.746 20.1673" stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </g>
-                                    </svg>
-                                    Save search
-                                </a>
-                            </li> -->
                             <li class="nav-menu-item">
                                 <a class="nav-menu-link" href="message.html">
                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -602,8 +492,5 @@ document.getElementById("logout-link").addEventListener("click", async function 
     <script type="text/javascript" src="{% static 'js/shortcodes.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 </body>
-
-
-<!-- Mirrored from homelengohtml.vercel.app/my-profile.html by  /3.x [XR&CO'2014], Mon, 14 Apr 2025 00:46:12 GMT -->
 </html>
 {%endblock%}
