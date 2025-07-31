@@ -91,9 +91,9 @@ def view_property_details(request, id):
      
      for x in property_recommendations:
         available_properties = ListingModel.objects.get(id=x)
-        suggested_properties.append(available_properties)
+        if current_property != available_properties:
+         suggested_properties.append(available_properties)
         
-     suggested_properties.pop(0)
      return render(request, 'property-details-v4.html', {
        'current_property': current_property,
        'suggested_properties':suggested_properties,

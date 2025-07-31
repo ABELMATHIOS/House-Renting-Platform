@@ -6,7 +6,7 @@ from . import views  # Your project-level views
 
 urlpatterns = [
     path('', views.index, name='index'),  # Homepage
-    path('api/auth/', include('accounts.urls')),
+#    path('api/auth/', include('accounts.urls')),
     path('admin/', admin.site.urls),
     path('payment/', include('payment_integration.urls')),  # Your payments app URLs
     path('listing/', include("Listing.urls")),

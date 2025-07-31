@@ -17,9 +17,6 @@ from rest_framework.response import Response
 from django.shortcuts import render, redirect
 
 
-def home(request):
-    return render(request, 'accounts/index.html')
-
 @api_view(['GET'])
 def auth_home(request):
     endpoints = {
@@ -45,8 +42,6 @@ def my_profile_view(request):
 
     return render(request, "dashboard.html")
 
-def property_details(request):
-    return render(request, 'accounts/property-details-v4.html')
 
 # Registration
 # views.py
@@ -156,4 +151,7 @@ class PasswordResetCompleteView(APIView):
 
         except Exception:
             return Response({"error": "Invalid request"}, status=status.HTTP_400_BAD_REQUEST)
+
+def user_dashboard(request):
+    return render(request, 'dashboard.html')        
    
