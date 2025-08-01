@@ -38,7 +38,8 @@ A web-based house renting platform built with Django. This platform allows two t
    ```
 2. **Create a virtual environment and activate it:** <br>
    python -m venv venv
-   source venv/bin/activate # On Windows: venv\Scripts\activate
+   source venv/bin/activate # On Linux and Mac <br>
+   venv\Scripts\activate    # On Windows
 3. **Install dependencies:** <br>
    pip install -r requirements.txt
 4. **Apply migrations and run the server:**<br>
