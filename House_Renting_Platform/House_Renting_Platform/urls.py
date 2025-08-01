@@ -6,7 +6,7 @@ from . import views  # Your project-level views
 
 urlpatterns = [
     path('', views.index, name='index'),  # Homepage
-#    path('api/auth/', include('accounts.urls')),
+    path('api/auth/', include('accounts.urls')),
     path('admin/', admin.site.urls),
     path('payment/', include('payment_integration.urls')),  # Your payments app URLs
     path('listing/', include("Listing.urls")),
@@ -16,6 +16,8 @@ urlpatterns = [
     path('dashboard/', views.dashboard_view, name='user-dashboard'),
     path('about-us/', views.about_us, name='about-us'),
     path('contact-us/', views.contact_us, name='contact-us'),
+    path('pricing/', views.our_pricing, name='pricing'),
+    path('privacy-policy/', views.terms_and_conditions, name='privacy-policy'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
