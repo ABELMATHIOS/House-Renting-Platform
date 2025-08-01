@@ -26,8 +26,7 @@ A web-based house renting platform built with Django. This platform allows two t
 - **Backend**: Django (Python)
 - **Frontend**: HTML5, CSS3, JavaScript
 - **Database**: SQLite (development)
-- **Other Tools**: Django Admin, Bootstrap (or TailwindCSS, if applicable)
-
+- **Other Tools**:Django RestFrame Work,JWT LangChain, envato, Jira, Google API and Chapa
 ## 🚀 Getting Started
 
 1. **Clone the repository:**
