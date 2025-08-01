@@ -32,15 +32,16 @@ A web-based house renting platform built with Django. This platform allows two t
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/ABELMATHIOS/House-Renting-Platform.git
+   
+   cd House_Renting_Platform
    ```
-2. **Create a virtual environment and activate it:**
+2. **Create a virtual environment and activate it:** <br>
    python -m venv venv
    source venv/bin/activate # On Windows: venv\Scripts\activate
-3. **Install dependencies:**
+3. **Install dependencies:** <br>
    pip install -r requirements.txt
-4. **Apply migrations and run the server:**
+4. **Apply migrations and run the server:**<br>
    python manage.py makemigrations
    python manage.py migrate
    python manage.py runserver
@@ -50,10 +51,10 @@ http://127.0.0.1:8000/
 
 ## Contributors:<br/>
 
-Siraj <br/>
-Abel<br/>
-Kidus<br/>
-Yididya<br/>
-Ragad<br/>
-Fraol<br/>
-Nahom<br/>
+<a href="https://github.com/Siraj-Abdulkadir">Siraj Abdulkadir</a> <br/>
+<a href="https://github.com/ABELMATHIOS">Abel Mathios<br/>
+<a href="https://github.com/kidusamaha">Kidus Amaha<br/>
+<a href="https://github.com/yididya01">Yididya Tesfaye<br/>
+<a href="https://github.com/ragadabdu">Ragad Abdulwahab<br/>
+<a href="https://github.com/frankiyyaa">Fraol Babu<br/>
+<a href="https://github.com/nahom1971">Nahom Ashenafi<br/>
