@@ -18,7 +18,7 @@ if operation_status_success == True and is_available_properties_empty == False:
 
     raw_documents = TextLoader(file_path,encoding="utf-8").load()
 
-    text_splitter = CharacterTextSplitter(chunk_size=1000,chunk_overlap=0,separator="\n")
+    text_splitter = CharacterTextSplitter(chunk_size=1,chunk_overlap=0,separator="\n")
 
     documents = text_splitter.split_documents(raw_documents)
 

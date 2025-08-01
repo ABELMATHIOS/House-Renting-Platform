@@ -9,6 +9,9 @@ from .recommendations import Recommendatons,is_recommended_properties_available
 from decimal import Decimal
 from django.db.models.fields.files import ImageFieldFile, FieldFile
 from django.core.files.storage import default_storage 
+from Review_And_Ratings.forms import PropertyReviewForm
+from Review_And_Ratings.models import PropertyReviewModel
+from accounts.models import User
 
 def convert_cleaned_data_to_strings(cleaned_data: dict) -> dict:
     stringified_data = {}
@@ -81,26 +84,45 @@ def listed_properties(request):
 
 
 def view_property_details(request, id):
+    logged_user = None
+    current_reviews = PropertyReviewModel.objects.filter(property_id=id)
+    if 'userName' in request.COOKIES:
+        current_user = request.COOKIES.get('userName')
+        if current_user:
+           try:
+             logged_user = User.objects.get(username=current_user)
+           except User.DoesNotExist:
+               pass
     current_property = ListingModel.objects.get(id=id)
+    form = PropertyReviewForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            new_review = form.save(commit=False)
+            new_review.save()
+            messages.success(request, "Your Review was succesfully posted!!!")
     if 1==1:
      suggested_properties = []
      query = f"{current_property.location} {current_property.city_address} {current_property.property_type} {current_property.title} {current_property.description} {current_property.price}"
      property_recommendations = Recommendatons(query, k=6)
 
 
-     
-     for x in property_recommendations:
-        available_properties = ListingModel.objects.get(id=x)
-        suggested_properties.append(available_properties)
-        
-     suggested_properties.pop(0)
-     return render(request, 'property-details-v4.html', {
-       'current_property': current_property,
-       'suggested_properties':suggested_properties,
-    })  
-    
+     if property_recommendations:
+        for x in property_recommendations:
+            available_properties = ListingModel.objects.get(id=x)
+            if current_property != available_properties:
+              suggested_properties.append(available_properties)
+        form= PropertyReviewForm(initial={'property_id': current_property,'user_id':logged_user})    
+        return render(request, 'property-details-v4.html', {
+        'current_property': current_property,
+        'suggested_properties':suggested_properties,
+        'form':form,
+        'current_reviews':current_reviews
+        })  
+    form= PropertyReviewForm(initial={'property_id': current_property,'user_id':logged_user})    
     return render(request, 'property-details-v4.html', {
        'current_property': current_property,
+       'form':form,
+       'current_reviews':current_reviews
     })
 
 def review_viewer(request):

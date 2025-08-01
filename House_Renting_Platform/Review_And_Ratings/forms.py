@@ -5,7 +5,7 @@ from Review_And_Ratings.models import PropertyRatingModel,PropertyReviewModel
 class PropertyReviewForm(ModelForm):
     class Meta:
         model = PropertyReviewModel
-        fields = ['property_id','user_id','subject','review_message','status','ip_address']
+        fields = ['property_id','user_id','review_message',]
 
 
 

@@ -16,6 +16,8 @@ urlpatterns = [
     path('dashboard/', views.dashboard_view, name='user-dashboard'),
     path('about-us/', views.about_us, name='about-us'),
     path('contact-us/', views.contact_us, name='contact-us'),
+    path('pricing/', views.our_pricing, name='pricing'),
+    path('privacy-policy/', views.terms_and_conditions, name='privacy-policy'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
